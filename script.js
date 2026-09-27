@@ -186,10 +186,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const boxW = parseInt(rootStyles.getPropertyValue('--box-w')) || 210;
     const boxD = parseInt(rootStyles.getPropertyValue('--box-d')) || 60;
     const isMobileScreen = window.innerWidth <= 600;
-    const scrollAmount = isMobileScreen ? (boxW + 14) : (boxW + 28) * 2;
+    const scrollAmount = isMobileScreen ? (boxW + 18) : (boxW + 28) * 2;
 
     // --- Tight packing: spines neatly side-by-side with clean visible separation ---
-    const spineGap = isMobileScreen ? 22 : 35; // clean visible separation between spines
+    const spineGap = isMobileScreen ? 20 : 35; // clean visible separation between spines
     const initialMargin = -(boxW - boxD - spineGap);
 
     // Center the packed group in the viewport
@@ -241,6 +241,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!rosterViewport || !roster) return;
         const vw = rosterViewport.clientWidth;
         const rw = roster.scrollWidth;
+        const isMobile = window.innerWidth <= 600;
+        if (isMobile) {
+            const rootStyles = getComputedStyle(document.documentElement);
+            const boxW = parseInt(rootStyles.getPropertyValue('--box-w')) || 250;
+            const margin = 18;
+            const centerIndex = Math.floor(boxes.length / 2);
+            const boxCenter = centerIndex * (boxW + margin) + boxW / 2;
+            currentOffset = Math.round(boxCenter - vw / 2);
+            gsap.set(roster, { x: -currentOffset });
+            return;
+        }
         const maxOffset = Math.max(0, rw - vw);
         currentOffset = maxOffset / 2;
         gsap.set(roster, { x: -currentOffset });
@@ -279,6 +290,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 onComplete: updateArrowState,
             });
         });
+    }
+
+    // --- Touch Swipe Navigation for Mobile ---
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let isSwiping = false;
+
+    if (rosterViewport) {
+        rosterViewport.addEventListener('touchstart', (e) => {
+            if (!arrowsVisible) return;
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            isSwiping = true;
+        }, { passive: true });
+
+        rosterViewport.addEventListener('touchend', (e) => {
+            if (!arrowsVisible || !isSwiping) return;
+            isSwiping = false;
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+            const diffX = touchEndX - touchStartX;
+            const diffY = touchEndY - touchStartY;
+
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+                if (diffX < 0) {
+                    if (arrowRight) arrowRight.click();
+                } else {
+                    if (arrowLeft) arrowLeft.click();
+                }
+            }
+        }, { passive: true });
     }
 
     // --- Hover Effects for Cereal Boxes ---
@@ -331,6 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
             pin: true,
             scrub: 0.8,
             anticipatePin: 1,
+            invalidateOnRefresh: true,
             onUpdate: (self) => {
                 // 1. Trigger Screen Shake on first scroll from home (skip during nav jumps)
                 if (self.progress > 0.015 && self.progress < 0.14 && !hasShakenOnScroll && !window._isNavigating) {
@@ -473,7 +516,7 @@ document.addEventListener('DOMContentLoaded', () => {
         y: () => {
             const root = getComputedStyle(document.documentElement);
             const boxH = parseInt(root.getPropertyValue('--box-h')) || 400;
-            return Math.round(boxH * 0.625);
+            return Math.round(boxH * 0.65);
         },
         duration: 0.08,
         ease: 'power2.out',
@@ -519,7 +562,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const rootStyles = getComputedStyle(document.documentElement);
             const boxH = parseInt(rootStyles.getPropertyValue('--box-h')) || 400;
             const isMobile = window.innerWidth <= 600;
-            const offset = isMobile ? 30 : 120;
+            const offset = isMobile ? 0 : 90;
             return -(vh - boxH) / 2 + offset;
         },
         duration: 0.10,
@@ -528,7 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Boxes spread apart (margin goes from packed to spaced)
     tl.to(boxes, {
-        marginRight: window.innerWidth <= 600 ? 14 : 28,
+        marginRight: window.innerWidth <= 600 ? 18 : 28,
         duration: 0.10,
         ease: 'power2.out',
         stagger: { each: 0.003, from: 'center' },
@@ -536,7 +579,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Roster re-centers for spread layout
     tl.to(roster, {
-        x: () => -((roster.scrollWidth - rosterViewport.clientWidth) / 2),
+        x: () => {
+            const isMobile = window.innerWidth <= 600;
+            if (isMobile) {
+                const vw = rosterViewport ? rosterViewport.clientWidth : window.innerWidth;
+                const rootStyles = getComputedStyle(document.documentElement);
+                const boxW = parseInt(rootStyles.getPropertyValue('--box-w')) || 250;
+                const margin = 18;
+                const centerIndex = Math.floor(boxes.length / 2);
+                const boxCenter = centerIndex * (boxW + margin) + boxW / 2;
+                return Math.round(vw / 2 - boxCenter);
+            }
+            return -((roster.scrollWidth - rosterViewport.clientWidth) / 2);
+        },
         duration: 0.10,
         ease: 'power2.out',
     }, 0.41);

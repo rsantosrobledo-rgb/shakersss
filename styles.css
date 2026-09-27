@@ -3,6 +3,7 @@
    ============================================ */
 
 :root {
+    --box-cutout-coord-scale: 1;
     --bg-primary: #FAE5AE;
     --bg-primary-rgb: 250, 229, 174;
     --text-dark: #1a1a1a;
@@ -862,7 +863,7 @@ body.nav-drawer-open {
     position: absolute;
     bottom: 0%;
     left: 50%;
-    transform: translateX(calc(-50% + var(--box-cutout-x, 0px))) translateY(var(--box-cutout-y, 0px)) scale(var(--box-cutout-scale, 1.05));
+    transform: translateX(calc(-50% + var(--box-cutout-x, 0px) * var(--box-cutout-coord-scale, 1))) translateY(calc(var(--box-cutout-y, 0px) * var(--box-cutout-coord-scale, 1))) scale(var(--box-cutout-scale, 1.05));
     transform-origin: bottom center;
     width: 86%;
     height: 78%;
@@ -1237,20 +1238,21 @@ body.nav-drawer-open {
 
 @media (max-width: 600px) {
     :root {
-        --box-w: 200px;
-        --box-h: 260px;
-        --box-d: 70px;
+        --box-w: 250px;
+        --box-h: 333px;
+        --box-d: 90px;
+        --box-cutout-coord-scale: 0.833;
     }
 
     .cereal-box {
-        perspective: 850px;
+        perspective: 900px;
         perspective-origin: center -10%;
     }
 
     .box-name,
     .box-front-creator-name {
-        font-size: calc(var(--box-name-size, 3.0rem) * 0.67);
-        -webkit-text-stroke-width: calc(var(--box-name-stroke, 4px) * 0.67);
+        font-size: calc(var(--box-name-size, 3.0rem) * 0.83);
+        -webkit-text-stroke-width: calc(var(--box-name-stroke, 4px) * 0.83);
     }
 
     .box-front-badge {
@@ -1258,77 +1260,74 @@ body.nav-drawer-open {
     }
 
     .box-front-badge-left {
-        left: 8px;
-        max-width: 62px;
+        left: 12px;
+        max-width: 76px;
     }
 
     .box-front-badge-right {
-        right: 8px;
-        max-width: 62px;
+        right: 12px;
+        max-width: 76px;
     }
 
     .box-front-badge .badge-label {
-        font-size: 0.48rem;
-        line-height: 1.1;
+        font-size: 0.62rem;
+        line-height: 1.15;
     }
 
     .box-front-badge .badge-val {
-        font-size: 0.68rem;
+        font-size: 0.88rem;
         line-height: 1.1;
     }
 
     .roster-arrow {
-        width: 38px;
-        height: 38px;
+        width: 44px;
+        height: 44px;
     }
 
     .roster-arrow svg {
-        width: 18px;
-        height: 18px;
+        width: 22px;
+        height: 22px;
     }
 
     .roster-arrow-left {
-        left: 6px;
+        left: 8px;
     }
 
     .roster-arrow-right {
-        right: 6px;
+        right: 8px;
     }
 }
 
-@media (max-width: 390px) {
+@media (max-width: 375px) {
     :root {
-        --box-w: 175px;
-        --box-h: 230px;
-        --box-d: 60px;
-    }
-
-    .cereal-box {
-        perspective: 800px;
+        --box-w: 230px;
+        --box-h: 307px;
+        --box-d: 84px;
+        --box-cutout-coord-scale: 0.767;
     }
 
     .box-name,
     .box-front-creator-name {
-        font-size: calc(var(--box-name-size, 3.0rem) * 0.58);
-        -webkit-text-stroke-width: calc(var(--box-name-stroke, 4px) * 0.58);
+        font-size: calc(var(--box-name-size, 3.0rem) * 0.76);
+        -webkit-text-stroke-width: calc(var(--box-name-stroke, 4px) * 0.76);
     }
 
     .box-front-badge-left {
-        left: 6px;
-        max-width: 52px;
+        left: 10px;
+        max-width: 68px;
     }
 
     .box-front-badge-right {
-        right: 6px;
-        max-width: 52px;
+        right: 10px;
+        max-width: 68px;
     }
 
     .box-front-badge .badge-label {
-        font-size: 0.42rem;
+        font-size: 0.55rem;
     }
 
     .box-front-badge .badge-val {
-        font-size: 0.60rem;
+        font-size: 0.78rem;
     }
 }
 
@@ -2607,16 +2606,22 @@ body.nav-drawer-open {
     }
 
     .roster-arrow {
-        width: 38px !important;
-        height: 38px !important;
+        width: 44px !important;
+        height: 44px !important;
+        z-index: 30 !important;
+    }
+
+    .roster-arrow svg {
+        width: 22px !important;
+        height: 22px !important;
     }
 
     .roster-arrow-left {
-        left: 6px !important;
+        left: 8px !important;
     }
 
     .roster-arrow-right {
-        right: 6px !important;
+        right: 8px !important;
     }
 
     /* --- Nav Drawer --- */
