@@ -27,6 +27,11 @@
 
 html {
     -webkit-font-smoothing: antialiased;
+    scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
 }
 
 body {
@@ -1859,7 +1864,7 @@ body.nav-drawer-open {
 }
 
 .footer-title {
-    font-size: clamp(1.6rem, 2.8vw, 2.5rem);
+    font-size: clamp(2.0rem, 3.5vw, 3.2rem);
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.03em;
@@ -1872,7 +1877,7 @@ body.nav-drawer-open {
 }
 
 .footer-subtitle {
-    font-size: clamp(0.82rem, 0.95vw, 0.92rem);
+    font-size: clamp(0.92rem, 1.1vw, 1.05rem);
     line-height: 1.35;
     color: rgba(255, 255, 255, 0.72);
     font-weight: 400;
