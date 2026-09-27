@@ -503,8 +503,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const vh = window.innerHeight;
             const rootStyles = getComputedStyle(document.documentElement);
             const boxH = parseInt(rootStyles.getPropertyValue('--box-h')) || 400;
-            // Move boxes from bottom:0 to lower portion of screen
-            return -(vh - boxH) / 2 + 120;
+            const isMobile = window.innerWidth <= 600;
+            const offset = isMobile ? 40 : 120;
+            return -(vh - boxH) / 2 + offset;
         },
         duration: 0.10,
         ease: 'power2.inOut',
@@ -512,7 +513,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Boxes spread apart (margin goes from packed to spaced)
     tl.to(boxes, {
-        marginRight: 28,
+        marginRight: window.innerWidth <= 600 ? 12 : 28,
         duration: 0.10,
         ease: 'power2.out',
         stagger: { each: 0.003, from: 'center' },
