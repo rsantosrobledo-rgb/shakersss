@@ -2719,3 +2719,41 @@ body.admin-body {
     font-weight: 500;
     margin-top: 2px;
 }
+
+/* Toggle Switch */
+.studio-toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 38px;
+    height: 20px;
+    cursor: pointer;
+}
+.studio-toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.studio-toggle-track {
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.12);
+    border-radius: 20px;
+    transition: background 0.2s;
+}
+.studio-toggle-track::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.2s;
+}
+.studio-toggle-switch input:checked + .studio-toggle-track {
+    background: var(--brand-mint, #50E3C2);
+}
+.studio-toggle-switch input:checked + .studio-toggle-track::after {
+    transform: translateX(18px);
+}

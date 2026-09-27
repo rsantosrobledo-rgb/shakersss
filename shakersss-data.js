@@ -764,16 +764,20 @@ class ShakersssDataService {
                             boxEl.style.setProperty('--box-name-top', `${s.nameY || defaultNameTop}%`);
                             boxEl.style.setProperty('--box-name-stroke', `${s.stroke || 4.0}px`);
 
-                            // Smart name formatting matching reference mockup
+                            // Name formatting — respects editor preference
                             const nameEl = boxEl.querySelector('.box-front-creator-name') || boxEl.querySelector('.box-name');
                             if (nameEl) {
-                                const words = c.name.trim().split(/\s+/);
-                                if (words.length === 2 && words[1].length > 2 && c.name.length > 9) {
-                                    nameEl.textContent = `${words[0]}\n${words[1]}`;
-                                } else if (words.length === 3 && words[0].length + words[1].length < 12) {
-                                    nameEl.textContent = `${words[0]} ${words[1]}\n${words[2]}`;
-                                } else {
+                                if (s.nameOneLine) {
                                     nameEl.textContent = c.name;
+                                } else {
+                                    const words = c.name.trim().split(/\s+/);
+                                    if (words.length === 2 && words[1].length > 2 && c.name.length > 9) {
+                                        nameEl.textContent = `${words[0]}\n${words[1]}`;
+                                    } else if (words.length === 3 && words[0].length + words[1].length < 12) {
+                                        nameEl.textContent = `${words[0]} ${words[1]}\n${words[2]}`;
+                                    } else {
+                                        nameEl.textContent = c.name;
+                                    }
                                 }
                             }
 

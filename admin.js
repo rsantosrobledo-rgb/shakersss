@@ -111,6 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sliderStudioNameSize = document.getElementById('slider-studio-name-size');
     const sliderStudioNameY = document.getElementById('slider-studio-name-y');
     const sliderStudioStroke = document.getElementById('slider-studio-stroke');
+    const toggleNameOneline = document.getElementById('toggle-name-oneline');
     const valStudioScale = document.getElementById('val-studio-scale');
     const valStudioY = document.getElementById('val-studio-y');
     const valStudioX = document.getElementById('val-studio-x');
@@ -932,6 +933,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sliderStudioNameSize) sliderStudioNameSize.value = bs.nameSize ?? 3.6;
         if (sliderStudioNameY) sliderStudioNameY.value = bs.nameY ?? 25;
         if (sliderStudioStroke) sliderStudioStroke.value = bs.stroke ?? 4.5;
+        if (toggleNameOneline) toggleNameOneline.checked = bs.nameOneLine ?? false;
 
         updateCreatorPreview();
         updateStudioViewer();
@@ -1018,14 +1020,19 @@ document.addEventListener('DOMContentLoaded', () => {
         studioBoxFront.style.setProperty('--studio-stroke', `${stroke}px`);
 
         if (studioCreatorName) {
-            // Apply the SAME smart name formatting as the main site (shakersss-data.js)
-            const words = name.trim().split(/\s+/);
-            if (words.length === 2 && words[1].length > 2 && name.length > 9) {
-                studioCreatorName.textContent = `${words[0]}\n${words[1]}`;
-            } else if (words.length === 3 && words[0].length + words[1].length < 12) {
-                studioCreatorName.textContent = `${words[0]} ${words[1]}\n${words[2]}`;
-            } else {
+            const forceOneLine = toggleNameOneline ? toggleNameOneline.checked : false;
+            if (forceOneLine) {
                 studioCreatorName.textContent = name;
+            } else {
+                // Smart name formatting (two lines when applicable)
+                const words = name.trim().split(/\s+/);
+                if (words.length === 2 && words[1].length > 2 && name.length > 9) {
+                    studioCreatorName.textContent = `${words[0]}\n${words[1]}`;
+                } else if (words.length === 3 && words[0].length + words[1].length < 12) {
+                    studioCreatorName.textContent = `${words[0]} ${words[1]}\n${words[2]}`;
+                } else {
+                    studioCreatorName.textContent = name;
+                }
             }
         }
 
@@ -1063,6 +1070,11 @@ document.addEventListener('DOMContentLoaded', () => {
             slider.addEventListener('input', updateStudioViewer);
         }
     });
+
+    // Attach listener to name line toggle
+    if (toggleNameOneline) {
+        toggleNameOneline.addEventListener('change', updateStudioViewer);
+    }
 
     // Reset button
     if (btnStudioReset) {
@@ -1132,7 +1144,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     x: sliderStudioX ? parseInt(sliderStudioX.value, 10) || 0 : 0,
                     nameSize: sliderStudioNameSize ? parseFloat(sliderStudioNameSize.value) || 3.6 : 3.6,
                     nameY: sliderStudioNameY ? parseInt(sliderStudioNameY.value, 10) || 25 : 25,
-                    stroke: sliderStudioStroke ? parseFloat(sliderStudioStroke.value) || 4.5 : 4.5
+                    stroke: sliderStudioStroke ? parseFloat(sliderStudioStroke.value) || 4.5 : 4.5,
+                    nameOneLine: toggleNameOneline ? toggleNameOneline.checked : false
                 }
             };
 
