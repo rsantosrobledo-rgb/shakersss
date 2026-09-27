@@ -393,6 +393,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (contactEl) contactEl.style.pointerEvents = 'auto';
                 }
 
+                // 5b. Hamburger color: yellow on dark contact section
+                const menuBtn = document.querySelector('.menu-btn');
+                if (menuBtn) {
+                    if (self.progress >= 0.72) {
+                        menuBtn.classList.add('is-on-dark');
+                    } else {
+                        menuBtn.classList.remove('is-on-dark');
+                    }
+                }
+
                 // 6. Video optimization: pause when covered
                 if (heroVideo) {
                     if (self.progress >= 0.15 && !heroVideo.paused) {

@@ -165,6 +165,15 @@ img {
     background-color: var(--white);
 }
 
+/* Yellow hamburger on dark contact/footer section */
+.menu-btn.is-on-dark span {
+    background-color: var(--bg-primary);
+}
+
+.menu-btn.is-on-dark:hover span {
+    opacity: 0.85;
+}
+
 /* --- Navigation Drawer & Overlay --- */
 .nav-drawer-overlay {
     position: fixed;
