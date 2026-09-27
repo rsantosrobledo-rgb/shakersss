@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: {
             trigger: '#main-experience',
             start: 'top top',
-            end: '+=1600%',
+            end: '+=800%',
             pin: true,
             scrub: 0.8,
             anticipatePin: 1,
