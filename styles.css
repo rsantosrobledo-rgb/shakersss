@@ -1134,9 +1134,9 @@ body.nav-drawer-open {
 
 @media (max-width: 900px) {
     :root {
-        --box-w: 260px;
-        --box-h: 325px;
-        --box-d: 95px;
+        --box-w: 220px;
+        --box-h: 275px;
+        --box-d: 80px;
     }
 
     .header {
@@ -1173,90 +1173,102 @@ body.nav-drawer-open {
     .roster-arrow-right {
         right: 12px;
     }
+
+    .cereal-box {
+        perspective: 700px;
+    }
 }
 
 @media (max-width: 600px) {
     :root {
-        /* Mobile: Prominent, screen-dominating cereal box in 4:5 canonical ratio */
-        --box-w: 280px;
-        --box-h: 350px;
-        --box-d: 95px;
+        --box-w: 180px;
+        --box-h: 225px;
+        --box-d: 60px;
     }
 
     .hero-headline {
-        top: 17%;
-        font-size: clamp(1.5rem, 6.5vw, 2.2rem);
+        top: 20%;
+        font-size: clamp(1.4rem, 6.5vw, 2.0rem);
         line-height: 1.2;
+        white-space: normal;
+        width: 90%;
+        max-width: 90%;
     }
 
     .marquee-container {
-        top: 29%;
+        top: 32%;
     }
 
     .logo-item svg {
-        width: 48px;
-        height: 48px;
+        width: 42px;
+        height: 42px;
     }
 
     .box-brand {
-        font-size: 0.62rem;
-        letter-spacing: 2px;
+        font-size: 0.50rem;
+        letter-spacing: 1.5px;
     }
 
     .box-name,
     .box-front-creator-name {
-        font-size: calc(var(--box-name-size, 3.8rem) * 0.82);
-        -webkit-text-stroke-width: calc(var(--box-name-stroke, 12px) * 0.82);
+        font-size: calc(var(--box-name-size, 3.0rem) * 0.6);
+        -webkit-text-stroke-width: calc(var(--box-name-stroke, 4px) * 0.6);
     }
 
     .box-category {
-        display: block;
-        font-size: 0.70rem;
+        display: none;
+    }
+
+    .box-front-badge {
+        display: none;
     }
 
     .spine-brand {
-        display: block;
-        font-size: 0.50rem;
+        font-size: 0.42rem;
     }
 
     .spine-name {
-        font-size: 0.82rem;
+        font-size: 0.65rem;
+    }
+
+    .cereal-box {
+        perspective: 500px;
     }
 
     .roster-arrow {
-        width: 44px;
-        height: 44px;
+        width: 36px;
+        height: 36px;
     }
 
     .roster-arrow svg {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
     }
 
     .roster-arrow-left {
-        left: 8px;
+        left: 4px;
     }
 
     .roster-arrow-right {
-        right: 8px;
+        right: 4px;
     }
 }
 
 @media (max-width: 390px) {
     :root {
-        /* Extra small phones (iPhone SE, etc.) */
-        --box-w: 250px;
-        --box-h: 410px;
-        --box-d: 85px;
+        --box-w: 155px;
+        --box-h: 194px;
+        --box-d: 50px;
     }
 
-    .box-creator-img {
-        width: 96px;
-        height: 96px;
+    .cereal-box {
+        perspective: 400px;
     }
 
-    .box-name {
-        font-size: 1.45rem;
+    .box-name,
+    .box-front-creator-name {
+        font-size: calc(var(--box-name-size, 3.0rem) * 0.5);
+        -webkit-text-stroke-width: calc(var(--box-name-stroke, 4px) * 0.5);
     }
 }
 
@@ -2486,14 +2498,17 @@ body.nav-drawer-open {
 
     /* --- Hero --- */
     .hero-headline {
-        top: 17% !important;
+        top: 20% !important;
         font-size: clamp(1.4rem, 6.5vw, 2.0rem) !important;
         line-height: 1.2 !important;
-        padding: 0 16px;
+        white-space: normal !important;
+        width: 90% !important;
+        max-width: 90% !important;
+        padding: 0;
     }
 
     .marquee-container {
-        top: 29% !important;
+        top: 32% !important;
     }
 
     .logo-item {
@@ -2512,7 +2527,7 @@ body.nav-drawer-open {
 
     /* --- Roster (boxes) --- */
     .roster-wrapper {
-        bottom: -150px !important;
+        bottom: -60px !important;
     }
 
     .roster-headline {
