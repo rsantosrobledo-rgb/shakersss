@@ -495,7 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tl.to('#about-us', { opacity: 0, duration: 0.03 }, 0.41);
 
     // Give creators section its own background BEFORE about-us fades (prevents blink)
-    tl.to('#creators', { backgroundColor: '#FAE5AE', zIndex: 22, duration: 0.02 }, 0.37);
+    tl.set('#creators', { backgroundColor: '#FAE5AE', zIndex: 22 }, 0.34);
 
     // Boxes rise from bottom to vertical center of viewport
     tl.to(rosterWrapper, {
