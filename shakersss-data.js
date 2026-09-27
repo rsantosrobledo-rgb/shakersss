@@ -571,16 +571,37 @@ class ShakersssDataService {
                         }
                     } catch (delErr) {}
 
-                    const coreList = normalized.map(c => ({
+                    const fullList = normalized.map(c => ({
                         id: c.id,
                         name: c.name,
                         photo: c.photo,
                         color: c.color,
-                        inBoxes: c.inBoxes
+                        "inBoxes": c.inBoxes,
+                        "pngPhoto": c.pngPhoto || '',
+                        category: c.category || '',
+                        bio: c.bio || '',
+                        instagram: c.instagram || '',
+                        tiktok: c.tiktok || '',
+                        youtube: c.youtube || '',
+                        metrics: c.metrics || '',
+                        "boxSettings": c.boxSettings || {},
+                        "boxTexture": c.boxTexture || null
                     }));
-                    const { error: coreErr } = await this.supabaseClient.from('creators').upsert(coreList);
-                    if (coreErr) {
-                        console.warn('[ShakersssData] Supabase core upsert notice:', coreErr);
+                    const { error: upsertErr } = await this.supabaseClient.from('creators').upsert(fullList);
+                    if (upsertErr) {
+                        // Retry with core-only columns if full upsert fails (table may not have all columns yet)
+                        console.warn('[ShakersssData] Full upsert failed, trying core columns:', upsertErr.message);
+                        const coreList = normalized.map(c => ({
+                            id: c.id,
+                            name: c.name,
+                            photo: c.photo,
+                            color: c.color,
+                            "inBoxes": c.inBoxes
+                        }));
+                        const { error: coreErr } = await this.supabaseClient.from('creators').upsert(coreList);
+                        if (coreErr) {
+                            console.warn('[ShakersssData] Supabase core upsert notice:', coreErr);
+                        }
                     }
                 }
             } catch (err) {
