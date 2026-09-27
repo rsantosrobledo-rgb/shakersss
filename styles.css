@@ -1365,7 +1365,7 @@ body.nav-drawer-open {
 }
 
 .about-bio-wrap {
-    max-width: 900px;
+    max-width: 1200px;
     display: flex;
     flex-direction: column;
     gap: 0;
