@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHAKERSSS — CMS Admin Panel</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=admin_sync">
+    <link rel="stylesheet" href="admin.css?v=canonical_v2">
+    <link rel="icon" type="image/png" href="shakersss_logo.png">
+</head>
+<body class="admin-body">
+
+    <!-- ========== LOGIN / PIN OVERLAY ========== -->
+    <div class="admin-lock-screen" id="lock-screen">
+        <div class="lock-card">
+            <div class="lock-brand">
+                <img src="shakersss_logo.png" alt="SHAKERSSS" class="lock-logo">
+                <span class="lock-tag">PANEL DE CONTROL PRIVADO</span>
+            </div>
+            <h1 class="lock-title">Acceso Restringido</h1>
+            <p class="lock-subtitle">Introduce la clave de acceso de administrador para gestionar los creadores y casos de éxito de SHAKERSSS.</p>
+            
+            <form id="lock-form" class="lock-form">
+                <div class="input-wrap">
+                    <input type="password" id="admin-pin" class="lock-input" placeholder="Clave de acceso" autocomplete="current-password" required>
+                    <button type="submit" class="lock-submit-btn" id="lock-btn">
+                        <span>Entrar</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
+                <p class="lock-error" id="lock-error">Clave incorrecta. Inténtalo de nuevo.</p>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== MAIN ADMIN APPLICATION ========== -->
+    <div class="admin-app" id="admin-app" style="display: none;">
+        
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="admin-header-left">
+                <a href="index.html" target="_blank" class="admin-brand">
+                    <img src="shakersss_logo.png" alt="SHAKERSSS" class="admin-logo">
+                    <span class="badge-cms">CMS ADMIN</span>
+                </a>
+                <div class="db-status-pill" id="db-status-pill">
+                    <span class="status-dot" id="status-dot"></span>
+                    <span class="status-text" id="status-text">Almacenamiento Local (Listo)</span>
+                </div>
+            </div>
+
+            <div class="admin-header-right">
+                <a href="index.html" target="_blank" class="btn-preview">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+                    <span>Ver Home</span>
+                </a>
+                <a href="roster.html" target="_blank" class="btn-preview">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                    <span>Ver Roster</span>
+                </a>
+                <button class="btn-logout" id="btn-logout" title="Cerrar Sesión">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="admin-nav-tabs">
+            <button class="nav-tab is-active" data-tab="tab-creators">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span>Creadores (Cajas 3D & Roster)</span>
+                <span class="tab-counter" id="creators-count">50</span>
+            </button>
+            <button class="nav-tab" data-tab="tab-cases">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                <span>Casos de Éxito (Boles)</span>
+                <span class="tab-counter" id="cases-count">7</span>
+            </button>
+            <button class="nav-tab" data-tab="tab-supabase">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                <span>Supabase & Base de Datos</span>
+            </button>
+        </nav>
+
+        <!-- Tab Content Containers -->
+        <main class="admin-main">
+            
+            <!-- ================= TAB 1: CREADORES ================= -->
+            <section class="tab-pane is-active" id="tab-creators">
+                <div class="pane-header">
+                    <div>
+                        <h2 class="pane-title">Gestión de Creadores (<span id="creators-count">0</span>)</h2>
+                        <p class="pane-subtitle">Edita los creadores. Los primeros 20 se reflejan como cajas de cereales 3D en la Home, y todos los 50 en la cuadrícula de Roster.</p>
+                    </div>
+                    <div class="pane-actions">
+                        <div class="search-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="text" id="search-creators" placeholder="Buscar creador...">
+                        </div>
+                        <button class="btn-secondary btn-mass-upload-trigger" id="btn-mass-upload-open" type="button" title="Subir múltiples fotos de creadores con recorte IA automático">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                            <span>⚡ Subir en Masa</span>
+                        </button>
+                        <button class="btn-primary" id="btn-add-creator" type="button">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            <span>Añadir Creador</span>
+                        </button>
+                        <button class="btn-danger-outline btn-clear-all-creators" id="btn-clear-all-creators" type="button" title="Borrar todos los creadores actuales">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                            <span>Vaciar</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Creators Grid -->
+                <div class="creators-admin-grid" id="creators-grid">
+                    <!-- Injected dynamically via JS -->
+                </div>
+            </section>
+
+            <!-- ================= TAB 2: CASOS DE ÉXITO ================= -->
+            <section class="tab-pane" id="tab-cases">
+                <div class="pane-header">
+                    <div>
+                        <h2 class="pane-title">Gestión de Casos de Éxito</h2>
+                        <p class="pane-subtitle">Edita las campañas virales, marcas, métricas, fotos y el color de los boles de cereales saturados en la sección Success Cases.</p>
+                    </div>
+                    <div class="pane-actions">
+                        <button class="btn-primary" id="btn-add-case">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            <span>Añadir Caso de Éxito</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cases Grid -->
+                <div class="cases-admin-grid" id="cases-grid">
+                    <!-- Injected dynamically via JS -->
+                </div>
+            </section>
+
+            <!-- ================= TAB 3: SUPABASE & AJUSTES ================= -->
+            <section class="tab-pane" id="tab-supabase">
+                <div class="supabase-dashboard-layout">
+                    
+                    <!-- Left: Supabase Config Card -->
+                    <div class="config-card">
+                        <div class="config-header">
+                            <div class="config-icon-wrap">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="config-title">¿Se necesita Supabase?</h3>
+                                <p class="config-desc">Te lo explicamos de forma transparente:</p>
+                            </div>
+                        </div>
+
+                        <div class="info-callout">
+                            <p><strong>1. Modo Local (Activo ahora mismo):</strong> Todos los cambios que hagas aquí ya se guardan automáticamente en tu navegador (LocalStorage). Perfecto para probar, previsualizar y editar al instante sin configurar nada.</p>
+                            <p><strong>2. ¿Cuándo se necesita Supabase?:</strong> Si quieres que tú o tu equipo editéis el catálogo desde cualquier ordenador o móvil, y que **cualquier visitante en internet** vea los cambios en tiempo real en la web publicada, entonces **SÍ se necesita Supabase** (que es 100% gratuito).</p>
+                        </div>
+
+                        <form id="supabase-config-form" class="config-form">
+                            <div class="form-group">
+                                <label for="supabase-url" class="form-label">Project URL de Supabase</label>
+                                <input type="url" id="supabase-url" class="form-input" placeholder="https://tu-proyecto.supabase.co">
+                            </div>
+                            <div class="form-group">
+                                <label for="supabase-key" class="form-label">Anon / Public API Key</label>
+                                <input type="password" id="supabase-key" class="form-input" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+                            </div>
+
+                            <div class="form-buttons-row">
+                                <button type="submit" class="btn-primary" id="btn-save-supabase">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                                    <span>Guardar y Conectar Supabase</span>
+                                </button>
+                                <button type="button" class="btn-secondary" id="btn-disconnect-supabase">
+                                    <span>Desconectar</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Right: SQL Setup & Backup Card -->
+                    <div class="config-card">
+                        <h3 class="config-title">Esquema SQL para Supabase (1 Clic)</h3>
+                        <p class="config-desc">Copia este script y pégalo en el <em>SQL Editor</em> de tu panel de Supabase para crear las tablas automáticamente:</p>
+                        
+                        <div class="sql-code-block">
+                            <button class="btn-copy-sql" id="btn-copy-sql" title="Copiar código SQL">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                <span>Copiar SQL</span>
+                            </button>
+                            <pre><code id="sql-code">-- 1. Tabla de Creadores y Nuevos Campos (Bio, Categoría, Redes, Métricas, Portadas de Caja)
+CREATE TABLE IF NOT EXISTS creators (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    photo TEXT NOT NULL,
+    "pngPhoto" TEXT DEFAULT '',
+    "boxSettings" JSONB DEFAULT NULL,
+    color TEXT NOT NULL DEFAULT '#E63946',
+    "inBoxes" BOOLEAN DEFAULT true,
+    category TEXT DEFAULT 'Lifestyle & Trends',
+    bio TEXT DEFAULT '',
+    instagram TEXT DEFAULT '',
+    tiktok TEXT DEFAULT '',
+    youtube TEXT DEFAULT '',
+    metrics TEXT DEFAULT '',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Si la tabla creators ya existía previamente, añade las nuevas columnas automáticamente:
+ALTER TABLE creators ADD COLUMN IF NOT EXISTS "pngPhoto" TEXT DEFAULT '';
+ALTER TABLE creators ADD COLUMN IF NOT EXISTS "boxSettings" JSONB DEFAULT NULL;
+ALTER TABLE creators ADD COLUMN IF NOT EXISTS category TEXT DEFAULT 'Lifestyle & Trends';
+ALTER TABLE creators ADD COLUMN IF NOT EXISTS bio TEXT DEFAULT '';
+ALTER TABLE creators ADD COLUMN IF NOT EXISTS instagram TEXT DEFAULT '';
+ALTER TABLE creators ADD COLUMN IF NOT EXISTS tiktok TEXT DEFAULT '';
+ALTER TABLE creators ADD COLUMN IF NOT EXISTS youtube TEXT DEFAULT '';
+ALTER TABLE creators ADD COLUMN IF NOT EXISTS metrics TEXT DEFAULT '';
+
+-- 2. Tabla de Casos de Éxito
+CREATE TABLE IF NOT EXISTS success_cases (
+    id TEXT PRIMARY KEY,
+    brand TEXT NOT NULL,
+    title TEXT NOT NULL,
+    meta TEXT NOT NULL,
+    photo TEXT NOT NULL,
+    bowl TEXT NOT NULL DEFAULT 'bol_mint.png?v=sat_v2',
+    spoon TEXT DEFAULT 'cuchara_1.png',
+    "spoonSide" TEXT DEFAULT 'spoon-left',
+    stain TEXT DEFAULT 'stain-top-right',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 3. Habilitar lectura y escritura pública en base de datos
+ALTER TABLE creators ENABLE ROW LEVEL SECURITY;
+ALTER TABLE success_cases ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Lectura pública de creadores" ON creators;
+CREATE POLICY "Lectura pública de creadores" ON creators FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Escritura pública de creadores" ON creators;
+CREATE POLICY "Escritura pública de creadores" ON creators FOR ALL USING (true);
+
+DROP POLICY IF EXISTS "Lectura pública de casos" ON success_cases;
+CREATE POLICY "Lectura pública de casos" ON success_cases FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Escritura pública de casos" ON success_cases;
+CREATE POLICY "Escritura pública de casos" ON success_cases FOR ALL USING (true);
+
+-- 4. Bucket de Supabase Storage para Subida de Fotos
+INSERT INTO storage.buckets (id, name, public) 
+VALUES ('shakersss-media', 'shakersss-media', true)
+ON CONFLICT (id) DO UPDATE SET public = true;
+
+-- Políticas de Supabase Storage para el bucket 'shakersss-media'
+DROP POLICY IF EXISTS "Lectura pública de imágenes shakersss" ON storage.objects;
+CREATE POLICY "Lectura pública de imágenes shakersss" ON storage.objects 
+FOR SELECT USING (bucket_id = 'shakersss-media');
+
+DROP POLICY IF EXISTS "Subida pública de imágenes shakersss" ON storage.objects;
+CREATE POLICY "Subida pública de imágenes shakersss" ON storage.objects 
+FOR INSERT WITH CHECK (bucket_id = 'shakersss-media');
+
+DROP POLICY IF EXISTS "Actualización de imágenes shakersss" ON storage.objects;
+CREATE POLICY "Actualización de imágenes shakersss" ON storage.objects 
+FOR UPDATE USING (bucket_id = 'shakersss-media');</code></pre>
+                        </div>
+
+                        <!-- Data Tools -->
+                        <div class="data-tools-section">
+                            <h4 class="tools-title">Sincronización & Herramientas de Respaldo</h4>
+                            <div class="tools-buttons">
+                                <button type="button" class="btn-primary" id="btn-seed-supabase">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                                    <span>Subir Catálogo a Supabase</span>
+                                </button>
+                                <button type="button" class="btn-outline" id="btn-export-json">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                                    <span>Exportar Backup (JSON)</span>
+                                </button>
+                                <label class="btn-outline">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                                    <span>Importar JSON</span>
+                                    <input type="file" id="import-json-file" accept=".json" style="display: none;">
+                                </label>
+                                <button type="button" class="btn-danger-outline" id="btn-reset-defaults">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                                    <span>Restaurar Valores de Fábrica</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+    <!-- ========== MASS UPLOAD MODAL ========== -->
+    <div class="admin-modal" id="mass-upload-modal">
+        <div class="modal-overlay" id="mass-modal-overlay"></div>
+        <div class="modal-card modal-card-mass">
+            <div class="modal-header">
+                <div class="mass-modal-header-text">
+                    <div class="mass-header-badge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        <span>AUTOMATIZACIÓN IA</span>
+                    </div>
+                    <h3 class="modal-title">Subida en Masa de Creadores</h3>
+                    <p class="mass-modal-desc">Sube múltiples imágenes a la vez. El sistema rellenará de forma predeterminada todos los datos y extraerá automáticamente el <strong>PNG recortado del sujeto con IA</strong> para cada caja de cereales 3D.</p>
+                </div>
+                <button type="button" class="modal-close-btn" id="mass-modal-close">&times;</button>
+            </div>
+
+            <div class="mass-modal-body">
+                <!-- Dropzone Area -->
+                <div class="mass-dropzone" id="mass-dropzone">
+                    <input type="file" id="mass-files-input" multiple accept="image/*" class="file-input-hidden">
+                    <div class="mass-dropzone-inner">
+                        <div class="mass-dropzone-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                        </div>
+                        <h4 class="mass-dropzone-h">Arrastra y suelta aquí las imágenes de los creadores</h4>
+                        <p class="mass-dropzone-sub">Puedes arrastrar decenas de fotos a la vez (JPG, PNG, WEBP)</p>
+                        <button type="button" class="btn-primary mass-browse-btn" id="btn-mass-browse">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                            <span>Explorar Archivos en tu Equipo</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Intelligent Defaults Config Bar -->
+                <div class="mass-defaults-bar">
+                    <div class="mass-default-item">
+                        <label class="form-label" for="mass-default-category">Categoría Predeterminada</label>
+                        <select id="mass-default-category" class="form-input">
+                            <option value="Lifestyle & Trends" selected>Lifestyle & Trends</option>
+                            <option value="Moda y Música">Moda y Música</option>
+                            <option value="Gaming & Streaming">Gaming & Streaming</option>
+                            <option value="Fitness & Wellness">Fitness & Wellness</option>
+                            <option value="Tech & Future">Tech & Future</option>
+                            <option value="Food & Gastro">Food & Gastro</option>
+                            <option value="Comedy & Viral">Comedy & Viral</option>
+                            <option value="Digital Art & 3D">Digital Art & 3D</option>
+                            <option value="Travel & Adventure">Travel & Adventure</option>
+                        </select>
+                    </div>
+                    <div class="mass-default-item">
+                        <label class="form-label" for="mass-default-metrics">Métricas Predeterminadas</label>
+                        <input type="text" id="mass-default-metrics" class="form-input" value="+500K Seguidores · 9.8% Engagement · España">
+                    </div>
+                    <div class="mass-default-item mass-default-toggle-wrap">
+                        <label class="form-label">Aparición en Home</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="mass-default-inboxes" checked>
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label">Cajas 3D</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Processing Progress Bar -->
+                <div class="mass-progress-wrap" id="mass-progress-wrap" style="display: none;">
+                    <div class="mass-progress-header">
+                        <span class="mass-progress-title" id="mass-progress-title">Procesando imágenes y siluetas IA...</span>
+                        <span class="mass-progress-count" id="mass-progress-count">0 / 0</span>
+                    </div>
+                    <div class="mass-bar-bg">
+                        <div class="mass-bar-fill" id="mass-bar-fill" style="width: 0%;"></div>
+                    </div>
+                    <p class="mass-progress-hint" id="mass-progress-hint">Iniciando pipeline de IA...</p>
+                </div>
+
+                <!-- Items Queue Preview Table -->
+                <div class="mass-queue-card" id="mass-queue-card" style="display: none;">
+                    <div class="mass-queue-head">
+                        <h4 class="mass-queue-title">Creadores detectados (<span id="mass-queue-num">0</span>)</h4>
+                        <div class="mass-queue-actions">
+                            <span class="mass-queue-tip">💡 Puedes editar el nombre asignado a cada uno antes de subir</span>
+                            <button type="button" class="btn-clear-queue" id="btn-mass-clear">Limpiar selección</button>
+                        </div>
+                    </div>
+                    <div class="mass-queue-list" id="mass-queue-list">
+                        <!-- Injected dynamic rows -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="btn-mass-cancel">Cancelar</button>
+                <button type="button" class="btn-primary btn-mass-execute" id="btn-mass-execute" disabled>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    <span id="btn-mass-execute-text">Subir y Recortar con IA (0 imágenes)</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== EDIT CREATOR MODAL ========== -->
+    <div class="admin-modal" id="creator-modal">
+        <div class="modal-overlay" id="creator-modal-overlay"></div>
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title" id="creator-modal-title">Editar Creador</h3>
+                <button type="button" class="modal-close-btn" id="creator-modal-close">&times;</button>
+            </div>
+            <form id="creator-edit-form" class="modal-form" novalidate>
+                <input type="hidden" id="creator-edit-id">
+
+                <!-- Visual Preview Header (Profile Avatar, PNG Cutout, 3D Box) -->
+                <div class="form-preview-row">
+                    <div class="preview-mini-col">
+                        <span class="preview-col-tag">Foto Perfil</span>
+                        <div class="creator-preview-avatar">
+                            <img src="" alt="" id="creator-preview-img">
+                        </div>
+                    </div>
+                    <div class="preview-mini-col">
+                        <span class="preview-col-tag">Recorte PNG</span>
+                        <div class="creator-preview-png-frame checkerboard-bg">
+                            <img src="" alt="" id="creator-preview-png">
+                            <span class="png-empty-hint" id="png-empty-hint">Sin PNG</span>
+                        </div>
+                    </div>
+                    <div class="preview-mini-col">
+                        <span class="preview-col-tag">Caja 3D</span>
+                        <div class="creator-preview-box" id="creator-preview-box" style="background-color: #E63946;">
+                            <span class="preview-box-label">Caja 3D</span>
+                            <span class="preview-box-name" id="creator-preview-box-name">Luna</span>
+                        </div>
+                    </div>
+                    <div class="creator-preview-meta-badge">
+                        <span class="preview-category-text" id="creator-preview-category">Lifestyle & Fashion</span>
+                    </div>
+                </div>
+
+                <!-- Basic Info -->
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label class="form-label" for="creator-name">Nombre del Creador *</label>
+                        <input type="text" id="creator-name" class="form-input" required placeholder="Ej: Luna">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="creator-category">Nicho / Categoría *</label>
+                        <input type="text" id="creator-category" class="form-input" list="creator-category-list" required placeholder="Ej: Lifestyle & Fashion">
+                        <datalist id="creator-category-list">
+                            <option value="Lifestyle & Fashion">
+                            <option value="Gaming & Streaming">
+                            <option value="Fitness & Wellness">
+                            <option value="Tech & Future">
+                            <option value="Food & Gastro">
+                            <option value="Comedy & Viral">
+                            <option value="Music & DJ">
+                            <option value="Art & Design">
+                            <option value="Travel & Adventure">
+                            <option value="Entertainment & Show">
+                        </datalist>
+                    </div>
+                </div>
+
+                <!-- ================= IMAGE SLOTS (SIDE BY SIDE IN WIDE MODAL) ================= -->
+                <div class="image-slots-grid">
+
+                    <!-- HUECO 1: FOTO DE PERFIL -->
+                    <div class="image-slot-card">
+                        <div class="image-source-header">
+                            <div class="slot-title-wrap">
+                                <span class="slot-number-badge">1</span>
+                                <div>
+                                    <label class="form-label">Foto de Perfil (Con fondo) *</label>
+                                    <span class="slot-desc">Foto original para tarjeta, avatar y roster</span>
+                                </div>
+                            </div>
+                            <div class="image-source-tabs">
+                                <button type="button" class="img-tab-btn is-active" id="creator-tab-file-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                                    <span>Subir Archivo</span>
+                                </button>
+                                <button type="button" class="img-tab-btn" id="creator-tab-url-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                    <span>Pegar URL</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- File Dropzone Pane -->
+                        <div class="img-tab-pane is-active" id="creator-pane-file">
+                            <div class="file-dropzone" id="creator-dropzone">
+                                <input type="file" id="creator-file-input" accept="image/*" class="file-input-hidden">
+                                <div class="dropzone-content">
+                                    <div class="dropzone-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                    </div>
+                                    <p class="dropzone-prompt"><strong>Arrastra la foto de perfil aquí</strong> o haz clic para explorarla</p>
+                                    <p class="dropzone-sub">JPG, PNG o WEBP</p>
+                                    <div class="upload-status-pill" id="creator-upload-status" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- URL Pane -->
+                        <div class="img-tab-pane" id="creator-pane-url" style="display: none;">
+                            <input type="text" id="creator-photo" class="form-input" placeholder="https://images.unsplash.com/photo-...">
+                        </div>
+
+                        <!-- Auto-Cutout AI Action Button -->
+                        <div class="auto-cutout-action-row">
+                            <button type="button" class="btn-magic-cutout" id="btn-auto-cutout">
+                                <span class="magic-sparkle">🪄</span>
+                                <span>Recortar Sujeto a PNG con IA</span>
+                            </button>
+                            <div class="auto-cutout-status" id="creator-cutout-status" style="display: none;"></div>
+                        </div>
+                    </div>
+
+                    <!-- HUECO 2: FOTO PNG RECORTADA -->
+                    <div class="image-slot-card slot-png-card">
+                        <div class="image-source-header">
+                            <div class="slot-title-wrap">
+                                <span class="slot-number-badge badge-png">2</span>
+                                <div>
+                                    <label class="form-label">Foto PNG Recortada (Silueta Transparente)</label>
+                                    <span class="slot-desc">Sujeto sin fondo para portada de caja de cereales</span>
+                                </div>
+                            </div>
+                            <div class="image-source-tabs">
+                                <button type="button" class="img-tab-btn is-active" id="creator-png-tab-file-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                                    <span>Subir PNG</span>
+                                </button>
+                                <button type="button" class="img-tab-btn" id="creator-png-tab-url-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                    <span>Pegar URL</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- PNG File Dropzone Pane -->
+                        <div class="img-tab-pane is-active" id="creator-png-pane-file">
+                            <div class="file-dropzone dropzone-checkerboard" id="creator-png-dropzone">
+                                <input type="file" id="creator-png-file-input" accept="image/png,image/webp,image/*" class="file-input-hidden">
+                                <div class="dropzone-content">
+                                    <div class="dropzone-icon icon-png">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5-5 5 5M12 15V3"/></svg>
+                                    </div>
+                                    <p class="dropzone-prompt"><strong>Arrastra tu PNG transparente aquí</strong> o genera uno con IA</p>
+                                    <p class="dropzone-sub">PNG o WEBP sin fondo</p>
+                                    <div class="upload-status-pill" id="creator-png-upload-status" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PNG URL Pane -->
+                        <div class="img-tab-pane" id="creator-png-pane-url" style="display: none;">
+                            <input type="text" id="creator-png-photo" class="form-input" placeholder="https://... o generado automáticamente">
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Appearance, In-Boxes & Metrics Row -->
+                <div class="form-row-3">
+                    <div class="form-group">
+                        <label class="form-label" for="creator-color">Color de la Caja</label>
+                        <div class="color-picker-wrap">
+                            <input type="color" id="creator-color" class="color-input" value="#E63946">
+                            <input type="text" id="creator-color-text" class="form-input hex-input" value="#E63946">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Aparición en Home</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="creator-in-boxes" checked>
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label">Mostrar en Cajas 3D</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="creator-metrics">Métricas Destacadas</label>
+                        <input type="text" id="creator-metrics" class="form-input" placeholder="Ej: +1.8M Seguidores · 9.4% Engagement · 82% ES">
+                    </div>
+                </div>
+
+                <!-- ================= CEREAL BOX TEXTURE EDITOR ================= -->
+                <div class="cereal-box-studio-card" id="cereal-box-studio-card">
+                    <div class="studio-header">
+                        <div class="studio-header-left">
+                            <h4 class="studio-title">Editor de Textura</h4>
+                            <span class="studio-subtitle">Lo que ves aquí es la textura final de la caja</span>
+                        </div>
+                        <button type="button" class="btn-studio-reset" id="btn-studio-reset" title="Restablecer ajustes a valores recomendados">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                            <span>Restablecer</span>
+                        </button>
+                    </div>
+
+                    <div class="studio-body">
+                        <!-- Left: Live Texture Canvas (1:1 render at 320x400) -->
+                        <div class="studio-viewer-container">
+                            <div class="studio-viewer-stage" id="studio-viewer-stage">
+                                <div class="box-front studio-box-front" id="studio-box-front" style="--box-color: #E63946; --studio-box-color: #E63946;">
+                                    <!-- Layer 2: Name in Antonio Bold -->
+                                    <div class="box-front-name-layer studio-name-layer" id="studio-name-layer">
+                                        <span class="box-front-creator-name studio-creator-name" id="studio-creator-name">LUNA</span>
+                                    </div>
+                                    <!-- Layer 3: Cutout PNG -->
+                                    <div class="box-front-cutout-wrap studio-cutout-wrap" id="studio-cutout-wrap">
+                                        <img class="box-front-cutout-img studio-cutout-img" id="studio-cutout-img" src="" alt="Silueta Creador">
+                                    </div>
+                                    <!-- Layer 4: Side Badges matching reference -->
+                                    <div class="box-front-badge studio-badge box-front-badge-left studio-badge-left" id="studio-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val" id="studio-badge-category">Moda y música</span>
+                                    </div>
+                                    <div class="box-front-badge studio-badge box-front-badge-right studio-badge-right" id="studio-badge-right">
+                                        <span class="badge-val" id="studio-badge-metrics">+500k</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <!-- Layer 5: Top Overlay Template -->
+                                    <img class="box-front-overlay studio-box-overlay" src="plantilla_box.png" alt="SHAKERSSS Box Overlay">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Right: Calibration Sliders -->
+                        <div class="studio-controls-grid">
+                            <!-- Slider 1: Scale -->
+                            <div class="studio-control-group">
+                                <div class="studio-control-label-row">
+                                    <label class="studio-label" for="slider-studio-scale">Zoom / Escala Silueta</label>
+                                    <span class="studio-val-badge" id="val-studio-scale">105%</span>
+                                </div>
+                                <input type="range" id="slider-studio-scale" class="studio-slider" min="0.60" max="1.60" step="0.02" value="1.05">
+                            </div>
+
+                            <!-- Slider 2: Cutout Y (Doble Cap: -160px a +160px) -->
+                            <div class="studio-control-group">
+                                <div class="studio-control-label-row">
+                                    <label class="studio-label" for="slider-studio-y">Posición Vertical Silueta (Y)</label>
+                                    <span class="studio-val-badge" id="val-studio-y">0px</span>
+                                </div>
+                                <input type="range" id="slider-studio-y" class="studio-slider" min="-160" max="160" step="2" value="0">
+                            </div>
+
+                            <!-- Slider 3: Cutout X (Doble Cap: -120px a +120px) -->
+                            <div class="studio-control-group">
+                                <div class="studio-control-label-row">
+                                    <label class="studio-label" for="slider-studio-x">Posición Horizontal Silueta (X)</label>
+                                    <span class="studio-val-badge" id="val-studio-x">0px</span>
+                                </div>
+                                <input type="range" id="slider-studio-x" class="studio-slider" min="-120" max="120" step="2" value="0">
+                            </div>
+
+                            <!-- Slider 4: Name Size -->
+                            <div class="studio-control-group">
+                                <div class="studio-control-label-row">
+                                    <label class="studio-label" for="slider-studio-name-size">Tamaño Nombre (Antonio Bold)</label>
+                                    <span class="studio-val-badge" id="val-studio-name-size">3.0rem</span>
+                                </div>
+                                <input type="range" id="slider-studio-name-size" class="studio-slider" min="1.8" max="6.0" step="0.1" value="3.0">
+                            </div>
+
+                            <!-- Slider 5: Name Y (Rango Ampliado al Doble: 5% a 75%) -->
+                            <div class="studio-control-group">
+                                <div class="studio-control-label-row">
+                                    <label class="studio-label" for="slider-studio-name-y">Altura del Nombre (Y)</label>
+                                    <span class="studio-val-badge" id="val-studio-name-y">22%</span>
+                                </div>
+                                <input type="range" id="slider-studio-name-y" class="studio-slider" min="5" max="75" step="1" value="22">
+                            </div>
+
+                            <!-- Slider 6: Contour Stroke -->
+                            <div class="studio-control-group">
+                                <div class="studio-control-label-row">
+                                    <label class="studio-label" for="slider-studio-stroke">Grosor Contorno Nombre</label>
+                                    <span class="studio-val-badge" id="val-studio-stroke">4px</span>
+                                </div>
+                                <input type="range" id="slider-studio-stroke" class="studio-slider" min="0" max="20" step="0.5" value="4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bio / Description -->
+                <div class="form-group">
+                    <label class="form-label" for="creator-bio">Biografía / Descripción del Creador</label>
+                    <textarea id="creator-bio" class="form-textarea" rows="3" placeholder="Describe al creador, su estilo de contenido, su audiencia y potencial de colaboraciones..."></textarea>
+                </div>
+
+                <!-- Social Media Handles -->
+                <div class="form-group">
+                    <label class="form-label">Redes Sociales (Perfil / Enlace)</label>
+                    <div class="social-inputs-row">
+                        <div class="social-input-wrap">
+                            <span class="social-input-prefix">IG</span>
+                            <input type="text" id="creator-instagram" class="form-input social-input" placeholder="@usuario o enlace">
+                        </div>
+                        <div class="social-input-wrap">
+                            <span class="social-input-prefix">TT</span>
+                            <input type="text" id="creator-tiktok" class="form-input social-input" placeholder="@usuario o enlace">
+                        </div>
+                        <div class="social-input-wrap">
+                            <span class="social-input-prefix">YT</span>
+                            <input type="text" id="creator-youtube" class="form-input social-input" placeholder="@canal o enlace">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-delete" id="btn-delete-creator">Eliminar</button>
+                    <div class="modal-footer-right">
+                        <button type="button" class="btn-secondary" id="btn-cancel-creator">Cancelar</button>
+                        <button type="submit" class="btn-primary" id="btn-save-creator">Guardar Creador</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== MASS UPLOAD CREATORS MODAL (AI CUTOUT BATCH) ========== -->
+    <div class="admin-modal" id="mass-upload-modal">
+        <div class="modal-overlay" id="mass-modal-overlay"></div>
+        <div class="modal-card modal-card-mass">
+            <div class="modal-header">
+                <div class="mass-modal-header-text">
+                    <span class="mass-header-badge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        <span>Subida en Masa + Recorte IA</span>
+                    </span>
+                    <h3 class="modal-title">Carga Rápida de Creadores</h3>
+                    <p class="mass-modal-desc">Sube imágenes de creadores en lote. La IA extraerá automáticamente la silueta sin fondo (PNG transparente) y rellenará de forma inteligente todos los datos.</p>
+                </div>
+                <button type="button" class="modal-close-btn" id="mass-modal-close" aria-label="Cerrar modal">&times;</button>
+            </div>
+
+            <div class="mass-modal-body">
+                <!-- Dropzone Area -->
+                <div class="mass-dropzone" id="mass-dropzone">
+                    <input type="file" id="mass-files-input" accept="image/*" multiple class="file-input-hidden">
+                    <div class="mass-dropzone-inner">
+                        <div class="mass-dropzone-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                            </svg>
+                        </div>
+                        <h4 class="mass-dropzone-h">Arrastra fotos de creadores aquí</h4>
+                        <p class="mass-dropzone-sub">PNG, JPG o WEBP — Puedes seleccionar decenas de fotos simultáneamente</p>
+                        <button type="button" class="btn-secondary mass-browse-btn" id="btn-mass-browse">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                            <span>Seleccionar archivos del ordenador</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Intelligent Defaults Config Bar -->
+                <div class="mass-defaults-bar">
+                    <div class="mass-default-item">
+                        <label class="form-label" for="mass-default-category">Categoría Predeterminada</label>
+                        <select id="mass-default-category" class="form-input form-select">
+                            <option value="Lifestyle & Trends" selected>Lifestyle & Trends</option>
+                            <option value="Fashion & Beauty">Fashion & Beauty</option>
+                            <option value="Gaming & Tech">Gaming & Tech</option>
+                            <option value="Fitness & Sport">Fitness & Sport</option>
+                            <option value="Music & Art">Music & Art</option>
+                            <option value="Comedy & Entertainment">Comedy & Entertainment</option>
+                            <option value="Food & Travel">Food & Travel</option>
+                        </select>
+                    </div>
+                    <div class="mass-default-item">
+                        <label class="form-label" for="mass-default-metrics">Métricas Predeterminadas</label>
+                        <input type="text" id="mass-default-metrics" class="form-input" value="+500K Seguidores · 9.8% Engagement · España">
+                    </div>
+                    <div class="mass-default-item mass-default-toggle-wrap">
+                        <label class="form-label">Cajas 3D Home</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="mass-default-inboxes" checked>
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label">Activar</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Progress Bar (shown when processing) -->
+                <div class="mass-progress-wrap" id="mass-progress-wrap" style="display: none;">
+                    <div class="mass-progress-header">
+                        <span class="mass-progress-title">
+                            <svg class="spin-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" style="animation: adminSpin 0.75s linear infinite;">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity="0.25"></circle>
+                                <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor"></path>
+                            </svg>
+                            <span id="mass-progress-title">Procesando imágenes...</span>
+                        </span>
+                        <span class="mass-progress-count" id="mass-progress-count">0 / 0</span>
+                    </div>
+                    <div class="mass-bar-bg">
+                        <div class="mass-bar-fill" id="mass-bar-fill" style="width: 0%;"></div>
+                    </div>
+                    <p class="mass-progress-hint" id="mass-progress-hint">Iniciando subida y recorte IA...</p>
+                </div>
+
+                <!-- Queue Preview Card -->
+                <div class="mass-queue-card" id="mass-queue-card" style="display: none;">
+                    <div class="mass-queue-head">
+                        <div class="mass-queue-title">Cola de Subida (<span id="mass-queue-num">0</span> fotos)</div>
+                        <div class="mass-queue-actions">
+                            <span class="mass-queue-tip">Nombres y colores generados automáticamente</span>
+                            <button type="button" class="btn-clear-queue" id="btn-mass-clear">Vaciar cola</button>
+                        </div>
+                    </div>
+                    <div class="mass-queue-list" id="mass-queue-list">
+                        <!-- Dynamic items -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="btn-mass-cancel">Cerrar</button>
+                <button type="button" class="btn-primary btn-mass-execute" id="btn-mass-execute" disabled>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    <span id="btn-mass-execute-text">Subir y Recortar con IA (0 imágenes)</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== EDIT SUCCESS CASE MODAL ========== -->
+    <div class="admin-modal" id="case-modal">
+        <div class="modal-overlay" id="case-modal-overlay"></div>
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title" id="case-modal-title">Editar Caso de Éxito</h3>
+                <button type="button" class="modal-close-btn" id="case-modal-close">&times;</button>
+            </div>
+            <form id="case-edit-form" class="modal-form" novalidate>
+                <input type="hidden" id="case-edit-id">
+
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label class="form-label" for="case-brand">Marca *</label>
+                        <input type="text" id="case-brand" class="form-input" required placeholder="Ej: SPOTIFY">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="case-title">Título de Campaña *</label>
+                        <input type="text" id="case-title" class="form-input" required placeholder="Ej: Luna Top Charts">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="case-meta">Métricas / Resultados *</label>
+                    <input type="text" id="case-meta" class="form-input" required placeholder="Ej: +1.8M Streams · #1 Viral">
+                </div>
+
+                <!-- Case Photo Dual Upload -->
+                <div class="form-group">
+                    <div class="image-source-header">
+                        <label class="form-label">Foto en el Bol *</label>
+                        <div class="image-source-tabs">
+                            <button type="button" class="img-tab-btn is-active" id="case-tab-file-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                                <span>Subir Archivo</span>
+                            </button>
+                            <button type="button" class="img-tab-btn" id="case-tab-url-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                <span>Pegar URL</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="img-tab-pane is-active" id="case-pane-file">
+                        <div class="file-dropzone" id="case-dropzone">
+                            <input type="file" id="case-file-input" accept="image/*" class="file-input-hidden">
+                            <div class="dropzone-content">
+                                <div class="dropzone-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                </div>
+                                <p class="dropzone-prompt"><strong>Arrastra una foto aquí</strong> o haz clic para seleccionarla</p>
+                                <p class="dropzone-sub">PNG, JPG o WEBP (se sube a Supabase Storage con fallback local)</p>
+                                <div class="upload-status-pill" id="case-upload-status" style="display: none;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="img-tab-pane" id="case-pane-url" style="display: none;">
+                        <input type="text" id="case-photo" class="form-input" placeholder="https://images.unsplash.com/photo-...">
+                    </div>
+                </div>
+
+                <!-- Bowl Color Selector -->
+                <div class="form-group">
+                    <label class="form-label">Color del Bol de Cereales (Saturado)</label>
+                    <div class="bowl-options-grid" id="bowl-options-grid">
+                        <label class="bowl-radio">
+                            <input type="radio" name="case-bowl" value="bol_mint.png?v=sat_v2" checked>
+                            <span class="bowl-preview-pill" style="--bowl-tint: #46e8c8;">Mint</span>
+                        </label>
+                        <label class="bowl-radio">
+                            <input type="radio" name="case-bowl" value="bol_pink.png?v=sat_v2">
+                            <span class="bowl-preview-pill" style="--bowl-tint: #ff66b2;">Pink</span>
+                        </label>
+                        <label class="bowl-radio">
+                            <input type="radio" name="case-bowl" value="bol_yellow.png?v=sat_v2">
+                            <span class="bowl-preview-pill" style="--bowl-tint: #ffd633;">Yellow</span>
+                        </label>
+                        <label class="bowl-radio">
+                            <input type="radio" name="case-bowl" value="bol_purple.png?v=sat_v2">
+                            <span class="bowl-preview-pill" style="--bowl-tint: #b366ff;">Purple</span>
+                        </label>
+                        <label class="bowl-radio">
+                            <input type="radio" name="case-bowl" value="bol_blue.png?v=sat_v2">
+                            <span class="bowl-preview-pill" style="--bowl-tint: #3399ff;">Blue</span>
+                        </label>
+                        <label class="bowl-radio">
+                            <input type="radio" name="case-bowl" value="bol_orange.png?v=sat_v2">
+                            <span class="bowl-preview-pill" style="--bowl-tint: #ff8533;">Orange</span>
+                        </label>
+                        <label class="bowl-radio">
+                            <input type="radio" name="case-bowl" value="bol_red.png?v=sat_v2">
+                            <span class="bowl-preview-pill" style="--bowl-tint: #ff4d6d;">Red</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-delete" id="btn-delete-case">Eliminar</button>
+                    <div class="modal-footer-right">
+                        <button type="button" class="btn-secondary" id="btn-cancel-case">Cancelar</button>
+                        <button type="submit" class="btn-primary" id="btn-save-case">Guardar Caso</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="admin-toast" id="admin-toast">
+        <span class="toast-msg" id="toast-msg">Cambios guardados con éxito</span>
+    </div>
+
+    <!-- Supabase CDN (Official Client) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Shared Data Service -->
+    <script src="shakersss-data.js?v=admin_v1"></script>
+    <!-- Admin Logic -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="admin.js?v=admin_v1"></script>
+</body>
+</html>

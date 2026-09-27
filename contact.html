@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHAKERSSS — Contacto · Let's shake the world!</title>
+    <meta name="description" content="Ponte en contacto con SHAKERSSS. Representamos a los creadores de mayor impacto cultural. Hablemos de tu próxima gran campaña.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=contact_v16">
+    <link rel="stylesheet" href="contact.css?v=contact_layout_v2">
+    <link rel="icon" type="image/png" href="shakersss_logo.png">
+</head>
+<body class="contact-page">
+
+    <!-- ========== HEADER ========== -->
+    <header class="header" id="main-header">
+        <button class="menu-btn" id="menu-toggle" aria-label="Abrir menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <a href="index.html" class="header-logo" id="header-logo">
+            <img src="shakersss_logo.png" alt="Shakersss — Let's shake the world!">
+        </a>
+    </header>
+
+    <!-- ========== NAVIGATION DRAWER ========== -->
+    <div class="nav-drawer-overlay" id="nav-drawer-overlay" aria-hidden="true"></div>
+    <aside class="nav-drawer" id="nav-drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Menú principal">
+        <div class="nav-drawer-header">
+            <span class="nav-drawer-brand">SHAKERSSS</span>
+            <button class="nav-close-btn" id="nav-close-btn" aria-label="Cerrar menú">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <nav class="nav-drawer-links">
+            <a href="index.html" class="nav-link" data-link="home">
+                <span class="nav-link-num">01</span>
+                <span class="nav-link-text">Home</span>
+            </a>
+            <a href="roster.html" class="nav-link" data-link="creators">
+                <span class="nav-link-num">02</span>
+                <span class="nav-link-text">our creatorsss</span>
+            </a>
+            <a href="index.html#success-cases" class="nav-link" data-link="cases">
+                <span class="nav-link-num">03</span>
+                <span class="nav-link-text">success casesss</span>
+            </a>
+            <a href="contact.html" class="nav-link" data-link="contact">
+                <span class="nav-link-num">04</span>
+                <span class="nav-link-text">contacto</span>
+            </a>
+        </nav>
+        <div class="nav-drawer-footer">
+            <span class="nav-footer-label">Follow the shake</span>
+            <div class="nav-social-row">
+                <a href="https://instagram.com" target="_blank" rel="noopener" class="nav-social-item">Instagram</a>
+                <a href="https://tiktok.com" target="_blank" rel="noopener" class="nav-social-item">TikTok</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener" class="nav-social-item">LinkedIn</a>
+            </div>
+            <p class="nav-copy">© 2026 SHAKERSSS S.L. All rights reserved.</p>
+        </div>
+    </aside>
+
+    <!-- Background Video & Dark Gradient Tint -->
+    <video class="contact-bg-video" autoplay muted loop playsinline>
+        <source src="bg_video.mp4" type="video/mp4">
+    </video>
+    <div class="contact-bg-overlay"></div>
+
+    <!-- ========== MAIN CONTACT CONTAINER ========== -->
+    <main class="contact-main">
+
+        <!-- Hero Intro -->
+        <section class="contact-hero">
+            <span class="contact-badge">LET'S SHAKE THE WORLD</span>
+            <h1 class="contact-headline">Empieza la <span>conversación</span>.</h1>
+            <p class="contact-subline">Representamos creadores de impacto y construimos campañas que marcan cultura. Cuéntanos qué tienes en mente y hagamos historia juntos.</p>
+        </section>
+
+        <!-- Two Column Grid -->
+        <div class="contact-layout-grid">
+
+            <!-- Left: High-Conversion Form -->
+            <div class="contact-form-card">
+
+                <!-- Profile Tabs -->
+                <div class="profile-selector">
+                    <button type="button" class="profile-tab is-active" data-profile="brand">Soy una Marca</button>
+                    <button type="button" class="profile-tab" data-profile="creator">Soy un Creador</button>
+                    <button type="button" class="profile-tab" data-profile="press">Prensa / Colaboración</button>
+                </div>
+
+                <form class="contact-form" id="contact-form">
+                    <input type="hidden" name="profile_type" id="selected-profile" value="brand">
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label class="form-label" for="input-name">Nombre y Apellidos *</label>
+                            <input type="text" id="input-name" class="form-input" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="input-email">Correo Electrónico *</label>
+                            <input type="email" id="input-email" class="form-input" placeholder="tu@empresa.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label class="form-label" for="input-phone">Teléfono / WhatsApp *</label>
+                            <input type="tel" id="input-phone" class="form-input" placeholder="+34 600 000 000" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" id="label-brand-or-channel" for="input-brand-or-channel">Empresa o Marca</label>
+                            <input type="text" id="input-brand-or-channel" class="form-input" placeholder="Nombre de tu marca">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="input-budget">Presupuesto / Envergadura del proyecto</label>
+                        <select id="input-budget" class="form-select">
+                            <option value="">Selecciona un rango orientativo</option>
+                            <option value="tier1">&lt; 10.000 €</option>
+                            <option value="tier2">10.000 € – 25.000 €</option>
+                            <option value="tier3">25.000 € – 50.000 €</option>
+                            <option value="tier4">&gt; 50.000 €</option>
+                            <option value="retainer">Acuerdo continuo / Retainer anual</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="input-message">Detalles del proyecto o mensaje *</label>
+                        <textarea id="input-message" class="form-textarea" placeholder="Cuéntanos objetivos, fechas tentativas o el tipo de creadores que buscas..." required></textarea>
+                    </div>
+
+                    <label class="form-checkbox-label">
+                        <input type="checkbox" required>
+                        <span>Acepto la política de privacidad y el tratamiento de mis datos para recibir respuesta a esta solicitud.</span>
+                    </label>
+
+                    <button type="submit" class="contact-submit-btn" id="submit-btn">
+                        <span>Enviar propuesta</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
+                </form>
+
+            </div>
+
+            <!-- Right: Direct Contact & Guarantees -->
+            <div class="contact-info-column">
+
+                <!-- Fast response card -->
+                <div class="info-status-card">
+                    <div class="status-badge-row">
+                        <span class="pulse-dot"></span>
+                        <span class="status-text">Tiempo de respuesta prioritario</span>
+                    </div>
+                    <h3 class="status-title">&lt; 24 Horas</h3>
+                    <p class="status-desc">Nuestro equipo de bookings y directores de cuentas revisa cada solicitud personalmente de lunes a viernes.</p>
+                </div>
+
+                <!-- Direct channels card -->
+                <div class="direct-channels-card">
+
+                    <div class="channel-item">
+                        <div class="channel-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </div>
+                        <div class="channel-meta">
+                            <span class="channel-label">Email Corporativo</span>
+                            <a href="mailto:contacto@shakersss.com" class="channel-value">contacto@shakersss.com</a>
+                            <span class="channel-sub">Para briefings y propuestas directas</span>
+                        </div>
+                    </div>
+
+                    <div class="channel-item">
+                        <div class="channel-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                        </div>
+                        <div class="channel-meta">
+                            <span class="channel-label">Teléfono &amp; WhatsApp</span>
+                            <a href="https://wa.me/34600000000" target="_blank" rel="noopener" class="channel-value">+34 600 000 000</a>
+                            <span class="channel-sub">Lunes a Viernes · 9:00 - 19:00 CET</span>
+                        </div>
+                    </div>
+
+                    <div class="channel-item">
+                        <div class="channel-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div class="channel-meta">
+                            <span class="channel-label">Headquarters</span>
+                            <span class="channel-value">Madrid, España</span>
+                            <span class="channel-sub">Paseo de la Castellana · Co-working creativo</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Success Toast Notification -->
+    <div class="contact-success-toast" id="contact-success-toast" role="status" aria-live="polite">
+        <div class="toast-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+        </div>
+        <div class="toast-content">
+            <strong style="display: block; font-size: 0.95rem;">¡Propuesta recibida con éxito!</strong>
+            <span style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.7);">Nos pondremos en contacto contigo en menos de 24 horas.</span>
+        </div>
+    </div>
+
+    <!-- GSAP & Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"></script>
+    <script src="nav-menu.js"></script>
+    <script src="contact-script.js?v=contact_v1"></script>
+</body>
+</html>

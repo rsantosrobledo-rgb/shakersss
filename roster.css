@@ -1,0 +1,681 @@
+/* ============================================
+   SHAKERSSS — Roster Page Styles
+   ============================================ */
+
+/* --- Page Override --- */
+.roster-page {
+    background-color: #0a0a0a;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* --- Fullscreen Background Video --- */
+.roster-bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+/* --- Half-size Logo on Roster Page --- */
+.roster-page .header-logo img {
+    height: 28px !important;
+    width: auto !important;
+}
+
+/* --- Roster Main --- */
+.roster-main {
+    position: relative;
+    z-index: 1;
+    padding-top: 145px;
+    padding-bottom: 80px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* --- Title Section above images --- */
+.roster-header-section {
+    text-align: center;
+    margin-bottom: 55px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+}
+
+.roster-page-title {
+    font-size: clamp(3rem, 7.5vw, 6.2rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: #483C32 !important;
+    text-shadow: none !important;
+    margin-bottom: 12px;
+}
+
+.roster-page-subtitle {
+    font-size: clamp(0.95rem, 1.8vw, 1.25rem);
+    color: #483C32 !important;
+    opacity: 0.85;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-shadow: none !important;
+}
+
+/* --- Grid (5 columns on desktop = 10 rows of 5 = 50 creators) --- */
+.roster-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 16px;
+    row-gap: 28px;
+    padding: 0 40px;
+    width: 100%;
+    max-width: 1540px;
+    margin: 0 auto;
+}
+
+/* --- Creator Card --- */
+.creator-card {
+    display: block;
+    aspect-ratio: 3 / 4;
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--white);
+    cursor: pointer;
+    position: relative;
+    text-decoration: none;
+    transition: box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06),
+                0 8px 24px rgba(0, 0, 0, 0.04);
+    /* Base appearance: always visible, GSAP handles entrance if available */
+    opacity: 1;
+}
+
+.creator-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.10),
+                0 20px 50px rgba(0, 0, 0, 0.08);
+}
+
+.creator-card-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.3s ease;
+}
+
+.creator-card:hover .creator-card-img {
+    transform: scale(1.08);
+}
+
+.card-inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 16px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0.82) 100%);
+}
+
+/* Name — reveals on hover */
+.card-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: #FFFFFF;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    letter-spacing: -0.01em;
+}
+
+.creator-card:hover .card-name {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Responsive Grid Breakpoints --- */
+
+@media (max-width: 1200px) {
+    .roster-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+    }
+}
+
+@media (max-width: 850px) {
+    .roster-main {
+        padding-top: 110px;
+    }
+
+    .roster-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+
+    .card-name {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 550px) {
+    .roster-main {
+        padding-top: 85px;
+        padding-bottom: 40px;
+    }
+
+    .roster-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 0 16px;
+    }
+
+    .creator-card {
+        border-radius: 12px;
+    }
+
+    .card-name {
+        font-size: 0.8rem;
+        padding: 8px;
+    }
+}
+
+/* ============================================
+   CREATOR DETAIL INTERACTIVE MODAL
+   ============================================ */
+.creator-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.creator-modal-backdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.creator-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(14, 9, 6, 0.82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.creator-modal-card {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 860px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #19120e;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 30px;
+    box-shadow: 0 40px 90px rgba(0, 0, 0, 0.75),
+                0 0 60px var(--creator-accent-glow, rgba(126, 212, 200, 0.2));
+    padding: 40px;
+    color: #ffffff;
+    transform: scale(0.93) translateY(20px);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.creator-modal-backdrop.is-open .creator-modal-card {
+    transform: scale(1) translateY(0);
+}
+
+.creator-modal-close {
+    position: absolute;
+    top: 22px;
+    right: 24px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.7);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: all 0.2s ease;
+    z-index: 20;
+}
+
+.creator-modal-close:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.16);
+    transform: rotate(90deg);
+}
+
+.creator-modal-body {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 36px;
+    align-items: start;
+}
+
+/* Left: Media Portrait */
+.creator-modal-media-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.creator-modal-photo-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+    border: 3px solid var(--creator-accent-color, #7ED4C8);
+}
+
+.creator-modal-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.creator-modal-cereal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--creator-accent-color, #7ED4C8);
+    color: var(--creator-accent-color, #7ED4C8);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* Right: Info Col */
+.creator-modal-info-col {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.creator-modal-tags-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.creator-modal-category {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 30px;
+    background: rgba(126, 212, 200, 0.12);
+    color: var(--creator-accent-color, #7ED4C8);
+    border: 1px solid rgba(126, 212, 200, 0.25);
+}
+
+.creator-modal-title {
+    font-size: 2.6rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: #ffffff;
+}
+
+.creator-modal-metrics-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.creator-modal-metrics-box svg {
+    width: 18px;
+    height: 18px;
+    color: var(--creator-accent-color, #7ED4C8);
+    flex-shrink: 0;
+}
+
+.creator-modal-bio-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.creator-modal-bio-title {
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.creator-modal-bio-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.78);
+}
+
+/* Social Channels */
+.creator-modal-socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.creator-social-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.creator-social-pill svg {
+    width: 16px;
+    height: 16px;
+}
+
+.creator-social-pill:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.14);
+    border-color: var(--creator-accent-color, #7ED4C8);
+}
+
+.creator-social-pill.pill-ig:hover {
+    color: #f43f5e;
+}
+
+.creator-social-pill.pill-tt:hover {
+    color: #38bdf8;
+}
+
+.creator-social-pill.pill-yt:hover {
+    color: #ef4444;
+}
+
+/* CTA Action */
+.creator-modal-cta-row {
+    margin-top: 10px;
+}
+
+.creator-modal-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 28px;
+    border-radius: 16px;
+    background: var(--creator-accent-color, #7ED4C8);
+    color: #120d0a;
+    font-weight: 800;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.creator-modal-cta-btn svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.2s ease;
+}
+
+.creator-modal-cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    filter: brightness(1.1);
+}
+
+.creator-modal-cta-btn:hover svg {
+    transform: translateX(4px);
+}
+
+/* Responsive Modal */
+@media (max-width: 768px) {
+    .creator-modal-card {
+        padding: 28px 22px;
+        border-radius: 24px;
+    }
+
+    .creator-modal-body {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .creator-modal-media-col {
+        max-width: 200px;
+        margin: 0 auto;
+    }
+
+    .creator-modal-title {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .creator-modal-tags-row {
+        justify-content: center;
+    }
+
+    .creator-modal-cta-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+/* --- Roster Search & Filters --- */
+.roster-search-bar {
+    width: 100%;
+    max-width: 1540px;
+    padding: 0 40px;
+    margin: 0 auto 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 2;
+    position: relative;
+}
+
+.roster-search-input-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+}
+
+.roster-search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: #483C32;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.roster-search-input {
+    width: 100%;
+    padding: 14px 18px 14px 48px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #483C32;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1.5px solid rgba(72, 60, 50, 0.15);
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    backdrop-filter: blur(8px);
+}
+
+.roster-search-input::placeholder {
+    color: #483C32;
+    opacity: 0.4;
+}
+
+.roster-search-input:focus {
+    border-color: #483C32;
+    box-shadow: 0 0 0 3px rgba(72, 60, 50, 0.08);
+}
+
+.roster-filter-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.roster-filter-pill {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 100px;
+    border: 1.5px solid rgba(72, 60, 50, 0.2);
+    background: rgba(255, 255, 255, 0.6);
+    color: #483C32;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
+}
+
+.roster-filter-pill:hover {
+    background: rgba(72, 60, 50, 0.08);
+    border-color: rgba(72, 60, 50, 0.35);
+}
+
+.roster-filter-pill.is-active {
+    background: #483C32;
+    color: #ffffff;
+    border-color: #483C32;
+}
+
+/* --- Roster Footer --- */
+.roster-footer {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    background: #483C32;
+    padding: 48px 40px 32px;
+    margin-top: 80px;
+}
+
+.roster-footer-inner {
+    max-width: 1540px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.roster-footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.roster-footer-logo {
+    height: 32px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    opacity: 0.85;
+}
+
+.roster-footer-tagline {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.02em;
+}
+
+.roster-footer-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.roster-footer-links a {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.roster-footer-links a:hover {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.roster-footer-links span {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.8rem;
+}
+
+.roster-footer-copy {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+    .roster-search-bar {
+        padding: 0 20px;
+    }
+    .roster-footer {
+        padding: 36px 20px 24px;
+    }
+}

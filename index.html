@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHAKERSSS — We sell creators, not cereals</title>
+    <meta name="description" content="SHAKERSSS es una agencia de representación de creadores de contenido. We sell creators, not cereals. Let's shake the world!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=about_boxes_v2">
+    <link rel="icon" type="image/png" href="shakersss_logo.png">
+    <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+    </script>
+</head>
+<body>
+
+    <!-- ========== HEADER ========== -->
+    <header class="header" id="main-header">
+        <button class="menu-btn" id="menu-toggle" aria-label="Abrir menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <a href="/" class="header-logo" id="header-logo">
+            <img src="shakersss_logo.png" alt="Shakersss — Let's shake the world!">
+        </a>
+    </header>
+
+    <!-- ========== NAVIGATION DRAWER ========== -->
+    <div class="nav-drawer-overlay" id="nav-drawer-overlay" aria-hidden="true"></div>
+    <aside class="nav-drawer" id="nav-drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Menú principal">
+        <div class="nav-drawer-header">
+            <img src="shakersss_logo.png" alt="SHAKERSSS" class="nav-drawer-logo">
+            <button class="nav-close-btn" id="nav-close-btn" aria-label="Cerrar menú">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <nav class="nav-drawer-links">
+            <a href="index.html" class="nav-link" data-link="home">
+                <span class="nav-link-num">01</span>
+                <span class="nav-link-text">home</span>
+            </a>
+            <a href="index.html#about-us" class="nav-link" data-link="about">
+                <span class="nav-link-num">02</span>
+                <span class="nav-link-text">about usss</span>
+            </a>
+            <a href="#creators" class="nav-link" data-link="creators">
+                <span class="nav-link-num">03</span>
+                <span class="nav-link-text">our creatorsss</span>
+            </a>
+            <a href="contact.html" class="nav-link" data-link="contact">
+                <span class="nav-link-num">04</span>
+                <span class="nav-link-text">contacto</span>
+            </a>
+        </nav>
+        <div class="nav-drawer-footer">
+            <span class="nav-footer-label">Follow the shake</span>
+            <div class="nav-social-row">
+                <a href="https://instagram.com" target="_blank" rel="noopener" class="nav-social-item">Instagram</a>
+                <a href="https://tiktok.com" target="_blank" rel="noopener" class="nav-social-item">TikTok</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener" class="nav-social-item">LinkedIn</a>
+            </div>
+            <p class="nav-copy">© 2026 SHAKERSSS S.L. All rights reserved.</p>
+        </div>
+    </aside>
+
+    <!-- Fullscreen Transition Curtain 1 (Light Blue-Green Brand Wipe: Hero -> Success) -->
+    <div class="transition-curtain" id="transition-curtain"></div>
+
+    <!-- Fullscreen Transition Curtain 2 (Topo Brand Wipe: Success -> Contact) -->
+    <div class="transition-curtain-topo" id="transition-curtain-topo"></div>
+
+    <!-- ========== HERO & MAIN STAGE ========== -->
+    <main class="main-experience" id="main-experience">
+        <section class="hero" id="hero">
+
+            <!-- Background Video -->
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="bg_video.mp4" type="video/mp4">
+            </video>
+            <!-- Headline -->
+            <h1 class="hero-headline" id="hero-headline">
+                we sell creators, <span class="highlight">not cereals</span>
+            </h1>
+
+            <!-- SVG Filter for Topo Color (#483C32) -->
+            <svg width="0" height="0" style="position: absolute; width: 0; height: 0; pointer-events: none;" aria-hidden="true">
+                <filter id="topo-filter">
+                    <feColorMatrix type="matrix" values="
+                        0.282 0 0 0 0
+                        0.235 0 0 0 0
+                        0.196 0 0 0 0
+                        0     0 0 1 0" />
+                </filter>
+            </svg>
+
+            <!-- Marquee: Brand Logos in Continuous Infinite Loop (Recovered Previous Size) -->
+            <div class="marquee-container" id="marquee">
+                <div class="marquee-track">
+                    <!-- Group 1 -->
+                    <div class="marquee-group">
+                        <div class="logo-item" style="--col:0;--row:0" title="Nike"></div>
+                        <div class="logo-item" style="--col:1;--row:0" title="Adidas"></div>
+                        <div class="logo-item" style="--col:2;--row:0" title="Spotify"></div>
+                        <div class="logo-item" style="--col:3;--row:0" title="Red Bull"></div>
+                        <div class="logo-item" style="--col:0;--row:1" title="Mercedes-Benz"></div>
+                        <div class="logo-item" style="--col:1;--row:1" title="Apple"></div>
+                        <div class="logo-item" style="--col:2;--row:1" title="Taco Bell"></div>
+                        <div class="logo-item" style="--col:3;--row:1" title="Logitech"></div>
+                        <div class="logo-item" style="--col:0;--row:2" title="Caja Rural"></div>
+                        <div class="logo-item" style="--col:1;--row:2" title="Jose Cuervo"></div>
+                        <div class="logo-item" style="--col:2;--row:2" title="Keler"></div>
+                        <div class="logo-item" style="--col:3;--row:2" title="Pringles"></div>
+                    </div>
+                    <!-- Group 2 (duplicate for seamless loop) -->
+                    <div class="marquee-group" aria-hidden="true">
+                        <div class="logo-item" style="--col:0;--row:0" title="Nike"></div>
+                        <div class="logo-item" style="--col:1;--row:0" title="Adidas"></div>
+                        <div class="logo-item" style="--col:2;--row:0" title="Spotify"></div>
+                        <div class="logo-item" style="--col:3;--row:0" title="Red Bull"></div>
+                        <div class="logo-item" style="--col:0;--row:1" title="Mercedes-Benz"></div>
+                        <div class="logo-item" style="--col:1;--row:1" title="Apple"></div>
+                        <div class="logo-item" style="--col:2;--row:1" title="Taco Bell"></div>
+                        <div class="logo-item" style="--col:3;--row:1" title="Logitech"></div>
+                        <div class="logo-item" style="--col:0;--row:2" title="Caja Rural"></div>
+                        <div class="logo-item" style="--col:1;--row:2" title="Jose Cuervo"></div>
+                        <div class="logo-item" style="--col:2;--row:2" title="Keler"></div>
+                        <div class="logo-item" style="--col:3;--row:2" title="Pringles"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll Down Indicator -->
+            <button class="hero-scroll-indicator" id="hero-scroll-btn" aria-label="Scroll down to shake the world">
+                <span class="scroll-indicator-text">SCROLL DOWN TO SHAKE THE WORLD</span>
+            </button>
+        </section>
+
+        <!-- ========== ABOUT US SECTION (Section 2) ========== -->
+        <section class="about-section" id="about-us">
+            <div class="about-container" id="about-container">
+                <div class="about-header" id="about-header">
+                    <h2 class="about-headline" id="about-headline">about usss</h2>
+                    <div class="about-bio-wrap" id="about-bio-wrap">
+                        <p class="about-bio-body">
+                            No somos una agencia convencional. Agitamos las reglas del juego. Conectamos a la nueva generación de creadores que marcan cultura con marcas globales que no temen destacar. Diseñamos colaboraciones disruptivas, producimos contenido que rompe el algoritmo y convertimos audiencias en comunidades fieles. <strong>We don’t follow trends, we create them.</strong>
+                        </p>
+                    </div>
+                </div>
+                <!-- Keep shaking CTA with bouncing arrow -->
+                <div class="keep-shaking-cta" id="keep-shaking-cta">
+                    <span class="keep-shaking-text">keep shaking!!</span>
+                    <div class="keep-shaking-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CREATORS SECTION (Section 3 — Detrás de About Us) ========== -->
+        <section class="creators-section" id="creators">
+            <!-- Headline "our creatorsss" layered behind/above boxes -->
+            <h2 class="roster-headline" id="roster-headline">our creatorsss</h2>
+
+            <!-- Cereal Boxes Shelf & Animation -->
+            <div class="roster-wrapper" id="roster-wrapper">
+
+                    <!-- Arrow Left -->
+                    <button class="roster-arrow roster-arrow-left" id="arrow-left" aria-label="Ver creadores anteriores">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+
+                <!-- Viewport -->
+                <div class="roster-viewport" id="roster-viewport">
+                    <div class="roster" id="roster">
+
+                        <!-- Box 1: Luna -->
+                        <a href="roster.html" class="cereal-box" id="box-luna" style="--box-color: #E63946">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Luna</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Luna" loading="eager">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Lifestyle &amp; Fashion</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+1.8M Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="eager">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Luna</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                        <!-- Box 2: Marco -->
+                        <a href="roster.html" class="cereal-box" id="box-marco" style="--box-color: #2A9D8F">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Marco</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" alt="Marco" loading="eager">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Fitness &amp; Calistenia</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+920K Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="eager">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Marco</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                        <!-- Box 3: Valentina -->
+                        <a href="roster.html" class="cereal-box" id="box-valentina" style="--box-color: #D4A03C">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Valentina</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80" alt="Valentina" loading="lazy">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Tech &amp; Future</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+1.4M Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="lazy">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Valentina</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                        <!-- Box 4: Diego -->
+                        <a href="roster.html" class="cereal-box" id="box-diego" style="--box-color: #264653">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Diego</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80" alt="Diego" loading="lazy">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Gaming &amp; Streaming</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+2.2M Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="lazy">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Diego</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                        <!-- Box 5: Sofía -->
+                        <a href="roster.html" class="cereal-box" id="box-sofia" style="--box-color: #F4A261">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Sofía</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80" alt="Sofía" loading="lazy">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Food &amp; Gastro</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+1.1M Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="lazy">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Sofía</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                        <!-- Box 6: Mateo -->
+                        <a href="roster.html" class="cereal-box" id="box-mateo" style="--box-color: #7B2D8B">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Mateo</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=80" alt="Mateo" loading="lazy">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Music &amp; Urban Beats</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+850K Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="lazy">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Mateo</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                        <!-- Box 7: Carla -->
+                        <a href="roster.html" class="cereal-box" id="box-carla" style="--box-color: #1D3557">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Carla</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80" alt="Carla" loading="lazy">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Travel &amp; Adventure</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+1.3M Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="lazy">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Carla</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                        <!-- Box 8: Pablo -->
+                        <a href="roster.html" class="cereal-box" id="box-pablo" style="--box-color: #2D6A4F">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Pablo</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=800&q=80" alt="Pablo" loading="lazy">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Comedy &amp; Viral</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+2.5M Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="lazy">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Pablo</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                        <!-- Box 9: Daniela -->
+                        <a href="roster.html" class="cereal-box" id="box-daniela" style="--box-color: #E76F51">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Daniela</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80" alt="Daniela" loading="lazy">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Beauty &amp; Self-Care</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+980K Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="lazy">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Daniela</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                        <!-- Box 10: Nico -->
+                        <a href="roster.html" class="cereal-box" id="box-nico" style="--box-color: #457B9D">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Nico</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80" alt="Nico" loading="lazy">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Action Sports &amp; Skate</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+720K Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="lazy">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Nico</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                        <!-- Box 11: Adrián -->
+                        <a href="roster.html" class="cereal-box" id="box-adrian" style="--box-color: #6B4C9A">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Adrián</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80" alt="Adrián" loading="lazy">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Cinema &amp; Visual Story</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+640K Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="lazy">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Adrián</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                        <!-- Box 12: Claudia -->
+                        <a href="roster.html" class="cereal-box" id="box-claudia" style="--box-color: #D64045">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Claudia</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=800&q=80" alt="Claudia" loading="lazy">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Dance &amp; Choreography</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+1.9M Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="lazy">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Claudia</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                        <!-- Box 13: Tomás -->
+                        <a href="roster.html" class="cereal-box" id="box-tomas" style="--box-color: #1B998B">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Tomás</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=800&q=80" alt="Tomás" loading="lazy">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Science &amp; Curiosity</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+1.1M Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="lazy">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Tomás</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                        <!-- Box 14: Lucía -->
+                        <a href="roster.html" class="cereal-box" id="box-lucia" style="--box-color: #E8871E">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Lucía</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=800&q=80" alt="Lucía" loading="lazy">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Mindfulness &amp; Habits</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+580K Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="lazy">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Lucía</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                        <!-- Box 15: Hugo -->
+                        <a href="roster.html" class="cereal-box" id="box-hugo" style="--box-color: #2C3E50">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Hugo</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&w=800&q=80" alt="Hugo" loading="lazy">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Motor &amp; Supercars</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+1.6M Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="lazy">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Hugo</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                        <!-- Box 16: Elena -->
+                        <a href="roster.html" class="cereal-box" id="box-elena" style="--box-color: #C0392B">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Elena</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=80" alt="Elena" loading="lazy">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Books &amp; Culture</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+890K Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="lazy">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Elena</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                        <!-- Box 17: Álex -->
+                        <a href="roster.html" class="cereal-box" id="box-alex" style="--box-color: #27AE60">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Álex</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=800&q=80" alt="Álex" loading="lazy">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Eco &amp; Sustainability</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+710K Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="lazy">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Álex</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                        <!-- Box 18: Marta -->
+                        <a href="roster.html" class="cereal-box" id="box-marta" style="--box-color: #8E44AD">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Marta</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=crop&w=800&q=80" alt="Marta" loading="lazy">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Digital Art &amp; 3D</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+620K Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="lazy">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Marta</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                        <!-- Box 19: Iván -->
+                        <a href="roster.html" class="cereal-box" id="box-ivan" style="--box-color: #D35400">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Iván</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&fit=crop&w=800&q=80" alt="Iván" loading="lazy">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Podcaster &amp; Talks</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+1.5M Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="lazy">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Iván</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                        <!-- Box 20: Paula -->
+                        <a href="roster.html" class="cereal-box" id="box-paula" style="--box-color: #2980B9">
+                            <div class="box-inner">
+                                <div class="box-face box-front">
+                                    <div class="box-front-name-layer">
+                                        <span class="box-name box-front-creator-name">Paula</span>
+                                    </div>
+                                    <div class="box-front-cutout-wrap">
+                                        <img class="box-front-cutout-img is-fallback-photo" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80" alt="Paula" loading="lazy">
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-left">
+                                        <span class="badge-label">Especializado en</span>
+                                        <span class="badge-val">Streetwear &amp; Sneakers</span>
+                                    </div>
+                                    <div class="box-front-badge box-front-badge-right">
+                                        <span class="badge-val">+1.05M Seguidores</span>
+                                        <span class="badge-label">seguidores</span>
+                                    </div>
+                                    <img class="box-front-overlay" src="plantilla_box.png" alt="SHAKERSSS Cereal Box" loading="lazy">
+                                </div>
+                                <div class="box-face box-right"></div>
+                                <div class="box-face box-left"><span class="spine-brand">SHAKERSSS</span><span class="spine-name">Paula</span></div>
+                                <div class="box-top-wrapper">
+                                    <div class="box-flap box-flap-back"></div>
+                                    <div class="box-flap box-flap-front"></div>
+                                </div>
+                                <div class="box-face box-back"></div>
+                                <div class="box-face box-bottom"></div>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+
+                <!-- Arrow Right -->
+                <button class="roster-arrow roster-arrow-right" id="arrow-right" aria-label="Ver siguientes creadores">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 6 15 12 9 18"></polyline>
+                    </svg>
+                </button>
+
+                <!-- Discover CTA below boxes -->
+                <a href="roster.html" class="discover-cta" id="discover-cta">
+                    <span>click to discover all our creators</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </section>
+
+        <!-- Success cases replaced by about usss -->
+
+
+        <!-- ========== FOOTER & CONTACT SECTION (Section 3) ========== -->
+    <footer class="footer-section" id="contact">
+        <div class="footer-container">
+
+            <!-- Header / Call To Action -->
+            <div class="footer-header footer-reveal">
+                <span class="footer-badge">CONTACTO & TALENT BOOKING</span>
+                <h2 class="footer-title">
+                    Let’s shake the world <span class="highlight-mint">together.</span>
+                </h2>
+                <p class="footer-subtitle">
+                    Representamos a la nueva generación de creadores de contenido y co-creamos campañas virales con marcas líderes a nivel global. Hablemos de tu próximo movimiento.
+                </p>
+            </div>
+
+            <!-- 3 Premium Contact Cards Grid -->
+            <div class="footer-contact-grid">
+
+                <!-- Card 1: Email & Booking -->
+                <div class="footer-card footer-reveal">
+                    <div class="card-icon-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                        </svg>
+                    </div>
+                    <span class="card-category">EMAIL & BOOKING</span>
+                    <h3 class="card-headline">
+                        <a href="mailto:hello@shakersss.com" class="card-main-link">hello@shakersss.com</a>
+                    </h3>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Marcas & Campañas:</span>
+                            <a href="mailto:brands@shakersss.com" class="detail-link">brands@shakersss.com</a>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Talent Scouting:</span>
+                            <a href="mailto:talent@shakersss.com" class="detail-link">talent@shakersss.com</a>
+                        </div>
+                    </div>
+                    <div class="card-badge">
+                        <span class="badge-dot"></span>
+                        <span>Respuesta media: &lt; 24h</span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Phone & Mobile Direct -->
+                <div class="footer-card footer-reveal">
+                    <div class="card-icon-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect>
+                            <path d="M12 18h.01"></path>
+                        </svg>
+                    </div>
+                    <span class="card-category">TELÉFONO & MÓVIL DIRECTO</span>
+                    <h3 class="card-headline">
+                        <a href="tel:+34910884219" class="card-main-link">+34 910 88 42 19</a>
+                    </h3>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Línea móvil & WhatsApp:</span>
+                            <a href="https://wa.me/34682914320" target="_blank" rel="noopener noreferrer" class="detail-link whatsapp-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="whatsapp-icon"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                                +34 682 914 320
+                            </a>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Horario oficina:</span>
+                            <span class="detail-text">Lun – Vie · 9:00 a 19:30 CET</span>
+                        </div>
+                    </div>
+                    <div class="card-badge badge-active">
+                        <span class="badge-dot dot-active"></span>
+                        <span>Línea activa para marcas & talentos</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Headquarters & Hubs -->
+                <div class="footer-card footer-reveal">
+                    <div class="card-icon-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                    </div>
+                    <span class="card-category">SEDE & HUBS</span>
+                    <h3 class="card-headline">
+                        <span class="card-main-text">Madrid, España</span>
+                    </h3>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Dirección central:</span>
+                            <span class="detail-text">Paseo de la Castellana 95, Planta 14<br>28046 Madrid</span>
+                        </div>
+                    </div>
+                    <div class="city-tags">
+                        <span class="city-tag">Madrid</span>
+                        <span class="city-tag">Barcelona</span>
+                        <span class="city-tag">México DF</span>
+                        <span class="city-tag">Miami</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Footer Bottom Bar -->
+            <div class="footer-bottom-bar footer-reveal">
+                <div class="bottom-brand">
+                    <img src="shakersss_logo.png" alt="SHAKERSSS" class="footer-logo">
+                    <span class="brand-tagline">We sell creators, not cereals.</span>
+                </div>
+
+                <div class="bottom-links">
+                    <a href="#">Aviso Legal</a>
+                    <span class="divider">·</span>
+                    <a href="#">Privacidad</a>
+                    <span class="divider">·</span>
+                    <a href="#">Cookies</a>
+                    <span class="divider">·</span>
+                    <a href="roster.html">Roster</a>
+                </div>
+
+                <div class="bottom-right">
+                    <span class="copyright">© 2026 SHAKERSSS S.L. All rights reserved.</span>
+                    <button class="back-to-top" id="back-to-top" aria-label="Volver al inicio">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                        <span>Arriba</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    </main>
+
+    <!-- GSAP & Lenis Smooth Scroll -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/ScrollTrigger.min.js"></script>
+    <script src="lenis.min.js"></script>
+    <script src="nav-menu.js"></script>
+    <!-- Supabase Client & Dynamic Data Service -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="shakersss-data.js?v=admin_v1"></script>
+    <script src="script.js?v=about_boxes_v2"></script>
+</body>
+</html>

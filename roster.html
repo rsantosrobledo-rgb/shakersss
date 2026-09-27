@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHAKERSSS — Roster</title>
+    <meta name="description" content="Conoce a nuestros creadores de contenido. SHAKERSSS Roster — We sell creators, not cereals.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=mobile_v11">
+    <link rel="stylesheet" href="roster.css?v=topo_50">
+    <link rel="icon" type="image/png" href="shakersss_logo.png">
+</head>
+<body class="roster-page">
+
+    <!-- ========== HEADER ========== -->
+    <header class="header" id="main-header">
+        <button class="menu-btn" id="menu-toggle" aria-label="Abrir menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <a href="index.html" class="header-logo" id="header-logo">
+            <img src="shakersss_logo.png" alt="Shakersss — Let's shake the world!">
+        </a>
+    </header>
+
+    <!-- ========== NAVIGATION DRAWER ========== -->
+    <div class="nav-drawer-overlay" id="nav-drawer-overlay" aria-hidden="true"></div>
+    <aside class="nav-drawer" id="nav-drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Menú principal">
+        <div class="nav-drawer-header">
+            <img src="shakersss_logo.png" alt="SHAKERSSS" class="nav-drawer-logo">
+            <button class="nav-close-btn" id="nav-close-btn" aria-label="Cerrar menú">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <nav class="nav-drawer-links">
+            <a href="index.html" class="nav-link" data-link="home">
+                <span class="nav-link-num">01</span>
+                <span class="nav-link-text">home</span>
+            </a>
+            <a href="index.html#about-us" class="nav-link" data-link="about">
+                <span class="nav-link-num">02</span>
+                <span class="nav-link-text">about usss</span>
+            </a>
+            <a href="roster.html" class="nav-link" data-link="creators">
+                <span class="nav-link-num">03</span>
+                <span class="nav-link-text">our creatorsss</span>
+            </a>
+            <a href="contact.html" class="nav-link" data-link="contact">
+                <span class="nav-link-num">04</span>
+                <span class="nav-link-text">contacto</span>
+            </a>
+        </nav>
+        <div class="nav-drawer-footer">
+            <span class="nav-footer-label">Follow the shake</span>
+            <div class="nav-social-row">
+                <a href="https://instagram.com" target="_blank" rel="noopener" class="nav-social-item">Instagram</a>
+                <a href="https://tiktok.com" target="_blank" rel="noopener" class="nav-social-item">TikTok</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener" class="nav-social-item">LinkedIn</a>
+            </div>
+            <p class="nav-copy">© 2026 SHAKERSSS S.L. All rights reserved.</p>
+        </div>
+    </aside>
+
+    <!-- ========== BACKGROUND VIDEO ========== -->
+    <video class="roster-bg-video" autoplay muted loop playsinline>
+        <source src="bg_video.mp4" type="video/mp4">
+    </video>
+
+    <!-- ========== ROSTER ========== -->
+    <main class="roster-main" id="roster-main">
+
+        <div class="roster-header-section">
+            <h1 class="roster-page-title">our creatorsss</h1>
+            <p class="roster-page-subtitle">We sell creators, not cereals</p>
+        </div>
+
+        <!-- Search & Filters -->
+        <div class="roster-search-bar" id="roster-search-bar">
+            <div class="roster-search-input-wrap">
+                <svg class="roster-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" class="roster-search-input" id="roster-search-input" placeholder="Buscar creador por nombre..." autocomplete="off">
+            </div>
+            <div class="roster-filter-pills" id="roster-filter-pills">
+                <button class="roster-filter-pill is-active" data-filter="all">Todos</button>
+                <button class="roster-filter-pill" data-filter="lifestyle">Lifestyle</button>
+                <button class="roster-filter-pill" data-filter="moda">Moda</button>
+                <button class="roster-filter-pill" data-filter="gaming">Gaming</button>
+                <button class="roster-filter-pill" data-filter="deportes">Deportes</button>
+                <button class="roster-filter-pill" data-filter="musica">Música</button>
+                <button class="roster-filter-pill" data-filter="comedia">Comedia</button>
+            </div>
+        </div>
+
+        <div class="roster-grid" id="roster-grid">
+            <!-- Hydrated dynamically with 50 slots via shakersssData.hydrateRosterPage() -->
+        </div>
+
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="roster-footer">
+        <div class="roster-footer-inner">
+            <div class="roster-footer-brand">
+                <img src="shakersss_logo.png" alt="SHAKERSSS" class="roster-footer-logo">
+                <span class="roster-footer-tagline">We sell creators, not cereals.</span>
+            </div>
+            <div class="roster-footer-links">
+                <a href="index.html">Home</a>
+                <span>·</span>
+                <a href="contact.html">Contacto</a>
+                <span>·</span>
+                <a href="#">Aviso Legal</a>
+                <span>·</span>
+                <a href="#">Privacidad</a>
+            </div>
+            <span class="roster-footer-copy">© 2026 SHAKERSSS S.L. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <!-- ========== CREATOR DETAIL MODAL ========== -->
+    <div class="creator-modal-backdrop" id="creator-detail-modal" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="creator-modal-overlay" id="creator-detail-overlay"></div>
+        <div class="creator-modal-card" id="creator-modal-card">
+            <button class="creator-modal-close" id="creator-detail-close" aria-label="Cerrar modal">&times;</button>
+            <div class="creator-modal-body">
+                
+                <!-- Left: Big Media Portrait -->
+                <div class="creator-modal-media-col">
+                    <div class="creator-modal-photo-frame">
+                        <img src="" alt="" class="creator-modal-photo" id="modal-creator-photo">
+                        <div class="creator-modal-color-ring"></div>
+                    </div>
+                    <div class="creator-modal-cereal-badge" id="modal-creator-cereal-badge">
+                        <span class="badge-bowl-icon">🥣</span>
+                        <span id="modal-creator-cereal-text">CEREAL BOX CREATOR</span>
+                    </div>
+                </div>
+
+                <!-- Right: Information & Action -->
+                <div class="creator-modal-info-col">
+                    <div class="creator-modal-tags-row">
+                        <span class="creator-modal-category" id="modal-creator-category">Lifestyle & Fashion</span>
+                    </div>
+
+                    <h2 class="creator-modal-title" id="modal-creator-name">Luna</h2>
+
+                    <div class="creator-modal-metrics-box" id="modal-creator-metrics-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        <span id="modal-creator-metrics">+1.8M Seguidores · 9.4% Engagement · 82% España</span>
+                    </div>
+
+                    <div class="creator-modal-bio-block">
+                        <h4 class="creator-modal-bio-title">Sobre el Creador</h4>
+                        <p class="creator-modal-bio-text" id="modal-creator-bio">Creadora de contenido viral...</p>
+                    </div>
+
+                    <!-- Social Channels -->
+                    <div class="creator-modal-socials" id="modal-creator-socials">
+                        <a href="#" target="_blank" rel="noopener" class="creator-social-pill pill-ig" id="modal-creator-ig">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                            <span id="modal-creator-ig-text">@luna</span>
+                        </a>
+                        <a href="#" target="_blank" rel="noopener" class="creator-social-pill pill-tt" id="modal-creator-tt">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.29 0 .58.04.86.12V9.4a6.33 6.33 0 0 0-.86-.06A6.34 6.34 0 0 0 3 15.68a6.34 6.34 0 0 0 10.82 4.48 6.3 6.3 0 0 0 1.94-4.52v-6.7a8.28 8.28 0 0 0 4.83 1.54V6.99a4.8 4.8 0 0 1-1-.3z"/></svg>
+                            <span id="modal-creator-tt-text">@luna</span>
+                        </a>
+                        <a href="#" target="_blank" rel="noopener" class="creator-social-pill pill-yt" id="modal-creator-yt">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            <span id="modal-creator-yt-text">Luna</span>
+                        </a>
+                    </div>
+
+                    <!-- Action Button -->
+                    <div class="creator-modal-cta-row">
+                        <a href="contact.html" class="creator-modal-cta-btn" id="modal-creator-cta">
+                            <span id="modal-creator-cta-text">Trabajar con este Creador</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- GSAP for entrance animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"></script>
+    <script src="nav-menu.js"></script>
+    <!-- Supabase Client & Dynamic Data Service -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="shakersss-data.js?v=admin_v1"></script>
+    <script src="roster-script.js?v=topo_v51"></script>
+</body>
+</html>

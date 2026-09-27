@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py
+*.pyc
+
+# Test screenshots & captures
+capture_*.png
+crop_*.png
+shelf_*.png
+step*.png
+test_*.png
+test_*.html
+side_by_side_*.png
+roster_*_verified*.png
+roster_*_render*.png
+admin_*_verified*.png
+admin_*_render*.png
+admin_*_preview*.png
+admin_*_state*.png
+admin_*_upload*.png
+admin_*_queue*.png
+admin_*_editor*.png
+admin_*_modal*.png
+comparison_*.png
+scratch_*.png
+scratch_chrome_profile/
+
+# Scratch/backup files
+prev_*.txt
+scratch_*.js
+bol_backup/
+
+# Temp/debug
+*.log
+luna_*.png
+
+# Generated test images
+Human_face_*.jpg
+Cereal_floating_*.jpg
+Cereals_falling_*.jpg
+51c5852b*.jpg
