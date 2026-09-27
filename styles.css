@@ -27,11 +27,6 @@
 
 html {
     -webkit-font-smoothing: antialiased;
-    scrollbar-width: none; /* Firefox */
-}
-
-html::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Edge */
 }
 
 body {
