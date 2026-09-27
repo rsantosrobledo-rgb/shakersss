@@ -906,6 +906,7 @@ class ShakersssDataService {
             cardEl.style.display = '';
             cardEl.style.opacity = '1';
             cardEl.dataset.creator = c.id;
+            cardEl.dataset.category = (c.category || '').toLowerCase();
             cardEl.id = `card-${c.id}-slot-${idx}`;
             const img = cardEl.querySelector('.creator-card-img');
             if (img) {

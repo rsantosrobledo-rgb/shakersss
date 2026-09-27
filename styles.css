@@ -699,6 +699,11 @@ body.nav-drawer-open {
         /* Cast shadow onto neighbors */
         -2px 0 10px rgba(10, 5, 25, 0.10),
         2px 0 10px rgba(10, 5, 25, 0.10);
+
+    /* High-quality rendering */
+    image-rendering: auto;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
 }
 
 /* Layer 1: Ambient studio lighting */
@@ -739,10 +744,10 @@ body.nav-drawer-open {
         linear-gradient(270deg, rgba(0, 0, 0, 0.08) 0px, transparent 3px),
         /* Cardboard grain */
         url('cardboard_texture.png');
-    background-size: 100%, 100%, 100%, 256px 256px;
+    background-size: 100%, 100%, 100%, 180px 180px;
     background-repeat: no-repeat, no-repeat, no-repeat, repeat;
     mix-blend-mode: multiply;
-    opacity: 0.30;
+    opacity: 0.20;
     pointer-events: none;
     z-index: 10;
     /* Above all other layers */
@@ -811,6 +816,7 @@ body.nav-drawer-open {
     object-position: bottom center;
     filter: contrast(1.10) brightness(1.02);
     transition: transform 0.12s ease-out;
+    image-rendering: -webkit-optimize-contrast;
 }
 
 /* Fallback photo styling without artificial white card border */

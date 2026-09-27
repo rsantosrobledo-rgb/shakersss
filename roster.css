@@ -520,6 +520,7 @@
     margin: 0 auto 40px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 16px;
     z-index: 2;
     position: relative;
@@ -571,6 +572,7 @@
 .roster-filter-pills {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 8px;
 }
 
@@ -627,7 +629,6 @@
 .roster-footer-logo {
     height: 32px;
     width: auto;
-    filter: brightness(0) invert(1);
     opacity: 0.85;
 }
 
