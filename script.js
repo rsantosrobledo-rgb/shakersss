@@ -185,10 +185,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const rootStyles = getComputedStyle(document.documentElement);
     const boxW = parseInt(rootStyles.getPropertyValue('--box-w')) || 210;
     const boxD = parseInt(rootStyles.getPropertyValue('--box-d')) || 60;
-    const scrollAmount = (boxW + 16) * 3;
+    const isMobileScreen = window.innerWidth <= 600;
+    const scrollAmount = isMobileScreen ? (boxW + 14) : (boxW + 28) * 2;
 
     // --- Tight packing: spines neatly side-by-side with clean visible separation ---
-    const spineGap = 35; // clean visible separation between spines
+    const spineGap = isMobileScreen ? 22 : 35; // clean visible separation between spines
     const initialMargin = -(boxW - boxD - spineGap);
 
     // Center the packed group in the viewport
@@ -467,9 +468,13 @@ document.addEventListener('DOMContentLoaded', () => {
         0.19
     );
 
-    // Boxes rise from y:500 (off-screen) to y:280 (bottom portion visible)
+    // Boxes rise from y:500 (off-screen) to bottom portion visible (proportional to box height)
     tl.to(rosterWrapper, {
-        y: 250,
+        y: () => {
+            const root = getComputedStyle(document.documentElement);
+            const boxH = parseInt(root.getPropertyValue('--box-h')) || 400;
+            return Math.round(boxH * 0.625);
+        },
         duration: 0.08,
         ease: 'power2.out',
     }, 0.19);
@@ -514,7 +519,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const rootStyles = getComputedStyle(document.documentElement);
             const boxH = parseInt(rootStyles.getPropertyValue('--box-h')) || 400;
             const isMobile = window.innerWidth <= 600;
-            const offset = isMobile ? 40 : 120;
+            const offset = isMobile ? 30 : 120;
             return -(vh - boxH) / 2 + offset;
         },
         duration: 0.10,
@@ -523,7 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Boxes spread apart (margin goes from packed to spaced)
     tl.to(boxes, {
-        marginRight: window.innerWidth <= 600 ? 12 : 28,
+        marginRight: window.innerWidth <= 600 ? 14 : 28,
         duration: 0.10,
         ease: 'power2.out',
         stagger: { each: 0.003, from: 'center' },

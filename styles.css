@@ -712,6 +712,9 @@ body.nav-drawer-open {
 .box-face {
     position: absolute;
     backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform-style: flat;
+    -webkit-transform-style: flat;
 }
 
 /* --- FRONT FACE (Programmatic Cereal Box Design) --- */
@@ -722,6 +725,9 @@ body.nav-drawer-open {
     overflow: hidden;
     border-radius: 4px;
     position: relative;
+    transform-style: flat;
+    -webkit-transform-style: flat;
+    isolation: isolate;
 
     /* Base cardboard texture + box brand color */
     background-color: var(--box-color, #E63946);
@@ -756,6 +762,7 @@ body.nav-drawer-open {
     content: '';
     position: absolute;
     inset: 0;
+    transform: translateZ(1px);
     background:
         /* Warm highlight — top-left studio key light */
         radial-gradient(ellipse 60% 45% at 20% 12%,
@@ -782,6 +789,7 @@ body.nav-drawer-open {
     content: '';
     position: absolute;
     inset: 0;
+    transform: translateZ(6px);
     background-image:
         /* Edge bevel highlights */
         linear-gradient(90deg, rgba(0, 0, 0, 0.10) 0px, transparent 3px),
@@ -812,7 +820,7 @@ body.nav-drawer-open {
     text-align: center;
     z-index: 2;
     pointer-events: none;
-    transform: translateY(-50%);
+    transform: translateY(-50%) translateZ(2px);
     padding: 0 10px;
 }
 
@@ -847,6 +855,7 @@ body.nav-drawer-open {
     justify-content: center;
     z-index: 3;
     pointer-events: none;
+    transform: translateZ(3px);
 }
 
 .box-front-cutout-img {
@@ -881,7 +890,7 @@ body.nav-drawer-open {
 .box-front-badge {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-50%) translateZ(4px);
     z-index: 4;
     pointer-events: none;
     display: flex;
@@ -930,6 +939,7 @@ body.nav-drawer-open {
     z-index: 5;
     pointer-events: none;
     user-select: none;
+    transform: translateZ(5px);
 }
 
 
@@ -1227,94 +1237,49 @@ body.nav-drawer-open {
 
 @media (max-width: 600px) {
     :root {
-        --box-w: 180px;
-        --box-h: 225px;
-        --box-d: 60px;
+        --box-w: 200px;
+        --box-h: 260px;
+        --box-d: 70px;
     }
 
-    .hero-headline {
-        top: 20%;
-        font-size: clamp(1.4rem, 6.5vw, 2.0rem);
-        line-height: 1.2;
-        white-space: normal;
-        width: 90%;
-        max-width: 90%;
-    }
-
-    .marquee-container {
-        top: 32%;
-    }
-
-    .logo-item svg {
-        width: 42px;
-        height: 42px;
-    }
-
-    .box-brand {
-        font-size: 0.50rem;
-        letter-spacing: 1.5px;
+    .cereal-box {
+        perspective: 850px;
+        perspective-origin: center -10%;
     }
 
     .box-name,
     .box-front-creator-name {
-        font-size: calc(var(--box-name-size, 3.0rem) * 0.6);
-        -webkit-text-stroke-width: calc(var(--box-name-stroke, 4px) * 0.6);
-    }
-
-    .box-category {
-        display: none;
+        font-size: calc(var(--box-name-size, 3.0rem) * 0.67);
+        -webkit-text-stroke-width: calc(var(--box-name-stroke, 4px) * 0.67);
     }
 
     .box-front-badge {
-        display: none;
+        display: flex !important;
     }
 
-    .spine-brand {
-        font-size: 0.42rem;
+    .box-front-badge-left {
+        left: 8px;
+        max-width: 62px;
     }
 
-    .spine-name {
-        font-size: 0.65rem;
+    .box-front-badge-right {
+        right: 8px;
+        max-width: 62px;
     }
 
-    .cereal-box {
-        perspective: 500px;
+    .box-front-badge .badge-label {
+        font-size: 0.48rem;
+        line-height: 1.1;
     }
 
-    /* Simplify box textures for mobile — prevent layer glitches */
-    .box-front {
-        background-image: none;
-        box-shadow:
-            0 8px 16px rgba(15, 10, 30, 0.15),
-            0 2px 6px rgba(0, 0, 0, 0.10);
-    }
-
-    .box-front::before {
-        background: none;
-    }
-
-    .box-front::after {
-        display: none;
-    }
-
-    .box-left::before {
-        display: none;
-    }
-
-    .box-left {
-        box-shadow:
-            0 8px 16px rgba(15, 10, 30, 0.15),
-            inset 3px 0 8px rgba(10, 5, 25, 0.15);
-    }
-
-    .box-right {
-        box-shadow:
-            inset 2px 0 6px rgba(10, 5, 25, 0.12);
+    .box-front-badge .badge-val {
+        font-size: 0.68rem;
+        line-height: 1.1;
     }
 
     .roster-arrow {
-        width: 36px;
-        height: 36px;
+        width: 38px;
+        height: 38px;
     }
 
     .roster-arrow svg {
@@ -1323,29 +1288,47 @@ body.nav-drawer-open {
     }
 
     .roster-arrow-left {
-        left: 4px;
+        left: 6px;
     }
 
     .roster-arrow-right {
-        right: 4px;
+        right: 6px;
     }
 }
 
 @media (max-width: 390px) {
     :root {
-        --box-w: 155px;
-        --box-h: 194px;
-        --box-d: 50px;
+        --box-w: 175px;
+        --box-h: 230px;
+        --box-d: 60px;
     }
 
     .cereal-box {
-        perspective: 400px;
+        perspective: 800px;
     }
 
     .box-name,
     .box-front-creator-name {
-        font-size: calc(var(--box-name-size, 3.0rem) * 0.5);
-        -webkit-text-stroke-width: calc(var(--box-name-stroke, 4px) * 0.5);
+        font-size: calc(var(--box-name-size, 3.0rem) * 0.58);
+        -webkit-text-stroke-width: calc(var(--box-name-stroke, 4px) * 0.58);
+    }
+
+    .box-front-badge-left {
+        left: 6px;
+        max-width: 52px;
+    }
+
+    .box-front-badge-right {
+        right: 6px;
+        max-width: 52px;
+    }
+
+    .box-front-badge .badge-label {
+        font-size: 0.42rem;
+    }
+
+    .box-front-badge .badge-val {
+        font-size: 0.60rem;
     }
 }
 
@@ -2575,9 +2558,9 @@ body.nav-drawer-open {
 
     /* --- Hero --- */
     .hero-headline {
-        top: 20% !important;
-        font-size: clamp(1.4rem, 6.5vw, 2.0rem) !important;
-        line-height: 1.2 !important;
+        top: 36% !important;
+        font-size: clamp(1.6rem, 7.2vw, 2.3rem) !important;
+        line-height: 1.15 !important;
         white-space: normal !important;
         width: 90% !important;
         max-width: 90% !important;
@@ -2585,7 +2568,7 @@ body.nav-drawer-open {
     }
 
     .marquee-container {
-        top: 32% !important;
+        top: 58% !important;
     }
 
     .logo-item {
@@ -2594,7 +2577,7 @@ body.nav-drawer-open {
     }
 
     .hero-scroll-indicator {
-        bottom: 28px;
+        bottom: 36px !important;
     }
 
     .hero-scroll-indicator::before {
@@ -2609,31 +2592,31 @@ body.nav-drawer-open {
     }
 
     .scroll-indicator-text {
-        font-size: 0.72rem !important;
-        letter-spacing: 0.12em;
+        font-size: 0.82rem !important;
+        letter-spacing: 0.14em !important;
     }
 
     /* --- Roster (boxes) --- */
     .roster-wrapper {
-        bottom: -60px !important;
+        bottom: 0 !important;
     }
 
     .roster-headline {
-        font-size: clamp(1.8rem, 8.5vw, 3.2rem) !important;
+        font-size: clamp(2.0rem, 8.5vw, 3.2rem) !important;
         top: 8% !important;
     }
 
     .roster-arrow {
-        width: 34px !important;
-        height: 34px !important;
+        width: 38px !important;
+        height: 38px !important;
     }
 
     .roster-arrow-left {
-        left: 4px !important;
+        left: 6px !important;
     }
 
     .roster-arrow-right {
-        right: 4px !important;
+        right: 6px !important;
     }
 
     /* --- Nav Drawer --- */
@@ -2649,12 +2632,12 @@ body.nav-drawer-open {
 
     /* --- About Us --- */
     .about-headline {
-        font-size: clamp(2.0rem, 9vw, 3.5rem) !important;
+        font-size: clamp(2.2rem, 9vw, 3.6rem) !important;
         margin-bottom: 16px;
     }
 
     .about-bio-body {
-        font-size: clamp(0.92rem, 3.5vw, 1.1rem) !important;
+        font-size: clamp(0.95rem, 3.6vw, 1.15rem) !important;
         line-height: 1.5;
         padding: 0 4px;
     }
@@ -2702,4 +2685,3 @@ body.nav-drawer-open {
         font-size: 0.6rem;
     }
 }
-
