@@ -183,10 +183,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Read box dimensions from CSS ---
     const rootStyles = getComputedStyle(document.documentElement);
-    const boxW = parseInt(rootStyles.getPropertyValue('--box-w')) || 210;
-    const boxD = parseInt(rootStyles.getPropertyValue('--box-d')) || 60;
+    const boxW = parseInt(rootStyles.getPropertyValue('--box-w')) || 320;
+    const boxD = parseInt(rootStyles.getPropertyValue('--box-d')) || 120;
     const isMobileScreen = window.innerWidth <= 600;
-    const scrollAmount = isMobileScreen ? (boxW + 18) : (boxW + 28) * 2;
+    const scrollAmount = isMobileScreen ? (boxW + 20) : (boxW + 28) * 2;
 
     // --- Tight packing: spines neatly side-by-side with clean visible separation ---
     const spineGap = isMobileScreen ? 20 : 35; // clean visible separation between spines
@@ -244,8 +244,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const isMobile = window.innerWidth <= 600;
         if (isMobile) {
             const rootStyles = getComputedStyle(document.documentElement);
-            const boxW = parseInt(rootStyles.getPropertyValue('--box-w')) || 250;
-            const margin = 18;
+            const boxW = parseInt(rootStyles.getPropertyValue('--box-w')) || 320;
+            const margin = 20;
             const centerIndex = Math.floor(boxes.length / 2);
             const boxCenter = centerIndex * (boxW + margin) + boxW / 2;
             currentOffset = Math.round(boxCenter - vw / 2);
@@ -571,7 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Boxes spread apart (margin goes from packed to spaced)
     tl.to(boxes, {
-        marginRight: window.innerWidth <= 600 ? 18 : 28,
+        marginRight: window.innerWidth <= 600 ? 20 : 28,
         duration: 0.10,
         ease: 'power2.out',
         stagger: { each: 0.003, from: 'center' },
@@ -584,8 +584,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isMobile) {
                 const vw = rosterViewport ? rosterViewport.clientWidth : window.innerWidth;
                 const rootStyles = getComputedStyle(document.documentElement);
-                const boxW = parseInt(rootStyles.getPropertyValue('--box-w')) || 250;
-                const margin = 18;
+                const boxW = parseInt(rootStyles.getPropertyValue('--box-w')) || 320;
+                const margin = 20;
                 const centerIndex = Math.floor(boxes.length / 2);
                 const boxCenter = centerIndex * (boxW + margin) + boxW / 2;
                 return Math.round(vw / 2 - boxCenter);

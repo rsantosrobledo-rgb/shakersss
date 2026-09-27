@@ -3,7 +3,6 @@
    ============================================ */
 
 :root {
-    --box-cutout-coord-scale: 1;
     --bg-primary: #FAE5AE;
     --bg-primary-rgb: 250, 229, 174;
     --text-dark: #1a1a1a;
@@ -863,7 +862,7 @@ body.nav-drawer-open {
     position: absolute;
     bottom: 0%;
     left: 50%;
-    transform: translateX(calc(-50% + var(--box-cutout-x, 0px) * var(--box-cutout-coord-scale, 1))) translateY(calc(var(--box-cutout-y, 0px) * var(--box-cutout-coord-scale, 1))) scale(var(--box-cutout-scale, 1.05));
+    transform: translateX(calc(-50% + var(--box-cutout-x, 0px))) translateY(var(--box-cutout-y, 0px)) scale(var(--box-cutout-scale, 1.05));
     transform-origin: bottom center;
     width: 86%;
     height: 78%;
@@ -1181,21 +1180,7 @@ body.nav-drawer-open {
 }
 
 /* --- Responsive --- */
-@media (max-width: 1200px) {
-    :root {
-        --box-w: 280px;
-        --box-h: 350px;
-        --box-d: 105px;
-    }
-}
-
 @media (max-width: 900px) {
-    :root {
-        --box-w: 220px;
-        --box-h: 275px;
-        --box-d: 80px;
-    }
-
     .header {
         padding: 16px 24px;
     }
@@ -1221,6 +1206,7 @@ body.nav-drawer-open {
     .roster-arrow {
         width: 44px;
         height: 44px;
+        z-index: 30;
     }
 
     .roster-arrow-left {
@@ -1230,58 +1216,13 @@ body.nav-drawer-open {
     .roster-arrow-right {
         right: 12px;
     }
-
-    .cereal-box {
-        perspective: 700px;
-    }
 }
 
 @media (max-width: 600px) {
-    :root {
-        --box-w: 250px;
-        --box-h: 333px;
-        --box-d: 90px;
-        --box-cutout-coord-scale: 0.833;
-    }
-
-    .cereal-box {
-        perspective: 900px;
-        perspective-origin: center -10%;
-    }
-
-    .box-name,
-    .box-front-creator-name {
-        font-size: calc(var(--box-name-size, 3.0rem) * 0.83);
-        -webkit-text-stroke-width: calc(var(--box-name-stroke, 4px) * 0.83);
-    }
-
-    .box-front-badge {
-        display: flex !important;
-    }
-
-    .box-front-badge-left {
-        left: 12px;
-        max-width: 76px;
-    }
-
-    .box-front-badge-right {
-        right: 12px;
-        max-width: 76px;
-    }
-
-    .box-front-badge .badge-label {
-        font-size: 0.62rem;
-        line-height: 1.15;
-    }
-
-    .box-front-badge .badge-val {
-        font-size: 0.88rem;
-        line-height: 1.1;
-    }
-
     .roster-arrow {
         width: 44px;
         height: 44px;
+        z-index: 30;
     }
 
     .roster-arrow svg {
@@ -1298,36 +1239,10 @@ body.nav-drawer-open {
     }
 }
 
-@media (max-width: 375px) {
-    :root {
-        --box-w: 230px;
-        --box-h: 307px;
-        --box-d: 84px;
-        --box-cutout-coord-scale: 0.767;
-    }
-
-    .box-name,
-    .box-front-creator-name {
-        font-size: calc(var(--box-name-size, 3.0rem) * 0.76);
-        -webkit-text-stroke-width: calc(var(--box-name-stroke, 4px) * 0.76);
-    }
-
-    .box-front-badge-left {
-        left: 10px;
-        max-width: 68px;
-    }
-
-    .box-front-badge-right {
-        right: 10px;
-        max-width: 68px;
-    }
-
-    .box-front-badge .badge-label {
-        font-size: 0.55rem;
-    }
-
-    .box-front-badge .badge-val {
-        font-size: 0.78rem;
+@media (max-width: 350px) {
+    .roster-viewport {
+        transform: scale(0.88);
+        transform-origin: center center;
     }
 }
 
