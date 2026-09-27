@@ -486,13 +486,11 @@ document.addEventListener('DOMContentLoaded', () => {
             card.dataset.id = c.id;
 
             const isBox = index < 20 && c.inBoxes !== false;
-            const badgeBoxHtml = isBox ? `<span class="creator-badge-boxes">Caja 3D #${index + 1}</span>` : '';
             const s = c.boxSettings || { scale: 1.05, x: 0, y: 0, nameSize: 3.8, nameY: 28, stroke: 12 };
 
             const photoSrc = c.photo || c.pngPhoto || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=480&q=80';
 
             card.innerHTML = `
-                ${badgeBoxHtml}
                 <div class="creator-admin-photo-wrap">
                     <img src="${photoSrc}" alt="${c.name}" class="creator-admin-photo" loading="lazy">
                 </div>
