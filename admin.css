@@ -11,8 +11,8 @@
     --text-primary: #ffffff;
     --text-secondary: rgba(255, 255, 255, 0.65);
     --text-muted: rgba(255, 255, 255, 0.45);
-    --brand-mint: #7ED4C8;
-    --brand-topo: #483C32;
+    --brand-mint: #9AD6AC;
+    --brand-topo: #6A675B;
     --accent-red: #ef4444;
     --accent-green: #22c55e;
 }
@@ -2211,7 +2211,7 @@ body.admin-body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #7ED4C8;
+    color: #9AD6AC;
     margin-bottom: 4px;
     transition: transform 0.3s ease;
 }
@@ -2315,7 +2315,7 @@ body.admin-body {
 
 .mass-bar-fill {
     height: 100%;
-    background: linear-gradient(90deg, #7ED4C8, #9B51E0, #FF6B6B);
+    background: linear-gradient(90deg, #9AD6AC, #9B51E0, #FF6B6B);
     border-radius: 20px;
     transition: width 0.35s ease;
     box-shadow: 0 0 14px rgba(155, 81, 224, 0.7);
@@ -2551,7 +2551,7 @@ body.admin-body {
 
 /* ============================================
    SOBER MODE � Simplified Visual Style
-   Max 4 colors: #120d0a (bg), #1a1410 (card), #483C32 (accent), #ffffff (text)
+   Max 4 colors: #120d0a (bg), #1a1410 (card), #6A675B (accent), #ffffff (text)
    No gradients, no unnecessary decorations
    ============================================ */
 
@@ -2605,7 +2605,7 @@ body.admin-body {
 /* Flat buttons, no gradients */
 .btn-primary,
 .lock-submit-btn {
-    background: #483C32 !important;
+    background: #6A675B !important;
     border: none !important;
     box-shadow: none !important;
 }
@@ -2683,7 +2683,7 @@ body.admin-body {
 
 .section-tab.is-active {
     background: rgba(72,60,50,0.2) !important;
-    border-bottom: 2px solid #483C32 !important;
+    border-bottom: 2px solid #6A675B !important;
 }
 
 /* Remove SVG icons from section headers if decorative */

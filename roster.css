@@ -54,14 +54,14 @@
     font-weight: 800;
     line-height: 1.05;
     letter-spacing: -0.03em;
-    color: #483C32 !important;
+    color: #6A675B !important;
     text-shadow: none !important;
     margin-bottom: 12px;
 }
 
 .roster-page-subtitle {
     font-size: clamp(0.95rem, 1.8vw, 1.25rem);
-    color: #483C32 !important;
+    color: #6A675B !important;
     opacity: 0.85;
     font-weight: 700;
     letter-spacing: 0.12em;
@@ -299,7 +299,7 @@
     border-radius: 22px;
     overflow: hidden;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
-    border: 3px solid var(--creator-accent-color, #7ED4C8);
+    border: 3px solid var(--creator-accent-color, #9AD6AC);
 }
 
 .creator-modal-photo {
@@ -316,8 +316,8 @@
     padding: 6px 14px;
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.06);
-    border: 1px solid var(--creator-accent-color, #7ED4C8);
-    color: var(--creator-accent-color, #7ED4C8);
+    border: 1px solid var(--creator-accent-color, #9AD6AC);
+    color: var(--creator-accent-color, #9AD6AC);
     font-size: 0.72rem;
     font-weight: 800;
     letter-spacing: 0.08em;
@@ -345,7 +345,7 @@
     padding: 5px 14px;
     border-radius: 30px;
     background: rgba(126, 212, 200, 0.12);
-    color: var(--creator-accent-color, #7ED4C8);
+    color: var(--creator-accent-color, #9AD6AC);
     border: 1px solid rgba(126, 212, 200, 0.25);
 }
 
@@ -373,7 +373,7 @@
 .creator-modal-metrics-box svg {
     width: 18px;
     height: 18px;
-    color: var(--creator-accent-color, #7ED4C8);
+    color: var(--creator-accent-color, #9AD6AC);
     flex-shrink: 0;
 }
 
@@ -428,7 +428,7 @@
 .creator-social-pill:hover {
     transform: translateY(-2px);
     background: rgba(255, 255, 255, 0.14);
-    border-color: var(--creator-accent-color, #7ED4C8);
+    border-color: var(--creator-accent-color, #9AD6AC);
 }
 
 .creator-social-pill.pill-ig:hover {
@@ -454,7 +454,7 @@
     gap: 12px;
     padding: 14px 28px;
     border-radius: 16px;
-    background: var(--creator-accent-color, #7ED4C8);
+    background: var(--creator-accent-color, #9AD6AC);
     color: #120d0a;
     font-weight: 800;
     font-size: 0.95rem;
@@ -539,7 +539,7 @@
     transform: translateY(-50%);
     width: 20px;
     height: 20px;
-    color: #483C32;
+    color: #6A675B;
     opacity: 0.5;
     pointer-events: none;
 }
@@ -550,7 +550,7 @@
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.95rem;
     font-weight: 500;
-    color: #483C32;
+    color: #6A675B;
     background: rgba(255, 255, 255, 0.85);
     border: 1.5px solid rgba(72, 60, 50, 0.15);
     border-radius: 12px;
@@ -560,12 +560,12 @@
 }
 
 .roster-search-input::placeholder {
-    color: #483C32;
+    color: #6A675B;
     opacity: 0.4;
 }
 
 .roster-search-input:focus {
-    border-color: #483C32;
+    border-color: #6A675B;
     box-shadow: 0 0 0 3px rgba(72, 60, 50, 0.08);
 }
 
@@ -584,7 +584,7 @@
     border-radius: 100px;
     border: 1.5px solid rgba(72, 60, 50, 0.2);
     background: rgba(255, 255, 255, 0.6);
-    color: #483C32;
+    color: #6A675B;
     cursor: pointer;
     transition: all 0.2s ease;
     backdrop-filter: blur(4px);
@@ -596,9 +596,9 @@
 }
 
 .roster-filter-pill.is-active {
-    background: #483C32;
+    background: #6A675B;
     color: #ffffff;
-    border-color: #483C32;
+    border-color: #6A675B;
 }
 
 /* --- Roster Footer --- */
@@ -606,7 +606,7 @@
     position: relative;
     z-index: 2;
     width: 100%;
-    background: #483C32;
+    background: #6A675B;
     padding: 48px 40px 32px;
     margin-top: 80px;
 }

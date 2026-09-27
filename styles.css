@@ -3,12 +3,16 @@
    ============================================ */
 
 :root {
-    --bg-primary: #FAE5AE;
-    --bg-primary-rgb: 250, 229, 174;
+    --bg-primary: #FBD578;
+    --bg-primary-rgb: 251, 213, 120;
     --text-dark: #1a1a1a;
-    --color-topo: #483C32;
-    --color-topo-dark: #362D26;
-    --text-highlight: #7ED4C8;
+    --color-topo: #6A675B;
+    --color-topo-dark: #4A483F;
+    --text-highlight: #9AD6AC;
+    --brand-mint: #9AD6AC;
+    --brand-yellow: #FBD578;
+    --brand-cream: #EBDABC;
+    --brand-pearl: #C1C7C9;
     --white: #ffffff;
 
     /* Cereal Box Dimensions — Canonical 4:5 Aspect Ratio matching plantilla_box.png (1080x1350) */
