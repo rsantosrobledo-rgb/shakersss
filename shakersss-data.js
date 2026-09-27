@@ -434,7 +434,8 @@ class ShakersssDataService {
                 y: typeof rawSettings.y === 'number' ? rawSettings.y : 0,
                 nameSize: typeof rawSettings.nameSize === 'number' ? rawSettings.nameSize : 3.0,
                 nameY: typeof rawSettings.nameY === 'number' ? rawSettings.nameY : 22,
-                stroke: typeof rawSettings.stroke === 'number' ? rawSettings.stroke : 4.0
+                stroke: typeof rawSettings.stroke === 'number' ? rawSettings.stroke : 4.0,
+                nameOneLine: !!rawSettings.nameOneLine
             },
             color: c.color || '#E63946',
             inBoxes: c.inBoxes !== false,
