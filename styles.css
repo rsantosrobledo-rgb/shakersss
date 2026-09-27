@@ -2255,17 +2255,209 @@ body.nav-drawer-open {
 }
 
 @media (max-width: 768px) {
+
+    /* --- Roster Headline --- */
     .roster-headline {
         font-size: clamp(2.2rem, 9.5vw, 4.2rem) !important;
-        top: 14% !important;
-    }
-
-    .success-cases-header {
-        top: 14% !important;
+        top: 10% !important;
     }
 
     .section-headline {
         font-size: clamp(2.2rem, 9.5vw, 4.2rem) !important;
+    }
+
+    /* --- About Us Section --- */
+    .about-header {
+        max-width: 100%;
+        width: 100%;
+        padding: 0 24px;
+    }
+
+    .about-headline {
+        font-size: clamp(2.5rem, 10vw, 4.5rem);
+        margin-bottom: 20px;
+    }
+
+    .about-bio-wrap {
+        max-width: 100%;
+    }
+
+    .about-bio-body {
+        font-size: clamp(1.0rem, 3.8vw, 1.25rem);
+        line-height: 1.5;
+        text-align: center;
+    }
+
+    .keep-shaking-cta {
+        margin-top: 24px;
+    }
+
+    .keep-shaking-text {
+        font-size: 0.95rem;
+    }
+
+    /* --- Footer / Contact Section --- */
+    .footer-section {
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+        align-items: flex-start !important;
+        padding: 0 !important;
+        height: auto !important;
+        min-height: 100vh !important;
+        max-height: none !important;
+    }
+
+    .footer-container {
+        height: auto !important;
+        max-height: none !important;
+        min-height: 100vh;
+        padding: 80px 20px 24px !important;
+        gap: 18px !important;
+        justify-content: flex-start !important;
+    }
+
+    .footer-header {
+        margin-bottom: 10px;
+    }
+
+    .footer-title {
+        font-size: clamp(1.6rem, 6.5vw, 2.4rem) !important;
+        line-height: 1.15;
+    }
+
+    .footer-subtitle {
+        font-size: 0.88rem;
+        line-height: 1.4;
+    }
+
+    .footer-badge {
+        font-size: 0.62rem;
+        padding: 3px 10px;
+    }
+
+    .footer-contact-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .footer-card {
+        padding: 16px 18px !important;
+        border-radius: 14px !important;
+    }
+
+    .card-icon-wrap {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        margin-bottom: 8px;
+    }
+
+    .card-icon-wrap svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    .card-category {
+        font-size: 0.6rem;
+        margin-bottom: 2px;
+    }
+
+    .card-headline {
+        font-size: 1.05rem !important;
+        margin-bottom: 8px;
+    }
+
+    .card-details {
+        gap: 6px;
+    }
+
+    .detail-label {
+        font-size: 0.68rem;
+    }
+
+    .detail-link,
+    .detail-text {
+        font-size: 0.82rem;
+    }
+
+    .card-badge {
+        font-size: 0.68rem;
+        padding: 5px 10px;
+        margin-top: 8px;
+    }
+
+    .city-tags {
+        gap: 6px;
+        margin-top: 8px;
+    }
+
+    .city-tag {
+        font-size: 0.72rem;
+        padding: 4px 10px;
+    }
+
+    /* --- Social Section --- */
+    .footer-social-section {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+    }
+
+    .social-pills-grid {
+        gap: 6px !important;
+    }
+
+    .social-pill {
+        padding: 6px 12px !important;
+        font-size: 0.72rem !important;
+    }
+
+    /* --- Footer Bottom Bar --- */
+    .footer-bottom-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding-top: 16px;
+    }
+
+    .bottom-brand {
+        gap: 10px;
+    }
+
+    .footer-logo {
+        height: 20px;
+    }
+
+    .brand-tagline {
+        font-size: 0.68rem;
+    }
+
+    .bottom-links {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .bottom-links a {
+        font-size: 0.72rem;
+    }
+
+    .bottom-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .copyright {
+        font-size: 0.68rem;
+    }
+
+    .back-to-top {
+        font-size: 0.68rem;
+        padding: 5px 12px;
+    }
+
+    /* --- Success Cases Carousel --- */
+    .success-cases-header {
+        top: 10% !important;
     }
 
     .cases-carousel-wrapper {
@@ -2277,64 +2469,27 @@ body.nav-drawer-open {
     }
 
     .cases-arrow {
-        width: 44px !important;
-        height: 44px !important;
+        width: 40px !important;
+        height: 40px !important;
     }
 
     .cases-arrow-left {
-        left: 8px !important;
+        left: 6px !important;
     }
 
     .cases-arrow-right {
-        right: 8px !important;
-    }
-
-    .footer-section {
-        overflow-y: auto !important;
-        -webkit-overflow-scrolling: touch;
-        align-items: flex-start !important;
-        padding: 0 !important;
-    }
-
-    .footer-container {
-        height: auto !important;
-        min-height: 100% !important;
-        padding: 44px 20px 24px !important;
-        gap: 20px !important;
-    }
-
-    .footer-contact-grid {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-    }
-
-    .footer-social-section {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 10px !important;
-    }
-
-    .footer-bottom-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
-    }
-
-    .bottom-right {
-        width: 100%;
-        justify-content: space-between;
+        right: 6px !important;
     }
 }
 
 @media (max-width: 600px) {
-    .roster-wrapper {
-        bottom: -150px !important;
-    }
 
+    /* --- Hero --- */
     .hero-headline {
         top: 17% !important;
-        font-size: clamp(1.5rem, 6.5vw, 2.2rem) !important;
+        font-size: clamp(1.4rem, 6.5vw, 2.0rem) !important;
         line-height: 1.2 !important;
+        padding: 0 16px;
     }
 
     .marquee-container {
@@ -2342,23 +2497,43 @@ body.nav-drawer-open {
     }
 
     .logo-item {
-        transform: scale(0.7);
-        margin: 0 -12px;
+        transform: scale(0.65);
+        margin: 0 -14px;
+    }
+
+    .hero-scroll-indicator {
+        bottom: 18px;
+    }
+
+    .scroll-indicator-text {
+        font-size: 0.6rem !important;
+        letter-spacing: 0.15em;
+    }
+
+    /* --- Roster (boxes) --- */
+    .roster-wrapper {
+        bottom: -150px !important;
+    }
+
+    .roster-headline {
+        font-size: clamp(1.8rem, 8.5vw, 3.2rem) !important;
+        top: 8% !important;
     }
 
     .roster-arrow {
-        width: 36px !important;
-        height: 36px !important;
+        width: 34px !important;
+        height: 34px !important;
     }
 
     .roster-arrow-left {
-        left: 6px !important;
+        left: 4px !important;
     }
 
     .roster-arrow-right {
-        right: 6px !important;
+        right: 4px !important;
     }
 
+    /* --- Nav Drawer --- */
     .nav-drawer {
         width: 100vw !important;
         max-width: 100vw !important;
@@ -2369,25 +2544,59 @@ body.nav-drawer-open {
         font-size: 1.85rem !important;
     }
 
+    /* --- About Us --- */
+    .about-headline {
+        font-size: clamp(2.0rem, 9vw, 3.5rem) !important;
+        margin-bottom: 16px;
+    }
+
+    .about-bio-body {
+        font-size: clamp(0.92rem, 3.5vw, 1.1rem) !important;
+        line-height: 1.5;
+        padding: 0 4px;
+    }
+
+    .keep-shaking-cta {
+        margin-top: 18px;
+    }
+
+    /* --- Footer / Contact --- */
+    .footer-container {
+        padding: 72px 16px 20px !important;
+        gap: 14px !important;
+    }
+
     .footer-title {
-        font-size: clamp(1.6rem, 6.5vw, 2.2rem) !important;
+        font-size: clamp(1.4rem, 6vw, 1.9rem) !important;
+    }
+
+    .footer-subtitle {
+        font-size: 0.82rem;
     }
 
     .footer-card {
-        padding: 16px 18px !important;
-        border-radius: 14px !important;
+        padding: 14px 16px !important;
+        border-radius: 12px !important;
     }
 
     .card-headline {
-        font-size: 1.1rem !important;
+        font-size: 0.98rem !important;
     }
 
-    .social-pills-grid {
-        gap: 8px !important;
+    .footer-bottom-bar {
+        gap: 10px;
     }
 
-    .social-pill {
-        padding: 6px 12px !important;
-        font-size: 0.75rem !important;
+    .bottom-links {
+        gap: 6px;
+    }
+
+    .bottom-links a {
+        font-size: 0.68rem;
+    }
+
+    .bottom-links .divider {
+        font-size: 0.6rem;
     }
 }
+
