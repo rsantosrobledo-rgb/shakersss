@@ -2481,74 +2481,317 @@ body.nav-drawer-open {
 }
 
 @media (max-width: 600px) {
+    :root {
+        --box-w: 236px;
+        --box-h: 295px;
+        --box-d: 80px;
+    }
 
-    /* --- Hero --- */
+    /* --- Header & Logo --- */
+    .header {
+        padding: 16px 20px !important;
+    }
+
+    .header-logo img {
+        height: 40px !important;
+        width: auto !important;
+    }
+
+    .menu-btn {
+        position: absolute !important;
+        left: 20px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        width: auto !important;
+        height: auto !important;
+        padding: 6px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 5px !important;
+        z-index: 105 !important;
+    }
+
+    .menu-btn span {
+        display: block !important;
+        width: 26px !important;
+        height: 2.5px !important;
+        background-color: var(--color-topo) !important;
+        border-radius: 2px !important;
+    }
+
+    .menu-btn.is-on-dark span {
+        background-color: var(--brand-yellow, #FBD578) !important;
+    }
+
+    /* --- Hero Section (Strictly matching User Image 1) --- */
+    .hero {
+        padding: 0 !important;
+    }
+
     .hero-headline {
-        top: 36% !important;
-        font-size: clamp(1.6rem, 7.2vw, 2.3rem) !important;
+        top: 45% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        font-size: clamp(1.85rem, 8.4vw, 2.3rem) !important;
+        font-weight: 800 !important;
         line-height: 1.15 !important;
+        letter-spacing: -0.025em !important;
         white-space: normal !important;
-        width: 90% !important;
-        max-width: 90% !important;
-        padding: 0;
+        width: 95% !important;
+        max-width: 360px !important;
+        text-align: center !important;
+        padding: 0 !important;
+        margin: 0 auto !important;
+    }
+
+    .hero-headline .highlight {
+        display: block !important;
+        color: var(--text-highlight, #9AD6AC) !important;
     }
 
     .marquee-container {
-        top: 58% !important;
+        top: 65% !important;
+        width: 100% !important;
+        height: 50px !important;
+    }
+
+    .marquee-track {
+        height: 50px !important;
+        align-items: center !important;
+    }
+
+    .marquee-group {
+        gap: 32px !important;
+        align-items: center !important;
     }
 
     .logo-item {
-        transform: scale(0.65);
-        margin: 0 -14px;
+        transform: scale(0.75) !important;
+        margin: 0 !important;
     }
 
     .hero-scroll-indicator {
-        bottom: 36px !important;
+        bottom: 30px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 8px !important;
+        background: none !important;
+        border: none !important;
+        cursor: pointer !important;
+        z-index: 10 !important;
     }
 
     .hero-scroll-indicator::before {
-        width: 20px;
-        height: 32px;
+        content: '' !important;
+        display: block !important;
+        width: 22px !important;
+        height: 36px !important;
+        border: 2px solid var(--color-topo, #483C32) !important;
+        border-radius: 12px !important;
+        background: transparent !important;
     }
 
     .hero-scroll-indicator::after {
-        top: 16px;
-        width: 3px;
-        height: 6px;
+        content: '' !important;
+        display: block !important;
+        position: absolute !important;
+        top: 8px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 3px !important;
+        height: 7px !important;
+        background-color: var(--color-topo, #483C32) !important;
+        border-radius: 2px !important;
+        animation: scroll-wheel 1.6s infinite ease-in-out !important;
     }
 
     .scroll-indicator-text {
-        font-size: 0.82rem !important;
-        letter-spacing: 0.14em !important;
+        font-size: 0.72rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.12em !important;
+        line-height: 1.25 !important;
+        color: var(--color-topo, #483C32) !important;
+        text-align: center !important;
+        max-width: 170px !important;
+        text-transform: uppercase !important;
     }
 
-    /* --- Roster (boxes) --- */
-    .roster-wrapper {
-        bottom: 0 !important;
+    /* --- About Us Section (Strictly matching User Image 3) --- */
+    .about-section {
+        padding: 0 !important;
+    }
+
+    .about-container {
+        height: 100vh !important;
+        padding: 0 20px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        padding-top: 105px !important;
+    }
+
+    .about-header {
+        max-width: 330px !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 auto !important;
+        text-align: center !important;
+    }
+
+    .about-headline {
+        font-size: clamp(2.6rem, 11vw, 3.4rem) !important;
+        font-weight: 800 !important;
+        color: var(--brand-mint, #9AD6AC) !important;
+        letter-spacing: -0.025em !important;
+        margin-bottom: 14px !important;
+        text-align: center !important;
+        display: inline-block !important;
+    }
+
+    .about-bio-wrap {
+        max-width: 100% !important;
+        margin: 0 auto !important;
+    }
+
+    .about-bio-body {
+        font-size: 1.05rem !important;
+        line-height: 1.38 !important;
+        font-weight: 600 !important;
+        color: #26201b !important;
+        text-align: center !important;
+        padding: 0 !important;
+    }
+
+    .about-bio-body strong {
+        font-weight: 700 !important;
+    }
+
+    .keep-shaking-cta {
+        margin-top: 22px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 6px !important;
+    }
+
+    .keep-shaking-text {
+        font-size: 0.92rem !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.12em !important;
+        text-transform: uppercase !important;
+        color: rgba(54, 45, 38, 0.68) !important;
+    }
+
+    .keep-shaking-arrow {
+        color: rgba(54, 45, 38, 0.68) !important;
+        animation: keep-shaking-bounce 1.5s infinite ease-in-out !important;
+    }
+
+    .keep-shaking-arrow svg {
+        width: 22px !important;
+        height: 22px !important;
+        stroke-width: 2.8 !important;
+    }
+
+    /* --- Creators Section (Strictly matching User Image 2) --- */
+    .creators-section {
+        padding: 0 !important;
     }
 
     .roster-headline {
-        font-size: clamp(2.0rem, 8.5vw, 3.2rem) !important;
-        top: 8% !important;
+        font-size: clamp(2.4rem, 10vw, 3.2rem) !important;
+        font-weight: 800 !important;
+        letter-spacing: -0.025em !important;
+        color: #362D26 !important;
+        top: 13% !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        text-align: center !important;
+        width: 90% !important;
+        z-index: 2 !important;
     }
 
-    .roster-arrow {
-        width: 44px !important;
-        height: 44px !important;
-        z-index: 30 !important;
+    .roster-wrapper {
+        bottom: 0 !important;
+        width: 100% !important;
     }
 
-    .roster-arrow svg {
-        width: 22px !important;
-        height: 22px !important;
+    .roster-viewport {
+        overflow: visible !important;
+        padding-top: 0 !important;
     }
 
-    .roster-arrow-left {
+    .roster {
+        display: flex !important;
+        align-items: flex-end !important;
+        gap: 0 !important;
+    }
+
+    .cereal-box {
+        width: var(--box-w, 236px) !important;
+        height: var(--box-h, 295px) !important;
+    }
+
+    .box-front {
+        width: var(--box-w, 236px) !important;
+        height: var(--box-h, 295px) !important;
+    }
+
+    .box-front-creator-name {
+        font-size: calc(var(--box-name-size, 3rem) * 0.76) !important;
+    }
+
+    .box-front-badge .badge-label {
+        font-size: 0.62rem !important;
+    }
+
+    .box-front-badge .badge-val {
+        font-size: 0.85rem !important;
+    }
+
+    .box-front-badge-left {
         left: 8px !important;
+        max-width: 72px !important;
     }
 
-    .roster-arrow-right {
+    .box-front-badge-right {
         right: 8px !important;
+        max-width: 72px !important;
+    }
+
+    /* No arrows on mobile as seen in User Image 2 */
+    .roster-arrow {
+        display: none !important;
+    }
+
+    /* CTA Discover button below boxes (matching User Image 2) */
+    .discover-cta {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        margin: 26px auto 0 !important;
+        padding: 10px 20px !important;
+        background: rgba(0, 0, 0, 0.07) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        border: 1px solid rgba(0, 0, 0, 0.05) !important;
+        border-radius: 6px !important;
+        font-size: 0.78rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.07em !important;
+        color: #483C32 !important;
+        text-transform: uppercase !important;
+        opacity: 0.85 !important;
+        pointer-events: auto !important;
+        max-width: fit-content !important;
+    }
+
+    .discover-cta svg {
+        width: 15px !important;
+        height: 15px !important;
     }
 
     /* --- Nav Drawer --- */
@@ -2562,58 +2805,147 @@ body.nav-drawer-open {
         font-size: 1.85rem !important;
     }
 
-    /* --- About Us --- */
-    .about-headline {
-        font-size: clamp(2.2rem, 9vw, 3.6rem) !important;
-        margin-bottom: 16px;
+    /* --- Footer / Contact Section (Simpler and NEVER cut off) --- */
+    .footer-section {
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        align-items: flex-start !important;
+        padding: 0 !important;
+        height: 100vh !important;
+        min-height: 100vh !important;
+        max-height: 100vh !important;
+        pointer-events: auto !important;
     }
 
-    .about-bio-body {
-        font-size: clamp(0.95rem, 3.6vw, 1.15rem) !important;
-        line-height: 1.5;
-        padding: 0 4px;
-    }
-
-    .keep-shaking-cta {
-        margin-top: 18px;
-    }
-
-    /* --- Footer / Contact --- */
     .footer-container {
-        padding: 72px 16px 20px !important;
-        gap: 14px !important;
+        height: auto !important;
+        min-height: 100% !important;
+        max-height: none !important;
+        padding: 60px 18px 60px !important;
+        gap: 12px !important;
+        justify-content: flex-start !important;
+        box-sizing: border-box !important;
+    }
+
+    .footer-header {
+        margin-bottom: 6px !important;
+        text-align: center !important;
+    }
+
+    .footer-badge {
+        font-size: 0.62rem !important;
+        padding: 3px 10px !important;
+        display: inline-block !important;
+        margin-bottom: 6px !important;
     }
 
     .footer-title {
-        font-size: clamp(1.4rem, 6vw, 1.9rem) !important;
+        font-size: clamp(1.5rem, 6.8vw, 2.0rem) !important;
+        line-height: 1.15 !important;
+        margin-bottom: 6px !important;
     }
 
     .footer-subtitle {
-        font-size: 0.82rem;
+        font-size: 0.80rem !important;
+        line-height: 1.35 !important;
+        max-width: 320px !important;
+        margin: 0 auto !important;
+        opacity: 0.8 !important;
+    }
+
+    .footer-contact-grid {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+        width: 100% !important;
     }
 
     .footer-card {
-        padding: 14px 16px !important;
-        border-radius: 12px !important;
+        padding: 10px 14px !important;
+        border-radius: 10px !important;
+    }
+
+    .card-icon-wrap {
+        width: 28px !important;
+        height: 28px !important;
+        border-radius: 6px !important;
+        margin-bottom: 4px !important;
+    }
+
+    .card-icon-wrap svg {
+        width: 14px !important;
+        height: 14px !important;
+    }
+
+    .card-category {
+        font-size: 0.55rem !important;
+        margin-bottom: 2px !important;
     }
 
     .card-headline {
-        font-size: 0.98rem !important;
+        font-size: 0.95rem !important;
+        margin-bottom: 4px !important;
+    }
+
+    .card-details {
+        gap: 3px !important;
+    }
+
+    .detail-label {
+        font-size: 0.62rem !important;
+    }
+
+    .detail-link,
+    .detail-text {
+        font-size: 0.74rem !important;
+    }
+
+    .card-badge {
+        font-size: 0.60rem !important;
+        padding: 3px 6px !important;
+        margin-top: 4px !important;
+    }
+
+    .city-tags {
+        display: none !important;
+    }
+
+    .footer-social-section {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 8px !important;
+        margin-top: 6px !important;
     }
 
     .footer-bottom-bar {
-        gap: 10px;
+        padding-top: 12px !important;
+        padding-bottom: 20px !important;
+        gap: 8px !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
+
+    .footer-logo {
+        height: 20px !important;
+        margin: 0 auto !important;
+    }
+
+    .brand-tagline {
+        font-size: 0.64rem !important;
+        text-align: center !important;
     }
 
     .bottom-links {
-        gap: 6px;
+        justify-content: center !important;
+        gap: 6px !important;
     }
 
     .bottom-links a {
-        font-size: 0.68rem;
+        font-size: 0.66rem !important;
     }
 
-    .bottom-links .divider {
-        font-size: 0.6rem;
+    .bottom-right {
+        justify-content: center !important;
+        width: 100% !important;
     }
 }
+
