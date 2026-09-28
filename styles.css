@@ -3,14 +3,14 @@
    ============================================ */
 
 :root {
-    --bg-primary: #FAE5AE;
-    --bg-primary-rgb: 250, 229, 174;
+    --bg-primary: #FBD578;
+    --bg-primary-rgb: 251, 213, 120;
     --text-dark: #1a1a1a;
     --color-topo: #483C32;
     --color-topo-dark: #362D26;
     --text-highlight: #9AD6AC;
     --brand-mint: #9AD6AC;
-    --brand-yellow: #FAE5AE;
+    --brand-yellow: #FBD578;
     --brand-cream: #EBDABC;
     --brand-pearl: #C1C7C9;
     --white: #ffffff;
@@ -39,6 +39,22 @@ body {
     color: var(--text-dark);
     overflow-x: hidden;
     min-height: 100vh;
+}
+
+/* --- Global Cardboard Texture Effect across the entire design --- */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('cardboard_texture.png');
+    background-size: 320px 320px;
+    background-repeat: repeat;
+    mix-blend-mode: multiply;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 800;
 }
 
 /* --- Lenis Smooth Scroll Foundation --- */
@@ -416,20 +432,9 @@ body.nav-drawer-open {
     color: var(--text-highlight);
 }
 
-/* --- Typewriter Cursor on Hero Headline --- */
+/* --- Typewriter Cursor on Hero Headline (Disabled as requested) --- */
 .tw-cursor {
-    display: inline-block;
-    color: var(--text-highlight);
-    font-weight: 300;
-    margin-left: 3px;
-    animation: tw-blink 0.75s infinite;
-    vertical-align: baseline;
-    transition: opacity 0.5s ease;
-}
-
-.tw-cursor-fade {
-    opacity: 0;
-    animation: none;
+    display: none !important;
 }
 
 @keyframes tw-blink {
@@ -729,13 +734,14 @@ body.nav-drawer-open {
     -webkit-transform-style: flat;
     isolation: isolate;
 
-    /* Base cardboard texture + box brand color */
+    /* Base cardboard texture + box brand color + secondary cardboard grain layer */
     background-color: var(--box-color, #E63946);
     background-image:
         radial-gradient(ellipse at 50% 25%, rgba(255, 255, 255, 0.18) 0%, transparent 68%),
+        url('cardboard_texture.png'),
         url('cardboard_texture.png');
-    background-size: 100% 100%, 256px 256px;
-    background-blend-mode: overlay, multiply;
+    background-size: 100% 100%, 256px 256px, 480px 480px;
+    background-blend-mode: overlay, multiply, color-burn;
 
     box-shadow:
         /* Hardware-accelerated cast shadows replacing heavy filter */
@@ -834,10 +840,11 @@ body.nav-drawer-open {
     /* Allows Title Case (e.g. Bruno Casanova) matching reference */
     letter-spacing: -0.015em;
     color: #ffffff;
-    /* Bold black contour / stroke matching exact reference mockup */
-    -webkit-text-stroke: var(--box-name-stroke, 4px) #000000;
-    paint-order: stroke fill;
-    /* No drop shadow */
+    /* User: Quita el contorno negro. Sombra paralela con poca distancia y muy dura */
+    -webkit-text-stroke: 0px transparent;
+    text-shadow:
+        var(--box-text-shadow-dist, 3px) var(--box-text-shadow-dist, 3px) 0px rgba(0, 0, 0, 0.90);
+    paint-order: fill;
     white-space: pre-line;
     user-select: none;
     max-width: 96%;
@@ -868,7 +875,12 @@ body.nav-drawer-open {
     height: 78%;
     object-fit: contain;
     object-position: bottom center;
-    filter: contrast(1.10) brightness(1.02);
+    filter:
+        drop-shadow(var(--box-silhouette-stroke, 2px) 0 0 #ffffff)
+        drop-shadow(calc(var(--box-silhouette-stroke, 2px) * -1) 0 0 #ffffff)
+        drop-shadow(0 var(--box-silhouette-stroke, 2px) 0 #ffffff)
+        drop-shadow(0 calc(var(--box-silhouette-stroke, 2px) * -1) 0 #ffffff)
+        contrast(1.10) brightness(1.02);
     transition: transform 0.12s ease-out;
     image-rendering: -webkit-optimize-contrast;
 }

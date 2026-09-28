@@ -753,17 +753,19 @@ class ShakersssDataService {
                         } else {
                             // Fallback: CSS-composed rendering
                             boxEl.style.setProperty('--box-color', c.color || '#E63946');
-                            const s = c.boxSettings || { scale: 1.05, x: 0, y: 0, nameSize: 3.0, nameY: 22, stroke: 4.0 };
+                            const s = c.boxSettings || { scale: 1.05, x: 0, y: 0, nameSize: 3.0, nameY: 22, stroke: 0, shadowDist: 3, silhouetteStroke: 2 };
                             boxEl.style.setProperty('--box-cutout-scale', s.scale);
                             boxEl.style.setProperty('--box-cutout-x', `${s.x}px`);
                             boxEl.style.setProperty('--box-cutout-y', `${s.y}px`);
+                            boxEl.style.setProperty('--box-text-shadow-dist', `${s.shadowDist !== undefined ? s.shadowDist : 3}px`);
+                            boxEl.style.setProperty('--box-silhouette-stroke', `${s.silhouetteStroke !== undefined ? s.silhouetteStroke : 2}px`);
                             const isSingleLine = c.name.trim().split(/\s+/).length === 1 || (c.name.trim().split(/\s+/).length === 2 && (c.name.trim().split(/\s+/)[1].length <= 2 || c.name.length <= 9));
                             const defaultNameTop = isSingleLine ? 18 : 22;
                             const defaultNameSize = isSingleLine ? 2.8 : 3.0;
 
                             boxEl.style.setProperty('--box-name-size', `${s.nameSize || defaultNameSize}rem`);
                             boxEl.style.setProperty('--box-name-top', `${s.nameY || defaultNameTop}%`);
-                            boxEl.style.setProperty('--box-name-stroke', `${s.stroke || 4.0}px`);
+                            boxEl.style.setProperty('--box-name-stroke', `${s.stroke || 0}px`);
 
                             // Name formatting — respects editor preference
                             const nameEl = boxEl.querySelector('.box-front-creator-name') || boxEl.querySelector('.box-name');

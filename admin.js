@@ -111,6 +111,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const sliderStudioNameSize = document.getElementById('slider-studio-name-size');
     const sliderStudioNameY = document.getElementById('slider-studio-name-y');
     const sliderStudioStroke = document.getElementById('slider-studio-stroke');
+    const sliderStudioShadow = document.getElementById('slider-studio-shadow');
+    const valStudioShadow = document.getElementById('val-studio-shadow');
+    const sliderStudioCutoutStroke = document.getElementById('slider-studio-cutout-stroke');
+    const valStudioCutoutStroke = document.getElementById('val-studio-cutout-stroke');
     const toggleNameOneline = document.getElementById('toggle-name-oneline');
     const valStudioScale = document.getElementById('val-studio-scale');
     const valStudioY = document.getElementById('val-studio-y');
@@ -924,13 +928,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Initialize Studio Sliders with creator's settings or defaults
-        const bs = (creator && creator.boxSettings) ? creator.boxSettings : { scale: 1.05, y: 0, x: 0, nameSize: 3.6, nameY: 25, stroke: 4.5 };
+        const bs = (creator && creator.boxSettings) ? creator.boxSettings : { scale: 1.05, y: 0, x: 0, nameSize: 3.6, nameY: 25, stroke: 0, shadowDist: 3, silhouetteStroke: 2 };
         if (sliderStudioScale) sliderStudioScale.value = bs.scale ?? 1.05;
         if (sliderStudioY) sliderStudioY.value = bs.y ?? 0;
         if (sliderStudioX) sliderStudioX.value = bs.x ?? 0;
         if (sliderStudioNameSize) sliderStudioNameSize.value = bs.nameSize ?? 3.6;
         if (sliderStudioNameY) sliderStudioNameY.value = bs.nameY ?? 25;
-        if (sliderStudioStroke) sliderStudioStroke.value = bs.stroke ?? 4.5;
+        if (sliderStudioStroke) sliderStudioStroke.value = bs.stroke ?? 0;
+        if (sliderStudioShadow) sliderStudioShadow.value = bs.shadowDist ?? 3;
+        if (sliderStudioCutoutStroke) sliderStudioCutoutStroke.value = bs.silhouetteStroke ?? 2;
         if (toggleNameOneline) toggleNameOneline.checked = bs.nameOneLine ?? false;
 
         updateCreatorPreview();
@@ -989,7 +995,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const x = sliderStudioX ? parseInt(sliderStudioX.value, 10) || 0 : 0;
         const nameSize = sliderStudioNameSize ? parseFloat(sliderStudioNameSize.value) || 3.6 : 3.6;
         const nameY = sliderStudioNameY ? parseInt(sliderStudioNameY.value, 10) || 25 : 25;
-        const stroke = sliderStudioStroke ? parseFloat(sliderStudioStroke.value) || 4.5 : 4.5;
+        const shadowDist = sliderStudioShadow ? parseFloat(sliderStudioShadow.value) || 3 : 3;
+        const silhouetteStroke = sliderStudioCutoutStroke ? parseFloat(sliderStudioCutoutStroke.value) || 2 : 2;
 
         // Update indicator badges
         if (valStudioScale) valStudioScale.textContent = `${Math.round(scale * 100)}%`;
@@ -998,6 +1005,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (valStudioNameSize) valStudioNameSize.textContent = `${nameSize.toFixed(1)}rem`;
         if (valStudioNameY) valStudioNameY.textContent = `${nameY}%`;
         if (valStudioStroke) valStudioStroke.textContent = `${stroke}px`;
+        if (valStudioShadow) valStudioShadow.textContent = `${shadowDist}px`;
+        if (valStudioCutoutStroke) valStudioCutoutStroke.textContent = `${silhouetteStroke}px`;
 
         // Apply canonical CSS variables matching home page exactly
         studioBoxFront.style.setProperty('--box-color', color);
@@ -1006,7 +1015,9 @@ document.addEventListener('DOMContentLoaded', () => {
         studioBoxFront.style.setProperty('--box-cutout-x', `${x}px`);
         studioBoxFront.style.setProperty('--box-name-size', `${nameSize}rem`);
         studioBoxFront.style.setProperty('--box-name-top', `${nameY}%`);
-        studioBoxFront.style.setProperty('--box-name-stroke', `${stroke}px`);
+        studioBoxFront.style.setProperty('--box-name-stroke', `0px`);
+        studioBoxFront.style.setProperty('--box-text-shadow-dist', `${shadowDist}px`);
+        studioBoxFront.style.setProperty('--box-silhouette-stroke', `${silhouetteStroke}px`);
 
         // Legacy studio fallbacks
         studioBoxFront.style.setProperty('--studio-box-color', color);
@@ -1063,7 +1074,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Attach listeners to all studio sliders
-    [sliderStudioScale, sliderStudioY, sliderStudioX, sliderStudioNameSize, sliderStudioNameY, sliderStudioStroke].forEach(slider => {
+    [sliderStudioScale, sliderStudioY, sliderStudioX, sliderStudioNameSize, sliderStudioNameY, sliderStudioStroke, sliderStudioShadow, sliderStudioCutoutStroke].forEach(slider => {
         if (slider) {
             slider.addEventListener('input', updateStudioViewer);
         }
@@ -1082,7 +1093,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (sliderStudioX) sliderStudioX.value = 0;
             if (sliderStudioNameSize) sliderStudioNameSize.value = 3.0;
             if (sliderStudioNameY) sliderStudioNameY.value = 22;
-            if (sliderStudioStroke) sliderStudioStroke.value = 4;
+            if (sliderStudioStroke) sliderStudioStroke.value = 0;
+            if (sliderStudioShadow) sliderStudioShadow.value = 3;
+            if (sliderStudioCutoutStroke) sliderStudioCutoutStroke.value = 2;
             updateStudioViewer();
             showToast('Ajustes de portada restablecidos a los valores recomendados.');
         });
@@ -1142,7 +1155,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     x: sliderStudioX ? parseInt(sliderStudioX.value, 10) || 0 : 0,
                     nameSize: sliderStudioNameSize ? parseFloat(sliderStudioNameSize.value) || 3.6 : 3.6,
                     nameY: sliderStudioNameY ? parseInt(sliderStudioNameY.value, 10) || 25 : 25,
-                    stroke: sliderStudioStroke ? parseFloat(sliderStudioStroke.value) || 4.5 : 4.5,
+                    stroke: 0,
+                    shadowDist: sliderStudioShadow ? parseFloat(sliderStudioShadow.value) || 3 : 3,
+                    silhouetteStroke: sliderStudioCutoutStroke ? parseFloat(sliderStudioCutoutStroke.value) || 2 : 2,
                     nameOneLine: toggleNameOneline ? toggleNameOneline.checked : false
                 }
             };

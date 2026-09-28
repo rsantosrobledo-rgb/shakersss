@@ -82,18 +82,16 @@ document.addEventListener('DOMContentLoaded', () => {
         let isDone = false;
 
         headline.setAttribute('aria-label', 'we sell creators, not cereals');
-        headline.innerHTML = '<span class="tw-part1"></span><span class="highlight tw-part2"></span><span class="tw-cursor">|</span>';
+        headline.innerHTML = '<span class="tw-part1"></span><span class="highlight tw-part2"></span>';
 
         const span1 = headline.querySelector('.tw-part1');
         const span2 = headline.querySelector('.tw-part2');
-        const cursor = headline.querySelector('.tw-cursor');
 
         function finishImmediately() {
             if (isDone) return;
             isDone = true;
             if (span1) span1.textContent = part1;
             if (span2) span2.textContent = part2;
-            if (cursor) cursor.remove();
         }
 
         window.addEventListener('scroll', finishImmediately, { once: true, passive: true });
@@ -120,12 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(typeP2, 45);
             } else {
                 isDone = true;
-                setTimeout(() => {
-                    if (cursor) {
-                        cursor.classList.add('tw-cursor-fade');
-                        setTimeout(() => cursor.remove(), 500);
-                    }
-                }, 1800);
             }
         }
 
@@ -544,16 +536,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // "our creatorsss" headline appears.
     // ==========================================
 
-    // About text fades out — slides UP and reduces opacity
-    tl.to(aboutHeader, {
-        y: -70, opacity: 0, duration: 0.05, ease: 'power2.in',
-    }, 0.38);
-
-    // Hide about-us section entirely
-    tl.to('#about-us', { opacity: 0, duration: 0.03 }, 0.41);
+    // About text & section fades UP with opacity smoothly (no abrupt cut)
+    tl.to('#about-us', {
+        y: -120,
+        opacity: 0,
+        duration: 0.09,
+        ease: 'power2.out',
+    }, 0.36);
 
     // Give creators section its own background BEFORE about-us fades (prevents blink)
-    tl.set('#creators', { backgroundColor: '#FAE5AE', zIndex: 22 }, 0.34);
+    tl.set('#creators', { backgroundColor: '#FBD578', zIndex: 22 }, 0.34);
 
     // Boxes rise from bottom to vertical center of viewport
     tl.to(rosterWrapper, {
