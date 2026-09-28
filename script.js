@@ -514,7 +514,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Show top ~100px of the spine peeking from bottom, leaving clear room for KEEP SHAKING!!
                 return Math.round(boxH - 100);
             }
-            return Math.round(boxH * 0.65);
+            // Show ~200px of the spine (tabs, SSS logo, Talent Facts) peeking from bottom matching reference
+            return Math.round(boxH - 200);
         },
         duration: 0.08,
         ease: 'power2.out',
@@ -537,21 +538,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==========================================
     // PHASE 5: Box Animation Starts — About fades UP, Boxes rotate & center (0.38 - 0.52)
-    // About text slides up and fades out.
+    // About text slides up and fades out smoothly with opacity.
     // Simultaneously, boxes rotate from "de canto" to "de frente" and rise to center.
     // "our creatorsss" headline appears.
     // ==========================================
 
-    // About text & section fades UP with opacity smoothly (no abrupt cut)
-    tl.to('#about-us', {
-        y: -120,
+    // About header & CTA smoothly fade UP and out with opacity (no abrupt cut, no sudden background flash)
+    tl.to(['#about-header', '#keep-shaking-cta'], {
+        y: -90,
         opacity: 0,
-        duration: 0.09,
+        duration: 0.11,
         ease: 'power2.out',
-    }, 0.36);
+    }, 0.35);
 
-    // Give creators section its own background BEFORE about-us fades (prevents blink)
-    tl.set('#creators', { backgroundColor: '#FBD578', zIndex: 22 }, 0.34);
+    // Ensure #about-us container is hidden after fade completes so it doesn't block interactions
+    tl.set('#about-us', { opacity: 0, pointerEvents: 'none' }, 0.47);
 
     // Boxes rise from bottom to vertical center of viewport
     tl.to(rosterWrapper, {

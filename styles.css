@@ -48,8 +48,8 @@ body::after {
     inset: 0;
     width: 100vw;
     height: 100vh;
-    background-image: url('cardboard_texture.png');
-    background-size: 320px 320px;
+    background-image: url('cardboard_corrugated.jpg');
+    background-size: 500px auto;
     background-repeat: repeat;
     mix-blend-mode: multiply;
     opacity: 0.12;
@@ -414,8 +414,9 @@ body.nav-drawer-open {
 .hero-headline {
     position: absolute;
     top: 38%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
     width: max-content;
     max-width: 95%;
     text-align: center;
@@ -426,6 +427,7 @@ body.nav-drawer-open {
     letter-spacing: -0.02em;
     white-space: nowrap;
     z-index: 2;
+    transform: translateY(-50%);
 }
 
 .hero-headline .highlight {
@@ -738,9 +740,9 @@ body.nav-drawer-open {
     background-color: var(--box-color, #E63946);
     background-image:
         radial-gradient(ellipse at 50% 25%, rgba(255, 255, 255, 0.18) 0%, transparent 68%),
-        url('cardboard_texture.png'),
-        url('cardboard_texture.png');
-    background-size: 100% 100%, 256px 256px, 480px 480px;
+        url('cardboard_corrugated.jpg'),
+        url('cardboard_corrugated.jpg');
+    background-size: 100% 100%, 280px auto, 500px auto;
     background-blend-mode: overlay, multiply, color-burn;
 
     box-shadow:
@@ -1033,7 +1035,7 @@ body.nav-drawer-open {
     inset: 0;
     background:
         /* Cardboard texture overlay */
-        url('cardboard_texture.png'),
+        url('cardboard_corrugated.jpg'),
         /* Warm overhead light — consistent top-left direction */
         linear-gradient(180deg,
             rgba(255, 245, 220, 0.14) 0%,
@@ -1047,7 +1049,7 @@ body.nav-drawer-open {
             transparent 12%,
             transparent 88%,
             rgba(10, 5, 25, 0.10) 100%);
-    background-size: 256px 256px, 100% 100%, 100% 100%;
+    background-size: 256px auto, 100% 100%, 100% 100%;
     background-blend-mode: overlay, normal, normal;
     opacity: 0.2;
     pointer-events: none;
@@ -1343,64 +1345,52 @@ body.nav-drawer-open {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    max-width: 1100px;
+    max-width: 1040px;
     width: 92%;
     padding: 0 20px;
     z-index: 2;
-    margin-bottom: 20px;
+    margin-bottom: 0;
 }
 
 .about-headline {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: clamp(3.5rem, 9.5vw, 8.5rem);
+    font-size: clamp(3.2rem, 5.8vw, 5.2rem);
     font-weight: 800;
-    line-height: 0.95;
-    color: var(--text-highlight);
-    /* #7ED4C8 - starts light blue, GSAP animates to topo */
+    line-height: 1.0;
+    color: var(--color-topo);
     letter-spacing: -0.02em;
     text-transform: lowercase;
-    margin: 0 0 28px 0;
+    margin: 0 0 24px 0;
 }
 
 .about-bio-wrap {
-    max-width: 1200px;
+    max-width: 960px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 0;
-}
-
-.about-bio-lead {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: clamp(1.05rem, 1.6vw, 1.30rem);
-    font-weight: 600;
-    line-height: 1.55;
-    color: var(--color-topo);
-    margin: 0;
-    letter-spacing: -0.005em;
-    text-align: center;
-}
-
-.about-bio-lead .highlight-mint {
-    color: #1FBFA8;
-    background: rgba(31, 191, 168, 0.10);
-    padding: 2px 8px;
-    border-radius: 6px;
-    display: inline-block;
 }
 
 .about-bio-body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: clamp(1.25rem, 2.1vw, 1.70rem);
+    font-size: clamp(1.18rem, 1.7vw, 1.5rem);
     font-weight: 600;
-    line-height: 1.55;
+    line-height: 1.4;
     color: var(--color-topo);
     margin: 0;
     text-align: center;
+    letter-spacing: -0.01em;
 }
 
-.about-bio-body strong {
+.about-tagline {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(1.3rem, 1.95vw, 1.75rem);
+    font-weight: 800;
+    line-height: 1.25;
     color: var(--color-topo);
-    font-weight: 700;
+    margin: 24px 0 0 0;
+    text-align: center;
+    letter-spacing: -0.01em;
 }
 
 /* --- Keep Shaking CTA below About Us text --- */
@@ -1408,8 +1398,8 @@ body.nav-drawer-open {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
-    margin-top: 36px;
+    gap: 4px;
+    margin-top: 24px;
     z-index: 2;
 }
 
@@ -2530,8 +2520,9 @@ body.nav-drawer-open {
 
     .hero-headline {
         top: 45% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
+        left: 0 !important;
+        right: 0 !important;
+        transform: translateY(-50%) !important;
         font-size: clamp(1.85rem, 8.4vw, 2.3rem) !important;
         font-weight: 800 !important;
         line-height: 1.15 !important;
@@ -2664,8 +2655,13 @@ body.nav-drawer-open {
         padding: 0 !important;
     }
 
-    .about-bio-body strong {
-        font-weight: 700 !important;
+    .about-tagline {
+        font-size: 1.15rem !important;
+        line-height: 1.3 !important;
+        font-weight: 800 !important;
+        color: #26201b !important;
+        text-align: center !important;
+        margin-top: 14px !important;
     }
 
     .keep-shaking-cta {
