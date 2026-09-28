@@ -148,49 +148,69 @@
     transform: translateY(0);
 }
 
-/* --- Responsive Grid Breakpoints --- */
-
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
     .roster-grid {
         grid-template-columns: repeat(4, 1fr);
         gap: 14px;
     }
 }
 
-@media (max-width: 850px) {
-    .roster-main {
-        padding-top: 110px;
-    }
-
+@media (max-width: 820px) {
     .roster-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 12px;
     }
-
-    .card-name {
-        font-size: 0.9rem;
-    }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 768px) {
     .roster-main {
-        padding-top: 85px;
+        padding-top: 90px;
         padding-bottom: 40px;
     }
 
-    .roster-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+    .roster-header-section {
+        margin-bottom: 24px;
         padding: 0 16px;
     }
 
-    .creator-card {
-        border-radius: 12px;
+    .roster-page-title {
+        font-size: clamp(2.4rem, 9vw, 3.2rem) !important;
+        margin-bottom: 8px;
     }
 
+    .roster-page-subtitle {
+        font-size: 0.85rem;
+    }
+
+    .roster-search-bar {
+        padding: 0 16px;
+        margin-bottom: 22px;
+    }
+
+    /* Roster Grid: strictly rows of 2 on mobile */
+    .roster-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+        padding: 0 16px !important;
+    }
+
+    .creator-card {
+        border-radius: 12px !important;
+    }
+
+    /* Always show card names on touch devices */
     .card-name {
-        font-size: 0.8rem;
-        padding: 8px;
+        opacity: 1 !important;
+        transform: none !important;
+        font-size: 0.88rem !important;
+        font-weight: 800 !important;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85) !important;
+        text-align: center;
+    }
+
+    .card-inner {
+        padding: 10px !important;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.85) 100%) !important;
     }
 }
 

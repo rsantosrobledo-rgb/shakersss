@@ -26,21 +26,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Initialize Lenis Smooth Scroll ---
     let lenis = null;
     if (typeof Lenis !== 'undefined') {
+        const isMobile = window.innerWidth <= 600;
         lenis = new Lenis({
-            duration: 1.2,
+            duration: isMobile ? 0.9 : 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             orientation: 'vertical',
             gestureOrientation: 'vertical',
             smoothWheel: true,
             wheelMultiplier: 0.85,
-            touchMultiplier: 1.5,
+            touchMultiplier: 1.0,
         });
 
         lenis.on('scroll', ScrollTrigger.update);
         gsap.ticker.add((time) => {
             lenis.raf(time * 1000);
         });
-        gsap.ticker.lagSmoothing(0);
+        gsap.ticker.lagSmoothing(500, 33);
         lenis.scrollTo(0, { immediate: true });
         window.lenis = lenis;
     }
@@ -362,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: {
             trigger: '#main-experience',
             start: 'top top',
-            end: '+=800%',
+            end: () => window.innerWidth <= 600 ? '+=480%' : '+=620%',
             pin: true,
             scrub: 0.8,
             anticipatePin: 1,
@@ -376,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // 2. Creators arrows active ONLY during the creators browsing hold
-                if (self.progress >= 0.52 && self.progress <= 0.68) {
+                if (self.progress >= 0.46 && self.progress <= 0.55) {
                     if (!arrowsVisible) showArrows();
                 } else {
                     if (arrowsVisible) hideArrows();
@@ -395,7 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 4. Visibility control for transition curtain 2 (Topo: Creators -> Contact)
                 const curtainTopo = document.getElementById('transition-curtain-topo');
                 if (curtainTopo) {
-                    if (self.progress >= 0.67 && self.progress <= 0.80) {
+                    if (self.progress >= 0.53 && self.progress <= 0.63) {
                         curtainTopo.style.visibility = 'visible';
                     } else {
                         curtainTopo.style.visibility = 'hidden';
@@ -413,12 +414,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (aboutEl) aboutEl.style.pointerEvents = 'none';
                     if (creatorsEl) creatorsEl.style.pointerEvents = 'none';
                     if (contactEl) contactEl.style.pointerEvents = 'none';
-                } else if (self.progress >= 0.15 && self.progress < 0.38) {
+                } else if (self.progress >= 0.15 && self.progress < 0.35) {
                     if (heroEl) heroEl.style.pointerEvents = 'none';
                     if (aboutEl) aboutEl.style.pointerEvents = 'auto';
                     if (creatorsEl) creatorsEl.style.pointerEvents = 'none';
                     if (contactEl) contactEl.style.pointerEvents = 'none';
-                } else if (self.progress >= 0.38 && self.progress < 0.72) {
+                } else if (self.progress >= 0.35 && self.progress < 0.57) {
                     if (heroEl) heroEl.style.pointerEvents = 'none';
                     if (aboutEl) aboutEl.style.pointerEvents = 'none';
                     if (creatorsEl) creatorsEl.style.pointerEvents = 'auto';
@@ -433,7 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 5b. Hamburger color: yellow on dark contact section
                 const menuBtn = document.querySelector('.menu-btn');
                 if (menuBtn) {
-                    if (self.progress >= 0.72) {
+                    if (self.progress >= 0.57) {
                         menuBtn.classList.add('is-on-dark');
                     } else {
                         menuBtn.classList.remove('is-on-dark');
@@ -629,37 +630,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // PHASE 6: Creators Browsing Hold (0.52 - 0.68)
-    // Screen holds so user can explore the shelf with arrows
+    // PHASE 6: Creators Browsing Hold (0.48 - 0.54)
+    // Tighter hold so user reaches contact with minimal scrolling
     // ==========================================
-    tl.to({}, { duration: 0.16 }, 0.52);
+    tl.to({}, { duration: 0.05 }, 0.49);
 
     // ==========================================
-    // PHASE 7: Topo Transition Curtain Wipe: Creators -> Contact (0.68 - 0.78)
+    // PHASE 7: Topo Transition Curtain Wipe: Creators -> Contact (0.54 - 0.62)
     // ==========================================
     tl.fromTo('#transition-curtain-topo',
         { y: '100%' },
-        { y: '0%', duration: 0.05, ease: 'power1.inOut' },
-        0.68
+        { y: '0%', duration: 0.04, ease: 'power1.inOut' },
+        0.54
     );
 
-    // Behind curtain at 0.73: Instant handoff from Creators to Contact
-    tl.to('#creators', { opacity: 0, duration: 0.01 }, 0.73);
-    tl.to('#contact', { opacity: 1, zIndex: 25, duration: 0.01 }, 0.73);
+    // Behind curtain at 0.58: Instant handoff from Creators to Contact
+    tl.to('#creators', { opacity: 0, duration: 0.01 }, 0.58);
+    tl.to('#contact', { opacity: 1, zIndex: 25, duration: 0.01 }, 0.58);
 
     tl.to('#transition-curtain-topo', {
-        y: '-100%', duration: 0.05, ease: 'power1.inOut',
-    }, 0.73);
+        y: '-100%', duration: 0.04, ease: 'power1.inOut',
+    }, 0.58);
 
     // ==========================================
-    // PHASE 8: Contact Reveal (0.78 - 1.00)
+    // PHASE 8: Contact Reveal (0.62 - 0.75)
     // ==========================================
     tl.fromTo('#contact .footer-container',
-        { y: 70, opacity: 0 },
+        { y: 50, opacity: 0 },
         { 
             y: 0, 
             opacity: 1, 
-            duration: 0.08, 
+            duration: 0.06, 
             ease: 'power2.out',
             onStart: () => {
                 const c = document.getElementById('contact');
@@ -670,10 +671,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (c) c.style.pointerEvents = 'none';
             }
         },
-        0.78
+        0.62
     );
 
-    tl.to({}, { duration: 0.08 }, 0.92);
+    // Reading hold on contact to pad timeline totalDuration to exactly 1.0
+    tl.to({}, { duration: 0.32 }, 0.68);
 
     // --- Back to Top Button ---
     const backToTopBtn = document.getElementById('back-to-top');
@@ -745,16 +747,16 @@ document.addEventListener('DOMContentLoaded', () => {
     window.navigateToCreators = () => {
         if (!tl || !tl.scrollTrigger) return;
         window._isNavigating = true;
-        const target = tl.scrollTrigger.start + (tl.scrollTrigger.end - tl.scrollTrigger.start) * 0.56;
-        if (lenis) lenis.scrollTo(target, { duration: 1.4, onComplete: () => { window._isNavigating = false; } });
+        const target = tl.scrollTrigger.start + (tl.scrollTrigger.end - tl.scrollTrigger.start) * 0.50;
+        if (lenis) lenis.scrollTo(target, { duration: 1.2, onComplete: () => { window._isNavigating = false; } });
         else { window.scrollTo({ top: target, behavior: 'smooth' }); setTimeout(() => { window._isNavigating = false; }, 1500); }
     };
 
     window.navigateToContact = () => {
         if (!tl || !tl.scrollTrigger) return;
         window._isNavigating = true;
-        const target = tl.scrollTrigger.start + (tl.scrollTrigger.end - tl.scrollTrigger.start) * 0.85;
-        if (lenis) lenis.scrollTo(target, { duration: 1.4, onComplete: () => { window._isNavigating = false; } });
+        const target = tl.scrollTrigger.start + (tl.scrollTrigger.end - tl.scrollTrigger.start) * 0.75;
+        if (lenis) lenis.scrollTo(target, { duration: 1.2, onComplete: () => { window._isNavigating = false; } });
         else { window.scrollTo({ top: target, behavior: 'smooth' }); setTimeout(() => { window._isNavigating = false; }, 1500); }
     };
 
