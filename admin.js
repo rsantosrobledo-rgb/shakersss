@@ -995,6 +995,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const x = sliderStudioX ? parseInt(sliderStudioX.value, 10) || 0 : 0;
         const nameSize = sliderStudioNameSize ? parseFloat(sliderStudioNameSize.value) || 3.6 : 3.6;
         const nameY = sliderStudioNameY ? parseInt(sliderStudioNameY.value, 10) || 25 : 25;
+        const stroke = sliderStudioStroke ? parseInt(sliderStudioStroke.value, 10) || 0 : 0;
         const shadowDist = sliderStudioShadow ? parseFloat(sliderStudioShadow.value) || 3 : 3;
         const silhouetteStroke = sliderStudioCutoutStroke ? parseFloat(sliderStudioCutoutStroke.value) || 2 : 2;
 
