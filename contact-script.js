@@ -4,6 +4,22 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- Video source switcher for mobile ---
+    const contactBgVideo = document.querySelector('.contact-bg-video');
+    function updateContactVideoSource() {
+        if (!contactBgVideo) return;
+        const isMobile = window.innerWidth <= 600;
+        const desiredSrc = isMobile ? 'bg_video_movil.webm' : 'bg_video.webm';
+        const currentSrc = contactBgVideo.currentSrc || contactBgVideo.src || '';
+        if (!currentSrc.includes(desiredSrc)) {
+            contactBgVideo.src = desiredSrc;
+            contactBgVideo.load();
+            contactBgVideo.play().catch(() => {});
+        }
+    }
+    updateContactVideoSource();
+    window.addEventListener('resize', updateContactVideoSource);
+
     // --- Profile Tabs ---
     const tabs = document.querySelectorAll('.profile-tab');
     const profileInput = document.getElementById('selected-profile');

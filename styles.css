@@ -78,7 +78,7 @@ img {
     display: block;
 }
 
-/* --- Fullscreen Transition Curtain 1 (Brand Light Blue-Green #7ED4C8) --- */
+/* --- Fullscreen Transition Curtain 1 (Brand Mint #9AD6AC) --- */
 .transition-curtain {
     position: fixed;
     top: 0;
@@ -388,7 +388,7 @@ body.nav-drawer-open {
     z-index: 10;
 }
 
-/* Fullscreen background video */
+/* Fullscreen background video (Active for Hero, About Us & Our Creators) */
 .hero-video {
     position: absolute;
     top: 0;
@@ -396,7 +396,8 @@ body.nav-drawer-open {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 0;
+    z-index: 1;
+    pointer-events: none;
 }
 
 
@@ -1676,7 +1677,7 @@ body.nav-drawer-open {
     display: inline-block;
     padding: 3px 12px;
     background-color: var(--text-highlight);
-    /* #7ED4C8 (Azul verdoso claro de la marca) */
+    /* #9AD6AC (Verde Menta Corporativo) */
     color: var(--color-topo-dark);
     font-size: 0.68rem;
     font-weight: 800;

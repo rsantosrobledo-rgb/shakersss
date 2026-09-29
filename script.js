@@ -49,6 +49,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- DOM Elements ---
     const mainStage = document.getElementById('main-experience');
     const heroVideo = document.querySelector('.hero-video');
+
+    // Dynamic Video Source: Swap to bg_video_movil.webm on mobile screens
+    function updateHeroVideoSource() {
+        if (!heroVideo) return;
+        const isMobile = window.innerWidth <= 600;
+        const desiredSrc = isMobile ? 'bg_video_movil.webm' : 'bg_video.webm';
+        const currentSrc = heroVideo.currentSrc || heroVideo.src || '';
+        if (!currentSrc.includes(desiredSrc)) {
+            heroVideo.src = desiredSrc;
+            heroVideo.load();
+            heroVideo.play().catch(() => {});
+        }
+    }
+    updateHeroVideoSource();
+    window.addEventListener('resize', updateHeroVideoSource);
+
     const heroHeadline = document.getElementById('hero-headline');
     const marquee = document.getElementById('marquee');
     const heroScrollBtn = document.getElementById('hero-scroll-btn');
@@ -339,8 +355,10 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.set('#contact .footer-container', { y: 70, opacity: 0 });
 
     if (aboutHeader) gsap.set(aboutHeader, { y: 40, opacity: 0 });
-    // About headline starts light blue, will animate to topo
-    if (aboutHeadline) gsap.set(aboutHeadline, { color: '#7ED4C8' });
+    // About headline starts corporate mint, will animate to topo
+    if (aboutHeadline) gsap.set(aboutHeadline, { color: '#9AD6AC' });
+    // Video visible and vibrant in background
+    if (heroVideo) gsap.set(heroVideo, { opacity: 1 });
     // Boxes start completely off-screen (below viewport), will rise up into view
     if (rosterWrapper) gsap.set(rosterWrapper, { y: 500 });
     if (rosterHeadline) gsap.set(rosterHeadline, { opacity: 0 });
@@ -441,11 +459,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
 
-                // 6. Video optimization: pause when covered
+                // 6. Video optimization: pause when covered by Contact
                 if (heroVideo) {
-                    if (self.progress >= 0.15 && !heroVideo.paused) {
+                    if (self.progress >= 0.58 && !heroVideo.paused) {
                         heroVideo.pause();
-                    } else if (self.progress < 0.15 && heroVideo.paused) {
+                    } else if (self.progress < 0.58 && heroVideo.paused) {
                         heroVideo.play().catch(() => {});
                     }
                 }
@@ -467,10 +485,6 @@ document.addEventListener('DOMContentLoaded', () => {
     tl.to('#hero-scroll-btn', {
         opacity: 0, y: 30, duration: 0.04, ease: 'power2.in',
     }, 0.01);
-
-    tl.to('.hero-video', {
-        opacity: 0.15, duration: 0.08, ease: 'power1.inOut',
-    }, 0.03);
 
     // ==========================================
     // PHASE 2: Blue Curtain Wipe: Hero -> About Us + Creators (0.10 - 0.20)
@@ -494,7 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==========================================
     // PHASE 3: About Us + Boxes de canto RISE FROM BELOW (0.19 - 0.30)
-    // "about usss" headline: opacity 0->1 first, then color #7ED4C8 -> #483C32
+    // "about usss" headline: opacity 0->1 first, then color #9AD6AC -> #483C32
     // Bio text fades in. Boxes RISE from below into bottom half of screen.
     // ==========================================
     
@@ -607,7 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Headline "our creatorsss" — opacity + slide first
     tl.fromTo(rosterHeadline,
-        { opacity: 0, color: '#7ED4C8', y: 30 },
+        { opacity: 0, color: '#9AD6AC', y: 30 },
         { opacity: 1, y: 0, duration: 0.06, ease: 'power2.out' },
         0.44
     );
@@ -646,6 +660,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Behind curtain at 0.58: Instant handoff from Creators to Contact
     tl.to('#creators', { opacity: 0, duration: 0.01 }, 0.58);
+    tl.to('.hero-video', { opacity: 0, duration: 0.04, ease: 'power1.inOut' }, 0.54);
     tl.to('#contact', { opacity: 1, zIndex: 25, duration: 0.01 }, 0.58);
 
     tl.to('#transition-curtain-topo', {

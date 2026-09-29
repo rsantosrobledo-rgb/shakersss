@@ -915,8 +915,8 @@ document.addEventListener('DOMContentLoaded', () => {
             creatorName.value = '';
             creatorPhoto.value = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';
             creatorPngPhoto.value = '';
-            creatorColor.value = '#7ED4C8';
-            creatorColorText.value = '#7ED4C8';
+            creatorColor.value = '#9AD6AC';
+            creatorColorText.value = '#9AD6AC';
             creatorInBoxes.checked = true;
             creatorCategory.value = 'Lifestyle & Fashion';
             creatorMetrics.value = '+1.0M Seguidores · 10% Engagement · España';

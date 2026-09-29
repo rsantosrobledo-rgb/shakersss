@@ -25,9 +25,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     applyBrickOffset();
 
+    // --- Video source switcher for mobile ---
+    const rosterBgVideo = document.querySelector('.roster-bg-video');
+    function updateRosterVideoSource() {
+        if (!rosterBgVideo) return;
+        const isMobile = window.innerWidth <= 600;
+        const desiredSrc = isMobile ? 'bg_video_movil.webm' : 'bg_video.webm';
+        const currentSrc = rosterBgVideo.currentSrc || rosterBgVideo.src || '';
+        if (!currentSrc.includes(desiredSrc)) {
+            rosterBgVideo.src = desiredSrc;
+            rosterBgVideo.load();
+            rosterBgVideo.play().catch(() => {});
+        }
+    }
+    updateRosterVideoSource();
+    window.addEventListener('resize', updateRosterVideoSource);
+
     // --- Header title entrance animation: opacity first, then color shift ---
     gsap.fromTo('.roster-page-title', 
-        { opacity: 0, y: -25, color: '#7ED4C8' },
+        { opacity: 0, y: -25, color: '#9AD6AC' },
         { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
     );
     gsap.to('.roster-page-title', {
@@ -35,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     gsap.fromTo('.roster-page-subtitle',
-        { opacity: 0, y: -15, color: '#7ED4C8' },
+        { opacity: 0, y: -15, color: '#9AD6AC' },
         { opacity: 0.85, y: 0, duration: 0.8, delay: 0.15, ease: 'power2.out' }
     );
     gsap.to('.roster-page-subtitle', {
@@ -131,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function openCreatorDetailModal(creator, index) {
         if (!modal || !creator) return;
 
-        const accentColor = creator.color || '#7ED4C8';
+        const accentColor = creator.color || '#9AD6AC';
         modalCard.style.setProperty('--creator-accent-color', accentColor);
         modalCard.style.setProperty('--creator-accent-glow', `${accentColor}33`);
 

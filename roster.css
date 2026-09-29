@@ -21,10 +21,20 @@
     z-index: 0;
 }
 
-/* --- Half-size Logo on Roster Page --- */
+/* --- Large Logo reduced by 25% (matches header scrolled size) --- */
 .roster-page .header-logo img {
-    height: 28px !important;
+    height: 78px !important;
     width: auto !important;
+    transform: scale(0.75) !important;
+    transform-origin: top center !important;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@media (max-width: 600px) {
+    .roster-page .header-logo img {
+        height: 48px !important;
+        transform: scale(0.8) !important;
+    }
 }
 
 /* --- Roster Main --- */
