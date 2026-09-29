@@ -522,8 +522,15 @@ body.nav-drawer-open {
 }
 
 @keyframes scrollBounce {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(8px); }
+
+    0%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    50% {
+        transform: translateX(-50%) translateY(8px);
+    }
 }
 
 /* Mouse scroll icon */
@@ -553,8 +560,17 @@ body.nav-drawer-open {
 }
 
 @keyframes scrollDot {
-    0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
-    50% { opacity: 0.3; transform: translateX(-50%) translateY(10px); }
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: translateX(-50%) translateY(10px);
+    }
 }
 
 .scroll-indicator-text {
@@ -867,11 +883,7 @@ body.nav-drawer-open {
     object-fit: contain;
     object-position: bottom center;
     filter:
-        drop-shadow(var(--box-silhouette-stroke, 2px) 0 0 #ffffff)
-        drop-shadow(calc(var(--box-silhouette-stroke, 2px) * -1) 0 0 #ffffff)
-        drop-shadow(0 var(--box-silhouette-stroke, 2px) 0 #ffffff)
-        drop-shadow(0 calc(var(--box-silhouette-stroke, 2px) * -1) 0 #ffffff)
-        contrast(1.10) brightness(1.02);
+        drop-shadow(var(--box-silhouette-stroke, 2px) 0 0 #ffffff) drop-shadow(calc(var(--box-silhouette-stroke, 2px) * -1) 0 0 #ffffff) drop-shadow(0 var(--box-silhouette-stroke, 2px) 0 #ffffff) drop-shadow(0 calc(var(--box-silhouette-stroke, 2px) * -1) 0 #ffffff) contrast(1.10) brightness(1.02);
     transition: transform 0.12s ease-out;
     image-rendering: -webkit-optimize-contrast;
 }
@@ -2625,7 +2637,7 @@ body.nav-drawer-open {
     }
 
     .about-header {
-        max-width: 92% !important;
+        max-width: 99% !important;
         width: 100% !important;
         padding: 0 !important;
         margin: 0 auto !important;
@@ -2635,7 +2647,8 @@ body.nav-drawer-open {
     .about-headline {
         font-size: clamp(3.2rem, 13vw, 4.4rem) !important;
         font-weight: 800 !important;
-        color: var(--brand-mint, #9AD6AC); /* No !important so GSAP can animate from mint/blue to topo */
+        color: var(--brand-mint, #9AD6AC);
+        /* No !important so GSAP can animate from mint/blue to topo */
         letter-spacing: -0.025em !important;
         margin-bottom: 14px !important;
         text-align: center !important;
@@ -2643,16 +2656,21 @@ body.nav-drawer-open {
     }
 
     .about-bio-wrap {
-        max-width: 90% !important;
+        max-width: 96% !important;
+        width: 100% !important;
         margin: 0 auto !important;
     }
 
     .about-bio-body {
-        font-size: clamp(1.35rem, 5.2vw, 1.7rem) !important;
-        line-height: 1.32 !important;
+        font-size: 1.4rem !important;
+        line-height: 1.34 !important;
         font-weight: 700 !important;
         color: #362D26 !important;
-        text-align: center !important;
+        text-align: justify !important;
+        text-align-last: center !important;
+        text-justify: inter-word !important;
+        hyphens: auto !important;
+        -webkit-hyphens: auto !important;
         padding: 0 !important;
         letter-spacing: -0.015em !important;
     }
@@ -2701,7 +2719,7 @@ body.nav-drawer-open {
         font-weight: 800 !important;
         letter-spacing: -0.025em !important;
         color: #362D26 !important;
-        top: 13% !important;
+        top: 16% !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
         text-align: center !important;
@@ -2946,4 +2964,3 @@ body.nav-drawer-open {
         width: 100% !important;
     }
 }
-
