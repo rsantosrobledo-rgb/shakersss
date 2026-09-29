@@ -2681,15 +2681,28 @@ body.nav-drawer-open {
     }
 
     .footer-title-top {
-        font-size: clamp(1.85rem, 8vw, 2.45rem) !important;
+        font-size: clamp(2.0rem, 8.5vw, 2.5rem) !important;
+        line-height: 1.05 !important;
         text-align: center !important;
         display: block !important;
     }
 
     .footer-title-sub {
-        font-size: clamp(1.22rem, 5.4vw, 1.58rem) !important;
+        font-size: clamp(2.0rem, 8.5vw, 2.5rem) !important;
+        line-height: 1.05 !important;
         text-align: center !important;
         display: block !important;
+        white-space: normal !important;
+    }
+
+    .footer-title-sub .and-word {
+        display: none !important;
+    }
+
+    .footer-title-sub .sub-part-1,
+    .footer-title-sub .sub-part-2 {
+        display: block !important;
+        text-align: center !important;
         white-space: nowrap !important;
     }
 
