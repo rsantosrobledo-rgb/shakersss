@@ -13,24 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return style.gridTemplateColumns.split(' ').length;
     }
 
-    // --- Apply brick-pattern offset to odd rows ---
+    // --- Keep cards cleanly aligned in orderly grid ---
     function applyBrickOffset() {
         if (!grid) return;
         const currentCards = grid.querySelectorAll('.creator-card');
         if (!currentCards.length) return;
-        const cols = getColumns();
-        const gap = parseFloat(getComputedStyle(grid).gap) || 20;
-        const firstCard = currentCards[0];
-        if (!firstCard) return;
-        const cardWidth = firstCard.offsetWidth;
-        const offset = (cardWidth + gap) / 2;
-
-        currentCards.forEach((card, i) => {
-            const row = Math.floor(i / cols);
-            const isOffsetRow = row % 2 === 1;
-            gsap.set(card, {
-                x: isOffsetRow ? offset : 0,
-            });
+        currentCards.forEach((card) => {
+            gsap.set(card, { x: 0 });
         });
     }
 

@@ -498,8 +498,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Bio text fades in. Boxes RISE from below into bottom half of screen.
     // ==========================================
     
-    // About header: opacity + slide up
-    tl.fromTo(aboutHeader,
+    // About header & Keep Shaking CTA: opacity + slide up together
+    tl.fromTo(['#about-header', '#keep-shaking-cta'],
         { y: 40, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.06, ease: 'power2.out' },
         0.19

@@ -801,9 +801,10 @@ class ShakersssDataService {
                             const badgeMetrics = boxEl.querySelector('.box-front-badge-right .badge-val');
                             if (badgeMetrics) {
                                 const raw = c.metrics || '+500K';
-                                let firstMetric = raw.split('·')[0].trim();
-                                firstMetric = firstMetric.replace(/\s*(seguidores|followers)\b/gi, '').trim();
-                                badgeMetrics.textContent = firstMetric || '+500K';
+                                const parts = raw.split('·').map(p => p.trim());
+                                let metricVal = parts.find(p => /\d+([.,]\d+)?\s*(k|m|mil)?/i.test(p)) || parts[0] || '+500K';
+                                metricVal = metricVal.replace(/\s*(seguidores|followers|subs|subs yt|ig)\b/gi, '').trim();
+                                badgeMetrics.textContent = metricVal || '+500K';
                             }
 
                             // Transparent PNG Cutout with Duotone Multiply
@@ -872,6 +873,9 @@ class ShakersssDataService {
         if (!grid) return;
 
         const realCreators = await this.getCreators();
+
+        // Sort creators in an orderly sequence (alphabetically by name)
+        realCreators.sort((a, b) => (a.name || '').localeCompare(b.name || '', 'es', { sensitivity: 'base' }));
 
         // If no real creators exist in database, display a clean empty state
         if (realCreators.length === 0) {
