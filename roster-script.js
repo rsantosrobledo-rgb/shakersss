@@ -158,16 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
         metricsEl.textContent = creator.metrics || '+1.2M Seguidores · 9.4% Engagement';
         bioEl.textContent = creator.bio || 'Creador exclusivo de SHAKERSSS Agency. Especialista en campañas de alto impacto y contenido viral.';
 
-        // Cereal badge logic
-        if (creator.inBoxes !== false && typeof index === 'number' && index < 20) {
-            cerealText.textContent = `CEREAL BOX CREATOR #${index + 1}`;
-            cerealBadge.style.display = 'inline-flex';
-        } else if (creator.inBoxes !== false) {
-            cerealText.textContent = 'CEREAL BOX CREATOR';
-            cerealBadge.style.display = 'inline-flex';
-        } else {
-            cerealText.textContent = 'SHAKERSSS ROSTER';
-            cerealBadge.style.display = 'inline-flex';
+        // Cereal badge logic (hidden/removed per user request)
+        if (cerealBadge) {
+            cerealBadge.style.display = 'none';
         }
 
         // Instagram

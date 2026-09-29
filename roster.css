@@ -340,18 +340,7 @@
 }
 
 .creator-modal-cereal-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid var(--creator-accent-color, #9AD6AC);
-    color: var(--creator-accent-color, #9AD6AC);
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    display: none !important;
 }
 
 /* Right: Info Col */
