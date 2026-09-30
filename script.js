@@ -28,22 +28,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof Lenis !== 'undefined') {
         const isMobile = window.innerWidth <= 600;
         lenis = new Lenis({
-            duration: isMobile ? 0.8 : 1.1,
+            duration: isMobile ? 1.0 : 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             orientation: 'vertical',
             gestureOrientation: 'vertical',
             smoothWheel: true,
-            wheelMultiplier: 0.85,
-            touchMultiplier: 0.85,
+            wheelMultiplier: 1.0,
+            touchMultiplier: 0.9,
         });
 
         lenis.on('scroll', ScrollTrigger.update);
         gsap.ticker.add((time) => {
             lenis.raf(time * 1000);
         });
-        // Setting lagSmoothing to 0 is the official GSAP recommendation with Lenis
-        // to prevent timeline jumps, stutters, and frame skips
-        gsap.ticker.lagSmoothing(0);
+        gsap.ticker.lagSmoothing(500, 33);
         lenis.scrollTo(0, { immediate: true });
         window.lenis = lenis;
     }
@@ -404,7 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
             start: 'top top',
             end: () => window.innerWidth <= 600 ? '+=560%' : '+=660%',
             pin: true,
-            scrub: window.innerWidth <= 600 ? 0.45 : 0.8,
+            scrub: 0.8,
             anticipatePin: 1,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
@@ -418,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // 2. Creators arrows active throughout the generous creators browsing hold
-                if (self.progress >= 0.47 && self.progress <= 0.76) {
+                if (self.progress >= 0.50 && self.progress <= 0.76) {
                     if (!arrowsVisible) showArrows();
                 } else {
                     if (arrowsVisible) hideArrows();
@@ -427,7 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 3. Visibility control for transition curtain 1 (Blue/Mint: Hero -> About Us)
                 const curtain = document.getElementById('transition-curtain');
                 if (curtain) {
-                    if (self.progress >= 0.07 && self.progress <= 0.20) {
+                    if (self.progress >= 0.06 && self.progress <= 0.18) {
                         curtain.style.visibility = 'visible';
                     } else {
                         curtain.style.visibility = 'hidden';
@@ -455,12 +453,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (aboutEl) aboutEl.style.pointerEvents = 'none';
                     if (creatorsEl) creatorsEl.style.pointerEvents = 'none';
                     if (contactEl) contactEl.style.pointerEvents = 'none';
-                } else if (self.progress >= 0.14 && self.progress < 0.38) {
+                } else if (self.progress >= 0.14 && self.progress < 0.35) {
                     if (heroEl) heroEl.style.pointerEvents = 'none';
                     if (aboutEl) aboutEl.style.pointerEvents = 'auto';
                     if (creatorsEl) creatorsEl.style.pointerEvents = 'none';
                     if (contactEl) contactEl.style.pointerEvents = 'none';
-                } else if (self.progress >= 0.38 && self.progress < 0.78) {
+                } else if (self.progress >= 0.35 && self.progress < 0.78) {
                     if (heroEl) heroEl.style.pointerEvents = 'none';
                     if (aboutEl) aboutEl.style.pointerEvents = 'none';
                     if (creatorsEl) creatorsEl.style.pointerEvents = 'auto';
@@ -484,9 +482,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // 6. Video optimization: pause when covered by Contact
                 if (heroVideo) {
-                    if (self.progress >= 0.79 && !heroVideo.paused) {
+                    if (self.progress >= 0.78 && !heroVideo.paused) {
                         heroVideo.pause();
-                    } else if (self.progress < 0.79 && heroVideo.paused) {
+                    } else if (self.progress < 0.78 && heroVideo.paused) {
                         heroVideo.play().catch(() => {});
                     }
                 }
@@ -498,43 +496,43 @@ document.addEventListener('DOMContentLoaded', () => {
     // PHASE 1: Hero Exit on Scroll (0.00 - 0.10)
     // ==========================================
     tl.to('#hero-headline', {
-        opacity: 0, y: -80, duration: 0.06, ease: 'power2.in',
+        opacity: 0, y: -70, duration: 0.06, ease: 'power2.in',
     }, 0);
 
     tl.to('#marquee', {
-        opacity: 0, y: -60, duration: 0.06, ease: 'power2.in',
-    }, 0.02);
+        opacity: 0, y: -50, duration: 0.06, ease: 'power2.in',
+    }, 0.01);
 
     tl.to('#hero-scroll-btn', {
         opacity: 0, y: 30, duration: 0.04, ease: 'power2.in',
     }, 0.01);
 
     // ==========================================
-    // PHASE 2: Blue Curtain Wipe: Hero -> About Us + Creators (0.08 - 0.18)
+    // PHASE 2: Blue Curtain Wipe: Hero -> About Us + Creators (0.07 - 0.16)
     // Behind the curtain, BOTH about-us AND creators appear SIMULTANEOUSLY.
     // ==========================================
     tl.fromTo('#transition-curtain', 
         { y: '100%' }, 
         { y: '0%', duration: 0.05, ease: 'power1.inOut' }, 
-        0.08
+        0.07
     );
 
-    // Behind curtain at 0.13: Show About Us AND Creators at the same time
-    tl.to('#hero', { opacity: 0, duration: 0.01 }, 0.13);
-    tl.to('#about-us', { opacity: 1, zIndex: 20, duration: 0.01 }, 0.13);
-    tl.to('#creators', { opacity: 1, zIndex: 19, duration: 0.01 }, 0.13);
+    // Behind curtain at 0.12: Show About Us AND Creators at the same time
+    tl.to('#hero', { opacity: 0, duration: 0.01 }, 0.12);
+    tl.to('#about-us', { opacity: 1, zIndex: 20, duration: 0.01 }, 0.12);
+    tl.to('#creators', { opacity: 1, zIndex: 19, duration: 0.01 }, 0.12);
 
     tl.to('#transition-curtain', {
         y: '-100%', duration: 0.05, ease: 'power1.inOut',
-    }, 0.13);
+    }, 0.12);
 
     // ==========================================
-    // PHASE 3: About Us + Boxes de canto RISE (0.16 - 0.22) & READING PAUSE (0.22 - 0.38)
+    // PHASE 3: About Us + Boxes de canto RISE (0.15 - 0.20) & READING PAUSE (0.20 - 0.34)
     // ==========================================
     tl.fromTo(['#about-header', '#keep-shaking-cta'],
         { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.06, ease: 'power2.out' },
-        0.16
+        { y: 0, opacity: 1, duration: 0.05, ease: 'power2.out' },
+        0.15
     );
 
     tl.to(rosterWrapper, {
@@ -547,33 +545,33 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             return Math.round(boxH - 200);
         },
-        duration: 0.06,
+        duration: 0.05,
         ease: 'power2.out',
-    }, 0.16);
+    }, 0.15);
 
     tl.to(aboutHeadline, {
         color: '#483C32',
-        duration: 0.06,
+        duration: 0.05,
         ease: 'power2.out',
-    }, 0.20);
+    }, 0.18);
 
-    // Reading Hold for About Us (0.22 - 0.38): Generous 16% static hold
-    tl.to({}, { duration: 0.16 }, 0.22);
+    // Reading Hold for About Us (0.20 - 0.34): 14% static hold
+    tl.to({}, { duration: 0.14 }, 0.20);
 
     // ==========================================
-    // PHASE 4: Transition to Creators (0.38 - 0.48)
-    // About fades up smoothly; Boxes rise, rotate & spread
+    // PHASE 4: Transition to Creators (0.34 - 0.51)
+    // Silky smooth, harmonic 3D rotation, spread, rise & title reveal
     // ==========================================
     tl.to(['#about-header', '#keep-shaking-cta'], {
-        y: -80,
+        y: -70,
         opacity: 0,
-        duration: 0.07,
+        duration: 0.06,
         ease: 'power2.out',
-    }, 0.38);
+    }, 0.33);
 
-    tl.set('#about-us', { opacity: 0, pointerEvents: 'none' }, 0.45);
+    tl.set('#about-us', { opacity: 0, pointerEvents: 'none' }, 0.40);
 
-    // Boxes rise from bottom to vertical center of viewport
+    // Boxes rise gracefully to vertical center of viewport
     tl.to(rosterWrapper, {
         y: () => {
             const vh = window.innerHeight;
@@ -583,18 +581,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const offset = isMobile ? 65 : 90;
             return -(vh - boxH) / 2 + offset;
         },
-        duration: 0.08,
-        ease: 'power2.inOut',
-    }, 0.40);
+        duration: 0.15,
+        ease: 'power1.inOut',
+    }, 0.35);
 
-    // Boxes spread apart (batched without layout-thrashing stagger on flex margins)
+    // Boxes spread apart smoothly with matching stagger
     tl.to(boxes, {
         marginRight: window.innerWidth <= 600 ? 4 : 28,
-        duration: 0.08,
-        ease: 'power2.out',
-    }, 0.41);
+        duration: 0.15,
+        ease: 'power1.inOut',
+        stagger: { each: 0.002, from: 'center' },
+    }, 0.35);
 
-    // Roster re-centers for spread layout
+    // Roster smoothly re-centers for spread layout
     tl.to(roster, {
         x: () => {
             const isMobile = window.innerWidth <= 600;
@@ -609,31 +608,31 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             return -((roster.scrollWidth - rosterViewport.clientWidth) / 2);
         },
-        duration: 0.08,
-        ease: 'power2.out',
-    }, 0.41);
+        duration: 0.15,
+        ease: 'power1.inOut',
+    }, 0.35);
 
-    // Boxes rotate from de canto (85deg) to de frente (0deg)
+    // Boxes rotate gracefully from de canto (85deg) to de frente (0deg)
     tl.to(boxInners, {
         rotateY: 0,
         rotateZ: 0,
-        duration: 0.08,
-        ease: 'power2.out',
-        stagger: { each: 0.003, from: 'center' },
-    }, 0.41);
+        duration: 0.15,
+        ease: 'power1.inOut',
+        stagger: { each: 0.002, from: 'center' },
+    }, 0.35);
 
     // Headline "our creatorsss" — opacity + slide
     tl.fromTo(rosterHeadline,
         { opacity: 0, color: '#9AD6AC', y: 30 },
-        { opacity: 1, y: 0, duration: 0.06, ease: 'power2.out' },
-        0.43
+        { opacity: 1, y: 0, duration: 0.07, ease: 'power1.out' },
+        0.42
     );
 
     // Headline "our creatorsss" — color change to topo brown
     tl.to(rosterHeadline, {
         color: '#483C32',
         duration: 0.05,
-        ease: 'power2.out',
+        ease: 'power1.out',
     }, 0.46);
 
     // Discover CTA below boxes
@@ -642,15 +641,15 @@ document.addEventListener('DOMContentLoaded', () => {
         gsap.set(discoverCta, { opacity: 0, pointerEvents: 'none' });
         tl.to(discoverCta, {
             opacity: 0.7, pointerEvents: 'auto',
-            duration: 0.05, ease: 'power2.out',
+            duration: 0.06, ease: 'power1.out',
         }, 0.46);
     }
 
     // ==========================================
-    // PHASE 5: CREATORS BROWSING HOLD (0.48 - 0.76)
-    // GENEROUS 28% of scroll! Full pause to browse, swipe & view boxes without rushing away!
+    // PHASE 5: CREATORS BROWSING HOLD (0.51 - 0.76)
+    // Generous 25% of scroll runway: fully stable, stationary boxes to browse and swipe
     // ==========================================
-    tl.to({}, { duration: 0.28 }, 0.48);
+    tl.to({}, { duration: 0.25 }, 0.51);
 
     // ==========================================
     // PHASE 6: Topo Transition Curtain: Creators -> Contact (0.76 - 0.85)
@@ -757,7 +756,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.navigateToAboutUs = () => {
         if (!tl || !tl.scrollTrigger) return;
         window._isNavigating = true;
-        const target = tl.scrollTrigger.start + (tl.scrollTrigger.end - tl.scrollTrigger.start) * 0.28;
+        const target = tl.scrollTrigger.start + (tl.scrollTrigger.end - tl.scrollTrigger.start) * 0.25;
         if (lenis) lenis.scrollTo(target, { duration: 1.3, onComplete: () => { window._isNavigating = false; } });
         else { window.scrollTo({ top: target, behavior: 'smooth' }); setTimeout(() => { window._isNavigating = false; }, 1500); }
     };
@@ -765,7 +764,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.navigateToCreators = () => {
         if (!tl || !tl.scrollTrigger) return;
         window._isNavigating = true;
-        const target = tl.scrollTrigger.start + (tl.scrollTrigger.end - tl.scrollTrigger.start) * 0.60;
+        const target = tl.scrollTrigger.start + (tl.scrollTrigger.end - tl.scrollTrigger.start) * 0.62;
         if (lenis) lenis.scrollTo(target, { duration: 1.2, onComplete: () => { window._isNavigating = false; } });
         else { window.scrollTo({ top: target, behavior: 'smooth' }); setTimeout(() => { window._isNavigating = false; }, 1500); }
     };
@@ -773,7 +772,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.navigateToContact = () => {
         if (!tl || !tl.scrollTrigger) return;
         window._isNavigating = true;
-        const target = tl.scrollTrigger.start + (tl.scrollTrigger.end - tl.scrollTrigger.start) * 0.92;
+        const target = tl.scrollTrigger.start + (tl.scrollTrigger.end - tl.scrollTrigger.start) * 0.93;
         if (lenis) lenis.scrollTo(target, { duration: 1.2, onComplete: () => { window._isNavigating = false; } });
         else { window.scrollTo({ top: target, behavior: 'smooth' }); setTimeout(() => { window._isNavigating = false; }, 1500); }
     };
