@@ -28,20 +28,22 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof Lenis !== 'undefined') {
         const isMobile = window.innerWidth <= 600;
         lenis = new Lenis({
-            duration: isMobile ? 0.9 : 1.2,
+            duration: isMobile ? 0.8 : 1.1,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             orientation: 'vertical',
             gestureOrientation: 'vertical',
             smoothWheel: true,
             wheelMultiplier: 0.85,
-            touchMultiplier: 1.0,
+            touchMultiplier: 0.85,
         });
 
         lenis.on('scroll', ScrollTrigger.update);
         gsap.ticker.add((time) => {
             lenis.raf(time * 1000);
         });
-        gsap.ticker.lagSmoothing(500, 33);
+        // Setting lagSmoothing to 0 is the official GSAP recommendation with Lenis
+        // to prevent timeline jumps, stutters, and frame skips
+        gsap.ticker.lagSmoothing(0);
         lenis.scrollTo(0, { immediate: true });
         window.lenis = lenis;
     }
@@ -151,6 +153,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function triggerScreenShake() {
         if (isShaking) return;
+        const isMobile = window.innerWidth <= 600;
+        // Don't shake pinned container on mobile during scroll gestures to prevent stutter/tirones
+        if (isMobile && !window._isNavigating) return;
+
         isShaking = true;
         hasShakenOnScroll = true;
 
@@ -163,16 +169,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         tlShake
-            .to(stage, { x: -16, y: 9, rotation: -1.4, duration: 0.045, ease: 'power2.inOut' })
-            .to(stage, { x: 18, y: -11, rotation: 1.5, duration: 0.045, ease: 'power2.inOut' })
-            .to(stage, { x: -14, y: 7, rotation: -1.1, duration: 0.045, ease: 'power2.inOut' })
-            .to(stage, { x: 12, y: -6, rotation: 0.9, duration: 0.05, ease: 'power2.inOut' })
-            .to(stage, { x: -8, y: 4, rotation: -0.5, duration: 0.05, ease: 'power2.inOut' })
-            .to(stage, { x: 4, y: -2, rotation: 0.3, duration: 0.06, ease: 'power2.inOut' })
-            .to(stage, { x: 0, y: 0, rotation: 0, duration: 0.14, ease: 'elastic.out(1, 0.35)' });
+            .to(stage, { x: -12, y: 7, rotation: -1.0, duration: 0.045, ease: 'power2.inOut' })
+            .to(stage, { x: 14, y: -9, rotation: 1.1, duration: 0.045, ease: 'power2.inOut' })
+            .to(stage, { x: -10, y: 5, rotation: -0.8, duration: 0.045, ease: 'power2.inOut' })
+            .to(stage, { x: 8, y: -4, rotation: 0.6, duration: 0.05, ease: 'power2.inOut' })
+            .to(stage, { x: -5, y: 3, rotation: -0.3, duration: 0.05, ease: 'power2.inOut' })
+            .to(stage, { x: 3, y: -1, rotation: 0.2, duration: 0.06, ease: 'power2.inOut' })
+            .to(stage, { x: 0, y: 0, rotation: 0, duration: 0.12, ease: 'power2.out' });
 
-        if (heroVideo) {
-            gsap.fromTo(heroVideo, { scale: 1.05 }, { scale: 1.0, duration: 0.45, ease: 'power2.out' });
+        if (heroVideo && !isMobile) {
+            gsap.fromTo(heroVideo, { scale: 1.04 }, { scale: 1.0, duration: 0.40, ease: 'power2.out' });
         }
     }
 
@@ -182,6 +188,17 @@ document.addEventListener('DOMContentLoaded', () => {
             triggerScreenShake();
             if (typeof window.navigateToAboutUs === 'function') {
                 window.navigateToAboutUs();
+            }
+        });
+    }
+
+    const keepShakingBtn = document.getElementById('keep-shaking-cta');
+    if (keepShakingBtn) {
+        keepShakingBtn.style.cursor = 'pointer';
+        keepShakingBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (typeof window.navigateToCreators === 'function') {
+                window.navigateToCreators();
             }
         });
     }
@@ -227,9 +244,13 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.set(roster, { x: rosterShift });
 
     function showArrows() {
-        if (window.innerWidth <= 600) return; // Hidden on mobile matching User Image 2
         arrowsVisible = true;
         centerRoster();
+        if (window.innerWidth <= 600) {
+            // Visual arrow buttons remain hidden on mobile matching design,
+            // but swipe logic and offset navigation are fully enabled!
+            return;
+        }
         gsap.to('.roster-arrow', {
             opacity: 1, duration: 0.4, stagger: 0.08,
         });
@@ -381,21 +402,23 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: {
             trigger: '#main-experience',
             start: 'top top',
-            end: () => window.innerWidth <= 600 ? '+=480%' : '+=620%',
+            end: () => window.innerWidth <= 600 ? '+=560%' : '+=660%',
             pin: true,
-            scrub: 0.8,
+            scrub: window.innerWidth <= 600 ? 0.45 : 0.8,
             anticipatePin: 1,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
-                // 1. Trigger Screen Shake on first scroll from home (skip during nav jumps)
-                if (self.progress > 0.015 && self.progress < 0.14 && !hasShakenOnScroll && !window._isNavigating) {
+                const isMobile = window.innerWidth <= 600;
+
+                // 1. Trigger Screen Shake on desktop first scroll (skip on mobile touch scroll to prevent stutters)
+                if (!isMobile && self.progress > 0.015 && self.progress < 0.10 && !hasShakenOnScroll && !window._isNavigating) {
                     triggerScreenShake();
                 } else if (self.progress <= 0.005) {
                     hasShakenOnScroll = false;
                 }
 
-                // 2. Creators arrows active ONLY during the creators browsing hold
-                if (self.progress >= 0.46 && self.progress <= 0.55) {
+                // 2. Creators arrows active throughout the generous creators browsing hold
+                if (self.progress >= 0.47 && self.progress <= 0.76) {
                     if (!arrowsVisible) showArrows();
                 } else {
                     if (arrowsVisible) hideArrows();
@@ -404,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 3. Visibility control for transition curtain 1 (Blue/Mint: Hero -> About Us)
                 const curtain = document.getElementById('transition-curtain');
                 if (curtain) {
-                    if (self.progress >= 0.10 && self.progress <= 0.22) {
+                    if (self.progress >= 0.07 && self.progress <= 0.20) {
                         curtain.style.visibility = 'visible';
                     } else {
                         curtain.style.visibility = 'hidden';
@@ -414,7 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 4. Visibility control for transition curtain 2 (Topo: Creators -> Contact)
                 const curtainTopo = document.getElementById('transition-curtain-topo');
                 if (curtainTopo) {
-                    if (self.progress >= 0.53 && self.progress <= 0.63) {
+                    if (self.progress >= 0.74 && self.progress <= 0.87) {
                         curtainTopo.style.visibility = 'visible';
                     } else {
                         curtainTopo.style.visibility = 'hidden';
@@ -427,17 +450,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 const creatorsEl = document.getElementById('creators');
                 const contactEl = document.getElementById('contact');
 
-                if (self.progress < 0.15) {
+                if (self.progress < 0.14) {
                     if (heroEl) heroEl.style.pointerEvents = 'auto';
                     if (aboutEl) aboutEl.style.pointerEvents = 'none';
                     if (creatorsEl) creatorsEl.style.pointerEvents = 'none';
                     if (contactEl) contactEl.style.pointerEvents = 'none';
-                } else if (self.progress >= 0.15 && self.progress < 0.35) {
+                } else if (self.progress >= 0.14 && self.progress < 0.38) {
                     if (heroEl) heroEl.style.pointerEvents = 'none';
                     if (aboutEl) aboutEl.style.pointerEvents = 'auto';
                     if (creatorsEl) creatorsEl.style.pointerEvents = 'none';
                     if (contactEl) contactEl.style.pointerEvents = 'none';
-                } else if (self.progress >= 0.35 && self.progress < 0.57) {
+                } else if (self.progress >= 0.38 && self.progress < 0.78) {
                     if (heroEl) heroEl.style.pointerEvents = 'none';
                     if (aboutEl) aboutEl.style.pointerEvents = 'none';
                     if (creatorsEl) creatorsEl.style.pointerEvents = 'auto';
@@ -449,10 +472,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (contactEl) contactEl.style.pointerEvents = 'auto';
                 }
 
-                // 5b. Hamburger color: yellow on dark contact section
+                // 5b. Hamburger color: yellow/cream on dark contact section
                 const menuBtn = document.querySelector('.menu-btn');
                 if (menuBtn) {
-                    if (self.progress >= 0.57) {
+                    if (self.progress >= 0.78) {
                         menuBtn.classList.add('is-on-dark');
                     } else {
                         menuBtn.classList.remove('is-on-dark');
@@ -461,9 +484,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // 6. Video optimization: pause when covered by Contact
                 if (heroVideo) {
-                    if (self.progress >= 0.58 && !heroVideo.paused) {
+                    if (self.progress >= 0.79 && !heroVideo.paused) {
                         heroVideo.pause();
-                    } else if (self.progress < 0.58 && heroVideo.paused) {
+                    } else if (self.progress < 0.79 && heroVideo.paused) {
                         heroVideo.play().catch(() => {});
                     }
                 }
@@ -487,87 +510,68 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 0.01);
 
     // ==========================================
-    // PHASE 2: Blue Curtain Wipe: Hero -> About Us + Creators (0.10 - 0.20)
+    // PHASE 2: Blue Curtain Wipe: Hero -> About Us + Creators (0.08 - 0.18)
     // Behind the curtain, BOTH about-us AND creators appear SIMULTANEOUSLY.
-    // Boxes are already positioned at the bottom "de canto" — no rise animation.
     // ==========================================
     tl.fromTo('#transition-curtain', 
         { y: '100%' }, 
         { y: '0%', duration: 0.05, ease: 'power1.inOut' }, 
-        0.10
+        0.08
     );
 
-    // Behind curtain at 0.15: Show About Us AND Creators at the same time
-    tl.to('#hero', { opacity: 0, duration: 0.01 }, 0.15);
-    tl.to('#about-us', { opacity: 1, zIndex: 20, duration: 0.01 }, 0.15);
-    tl.to('#creators', { opacity: 1, zIndex: 19, duration: 0.01 }, 0.15);
+    // Behind curtain at 0.13: Show About Us AND Creators at the same time
+    tl.to('#hero', { opacity: 0, duration: 0.01 }, 0.13);
+    tl.to('#about-us', { opacity: 1, zIndex: 20, duration: 0.01 }, 0.13);
+    tl.to('#creators', { opacity: 1, zIndex: 19, duration: 0.01 }, 0.13);
 
     tl.to('#transition-curtain', {
         y: '-100%', duration: 0.05, ease: 'power1.inOut',
-    }, 0.15);
+    }, 0.13);
 
     // ==========================================
-    // PHASE 3: About Us + Boxes de canto RISE FROM BELOW (0.19 - 0.30)
-    // "about usss" headline: opacity 0->1 first, then color #9AD6AC -> #483C32
-    // Bio text fades in. Boxes RISE from below into bottom half of screen.
+    // PHASE 3: About Us + Boxes de canto RISE (0.16 - 0.22) & READING PAUSE (0.22 - 0.38)
     // ==========================================
-    
-    // About header & Keep Shaking CTA: opacity + slide up together
     tl.fromTo(['#about-header', '#keep-shaking-cta'],
         { y: 40, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.06, ease: 'power2.out' },
-        0.19
+        0.16
     );
 
-    // Boxes rise from y:500 (off-screen) to bottom portion visible (proportional to box height)
     tl.to(rosterWrapper, {
         y: () => {
             const root = getComputedStyle(document.documentElement);
             const isMobile = window.innerWidth <= 600;
             const boxH = parseInt(root.getPropertyValue('--box-h')) || (isMobile ? 295 : 400);
             if (isMobile) {
-                // Show top ~100px of the spine peeking from bottom, leaving clear room for KEEP SHAKING!!
                 return Math.round(boxH - 100);
             }
-            // Show ~200px of the spine (tabs, SSS logo, Talent Facts) peeking from bottom matching reference
             return Math.round(boxH - 200);
         },
-        duration: 0.08,
+        duration: 0.06,
         ease: 'power2.out',
-    }, 0.19);
+    }, 0.16);
 
-    // "about usss" headline: color animation from light blue to topo brown
-    // (starts slightly after opacity so there's a visible gap)
     tl.to(aboutHeadline, {
         color: '#483C32',
-        duration: 0.08,
+        duration: 0.06,
         ease: 'power2.out',
-    }, 0.24);
+    }, 0.20);
+
+    // Reading Hold for About Us (0.22 - 0.38): Generous 16% static hold
+    tl.to({}, { duration: 0.16 }, 0.22);
 
     // ==========================================
-    // PHASE 4: Reading Hold — About Us + Boxes de Canto coexist (0.30 - 0.38)
-    // User sees: "about usss" (topo color) + bio at top, boxes de canto at bottom.
-    // This is the static hold before the box animation starts.
+    // PHASE 4: Transition to Creators (0.38 - 0.48)
+    // About fades up smoothly; Boxes rise, rotate & spread
     // ==========================================
-    tl.to({}, { duration: 0.08 }, 0.30);
-
-    // ==========================================
-    // PHASE 5: Box Animation Starts — About fades UP, Boxes rotate & center (0.38 - 0.52)
-    // About text slides up and fades out smoothly with opacity.
-    // Simultaneously, boxes rotate from "de canto" to "de frente" and rise to center.
-    // "our creatorsss" headline appears.
-    // ==========================================
-
-    // About header & CTA smoothly fade UP and out with opacity (no abrupt cut, no sudden background flash)
     tl.to(['#about-header', '#keep-shaking-cta'], {
-        y: -90,
+        y: -80,
         opacity: 0,
-        duration: 0.11,
+        duration: 0.07,
         ease: 'power2.out',
-    }, 0.35);
+    }, 0.38);
 
-    // Ensure #about-us container is hidden after fade completes so it doesn't block interactions
-    tl.set('#about-us', { opacity: 0, pointerEvents: 'none' }, 0.47);
+    tl.set('#about-us', { opacity: 0, pointerEvents: 'none' }, 0.45);
 
     // Boxes rise from bottom to vertical center of viewport
     tl.to(rosterWrapper, {
@@ -579,16 +583,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const offset = isMobile ? 65 : 90;
             return -(vh - boxH) / 2 + offset;
         },
-        duration: 0.10,
+        duration: 0.08,
         ease: 'power2.inOut',
     }, 0.40);
 
-    // Boxes spread apart (margin goes from packed to spaced)
+    // Boxes spread apart (batched without layout-thrashing stagger on flex margins)
     tl.to(boxes, {
         marginRight: window.innerWidth <= 600 ? 4 : 28,
-        duration: 0.10,
+        duration: 0.08,
         ease: 'power2.out',
-        stagger: { each: 0.003, from: 'center' },
     }, 0.41);
 
     // Roster re-centers for spread layout
@@ -606,7 +609,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             return -((roster.scrollWidth - rosterViewport.clientWidth) / 2);
         },
-        duration: 0.10,
+        duration: 0.08,
         ease: 'power2.out',
     }, 0.41);
 
@@ -614,61 +617,61 @@ document.addEventListener('DOMContentLoaded', () => {
     tl.to(boxInners, {
         rotateY: 0,
         rotateZ: 0,
-        duration: 0.10,
+        duration: 0.08,
         ease: 'power2.out',
         stagger: { each: 0.003, from: 'center' },
     }, 0.41);
 
-    // Headline "our creatorsss" — opacity + slide first
+    // Headline "our creatorsss" — opacity + slide
     tl.fromTo(rosterHeadline,
         { opacity: 0, color: '#9AD6AC', y: 30 },
         { opacity: 1, y: 0, duration: 0.06, ease: 'power2.out' },
-        0.44
+        0.43
     );
 
-    // Headline "our creatorsss" — color change from mint to topo (slightly later)
+    // Headline "our creatorsss" — color change to topo brown
     tl.to(rosterHeadline, {
         color: '#483C32',
-        duration: 0.08,
+        duration: 0.05,
         ease: 'power2.out',
-    }, 0.49);
+    }, 0.46);
 
-    // "click to discover all our creators" CTA appears below boxes
+    // Discover CTA below boxes
     const discoverCta = document.getElementById('discover-cta');
     if (discoverCta) {
         gsap.set(discoverCta, { opacity: 0, pointerEvents: 'none' });
         tl.to(discoverCta, {
             opacity: 0.7, pointerEvents: 'auto',
-            duration: 0.06, ease: 'power2.out',
-        }, 0.50);
+            duration: 0.05, ease: 'power2.out',
+        }, 0.46);
     }
 
     // ==========================================
-    // PHASE 6: Creators Browsing Hold (0.48 - 0.54)
-    // Tighter hold so user reaches contact with minimal scrolling
+    // PHASE 5: CREATORS BROWSING HOLD (0.48 - 0.76)
+    // GENEROUS 28% of scroll! Full pause to browse, swipe & view boxes without rushing away!
     // ==========================================
-    tl.to({}, { duration: 0.05 }, 0.49);
+    tl.to({}, { duration: 0.28 }, 0.48);
 
     // ==========================================
-    // PHASE 7: Topo Transition Curtain Wipe: Creators -> Contact (0.54 - 0.62)
+    // PHASE 6: Topo Transition Curtain: Creators -> Contact (0.76 - 0.85)
     // ==========================================
     tl.fromTo('#transition-curtain-topo',
         { y: '100%' },
-        { y: '0%', duration: 0.04, ease: 'power1.inOut' },
-        0.54
+        { y: '0%', duration: 0.05, ease: 'power1.inOut' },
+        0.76
     );
 
-    // Behind curtain at 0.58: Instant handoff from Creators to Contact
-    tl.to('#creators', { opacity: 0, duration: 0.01 }, 0.58);
-    tl.to('.hero-video', { opacity: 0, duration: 0.04, ease: 'power1.inOut' }, 0.54);
-    tl.to('#contact', { opacity: 1, zIndex: 25, duration: 0.01 }, 0.58);
+    // Behind curtain at 0.81: Instant handoff from Creators to Contact
+    tl.to('#creators', { opacity: 0, duration: 0.01 }, 0.81);
+    tl.to('.hero-video', { opacity: 0, duration: 0.04, ease: 'power1.inOut' }, 0.78);
+    tl.to('#contact', { opacity: 1, zIndex: 25, duration: 0.01 }, 0.81);
 
     tl.to('#transition-curtain-topo', {
-        y: '-100%', duration: 0.04, ease: 'power1.inOut',
-    }, 0.58);
+        y: '-100%', duration: 0.05, ease: 'power1.inOut',
+    }, 0.81);
 
     // ==========================================
-    // PHASE 8: Contact Reveal (0.62 - 0.75)
+    // PHASE 7: Contact Reveal & Reading Hold (0.84 - 1.00)
     // ==========================================
     tl.fromTo('#contact .footer-container',
         { y: 50, opacity: 0 },
@@ -686,11 +689,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (c) c.style.pointerEvents = 'none';
             }
         },
-        0.62
+        0.84
     );
 
     // Reading hold on contact to pad timeline totalDuration to exactly 1.0
-    tl.to({}, { duration: 0.32 }, 0.68);
+    tl.to({}, { duration: 0.10 }, 0.90);
 
     // --- Back to Top Button ---
     const backToTopBtn = document.getElementById('back-to-top');
@@ -754,7 +757,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.navigateToAboutUs = () => {
         if (!tl || !tl.scrollTrigger) return;
         window._isNavigating = true;
-        const target = tl.scrollTrigger.start + (tl.scrollTrigger.end - tl.scrollTrigger.start) * 0.24;
+        const target = tl.scrollTrigger.start + (tl.scrollTrigger.end - tl.scrollTrigger.start) * 0.28;
         if (lenis) lenis.scrollTo(target, { duration: 1.3, onComplete: () => { window._isNavigating = false; } });
         else { window.scrollTo({ top: target, behavior: 'smooth' }); setTimeout(() => { window._isNavigating = false; }, 1500); }
     };
@@ -762,7 +765,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.navigateToCreators = () => {
         if (!tl || !tl.scrollTrigger) return;
         window._isNavigating = true;
-        const target = tl.scrollTrigger.start + (tl.scrollTrigger.end - tl.scrollTrigger.start) * 0.50;
+        const target = tl.scrollTrigger.start + (tl.scrollTrigger.end - tl.scrollTrigger.start) * 0.60;
         if (lenis) lenis.scrollTo(target, { duration: 1.2, onComplete: () => { window._isNavigating = false; } });
         else { window.scrollTo({ top: target, behavior: 'smooth' }); setTimeout(() => { window._isNavigating = false; }, 1500); }
     };
@@ -770,7 +773,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.navigateToContact = () => {
         if (!tl || !tl.scrollTrigger) return;
         window._isNavigating = true;
-        const target = tl.scrollTrigger.start + (tl.scrollTrigger.end - tl.scrollTrigger.start) * 0.75;
+        const target = tl.scrollTrigger.start + (tl.scrollTrigger.end - tl.scrollTrigger.start) * 0.92;
         if (lenis) lenis.scrollTo(target, { duration: 1.2, onComplete: () => { window._isNavigating = false; } });
         else { window.scrollTo({ top: target, behavior: 'smooth' }); setTimeout(() => { window._isNavigating = false; }, 1500); }
     };
